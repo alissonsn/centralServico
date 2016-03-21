@@ -4,16 +4,17 @@
 	xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core">
 
+	
 			<h:form>	
+	
           	<div class="table-responsive">
    				<p:dataTable tableStyleClass="table table-striped" value="#{cadastroSolFalhaBean.solFalhas}" var="solfalha">
-      		<p:column headerText="Falha">
+      		<p:column headerText="Servico">
          		<h:outputText value="#{solfalha.falha.falha}"/>
       		</p:column>
       		<p:column headerText="Descrição">
          		<h:outputText value="#{solfalha.descricao}"/>
       		</p:column>
-      		
       		
       		
       		<p:column>		
@@ -27,7 +28,7 @@
 				
 				<h:commandLink value="Excluir"
 				 action="#{cadastroSolFalhaBean.excluir(solfalha)}"
-				 onclick="if (!confirm('Confirmar a exclusão desta Solução de Falha? ')) return false"/>
+				 onclick="if (!confirm('Confirmar a exclusão deste Solução? ')) return false"/>
 				 <i class="icon-remove-sign"></i>
 			</p:column>
 			

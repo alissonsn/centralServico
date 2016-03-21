@@ -10,9 +10,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+
 @Entity
 @Table
-public class SolFalha implements Serializable{
+public class SolFalha implements Serializable, Cloneable{
 	private Integer codigo;
 	private String descricao;
 	private Falha falha;
@@ -82,4 +83,5 @@ public class SolFalha implements Serializable{
 		// TODO Auto-generated method stub
 		return super.clone();
 	}
+
 }

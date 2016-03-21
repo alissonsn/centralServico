@@ -2,8 +2,6 @@ package util;
 
 import java.io.Serializable;
 
-import org.hibernate.Session;
-
 import modelo.AtividadeImpl;
 import modelo.EquipeImpl;
 import modelo.FalhaImpl;
@@ -22,6 +20,8 @@ import modelo.ResponsavelImpl;
 import modelo.ServicoImpl;
 import modelo.ServidorImpl;
 import modelo.SolFalhaImpl;
+
+import org.hibernate.Session;
 
 
 public class Repositorios implements Serializable {

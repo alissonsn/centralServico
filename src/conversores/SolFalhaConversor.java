@@ -7,13 +7,13 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
-
-
-
-
+import modelo.IServidor;
 import modelo.ISolFalha;
-import entidades.SolFalha;
 import util.Repositorios;
+import entidades.Servidor;
+import entidades.SolFalha;
+
+
 
 @FacesConverter(forClass=SolFalha.class)
 public class SolFalhaConversor implements Converter{
@@ -22,11 +22,11 @@ public class SolFalhaConversor implements Converter{
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
-		SolFalha retorno = null;
-		ISolFalha solucaoFalhas = repositorios.getSolFalha();
+		SolFalha solFalha = null;
+		ISolFalha solFalhas = repositorios.getSolFalha();
 		if (value != null && !value.equals("")) {
-			retorno = solucaoFalhas.porCodigo(new Integer(value));
-		if (retorno == null) {
+			solFalha = solFalhas.porCodigo(new Integer(value));
+		if (solFalha == null) {
 			String descricaoErro = "Estado não existe";
 			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, descricaoErro, descricaoErro);
 			throw new ConverterException(message);
@@ -34,7 +34,7 @@ public class SolFalhaConversor implements Converter{
 
 		}
 
-		return retorno;
+		return solFalha;
 	}
 
 	@Override
