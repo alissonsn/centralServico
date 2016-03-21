@@ -15,7 +15,7 @@
       		<p:column headerText="Escopo de Entrada">
          		<h:outputText value="#{atividade.escopoentrada}"/>
       		</p:column>
-      		<p:column headerText="Tipo de Disopnibilidade">
+      		<p:column headerText="Tipo de Disponibilidade">
          		<h:outputText value="#{atividade.disponibilidade}"/>
       		</p:column>
       		<p:column headerText="Solicitação de Atividade">
@@ -34,7 +34,7 @@
       		<p:column>
 					
 					
-					<h:link outcome="CadastroAtividade" value="Editar">
+			<h:link outcome="CadastroAtividade" value="Editar">
 					<i class="icon-edit"></i>
 					<f:param name="codigo"  value="#{atividade.codigo}"/>
 					</h:link>
@@ -42,7 +42,7 @@
 			
 			<p:column>
 				
-				<h:commandLink value="Excluir"
+			<h:commandLink value="Excluir"
 				 action="#{cadastroAtividadeBean.remover(atividade)}"
 				 onclick="if (!confirm('Confirmar a exclusão desta Atividade? ')) return false"/>
 				 <i class="icon-remove-sign"></i>

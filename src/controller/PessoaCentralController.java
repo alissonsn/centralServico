@@ -23,10 +23,10 @@ public class PessoaCentralController {
 	public String isvalidate(){
 		String pagina = "";
 		if (pessoaCentralDAO.isValidate() == true) {
-			pagina = "http://localhost:8080/centralServico/site/central/body/central.xhtml";
+			pagina = "http://177.20.144.247:8080/centralServico/site/central/body/central.xhtml";
 		}else{
 
-			pagina = "http://localhost:8080/centralServico/site/central/login.xhtml";
+			pagina = "http://177.20.144.247:8080/centralServico/site/central/login.xhtml";
 		}
 		return pagina;
 
@@ -36,7 +36,7 @@ public class PessoaCentralController {
 
 	public String logout(){
 		pessoaCentralDAO.logout();
-		return "http://localhost:8080/centralServicoJSF/index.xhtml?faces-redirect=true";
+		return "http://177.20.144.247:8080/centralServico/index.xhtml?faces-redirect=true";
 	}
 
 	public PessoaCentral getPessoaCentral() {

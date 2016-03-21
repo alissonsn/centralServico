@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table
-public class Atividade implements Serializable{
+public class Atividade implements Serializable, Cloneable{
 	private Integer codigo;
 	private String definicao;
 	private String escopoentrada;
@@ -27,63 +27,85 @@ public class Atividade implements Serializable{
 	public Integer getCodigo() {
 		return codigo;
 	}
+
+
 	public void setCodigo(Integer codigo) {
 		this.codigo = codigo;
 	}
+
 	@Column
 	public String getDefinicao() {
 		return definicao;
 	}
+
+
 	public void setDefinicao(String definicao) {
 		this.definicao = definicao;
 	}
+
 	@Column
 	public String getEscopoentrada() {
 		return escopoentrada;
 	}
+
+
 	public void setEscopoentrada(String escopoentrada) {
 		this.escopoentrada = escopoentrada;
 	}
-	
-	@Column
-	public String getSolicitacaoAtividade() {
-		return solicitacaoAtividade;
-	}
+
 	@Column
 	public String getDisponibilidade() {
 		return disponibilidade;
 	}
+
+
 	public void setDisponibilidade(String disponibilidade) {
 		this.disponibilidade = disponibilidade;
 	}
+
+	@Column
+	public String getSolicitacaoAtividade() {
+		return solicitacaoAtividade;
+	}
+
+
 	public void setSolicitacaoAtividade(String solicitacaoAtividade) {
 		this.solicitacaoAtividade = solicitacaoAtividade;
 	}
+
 	@Column
 	public String getProtocolo() {
 		return protocolo;
 	}
+
+
 	public void setProtocolo(String protocolo) {
 		this.protocolo = protocolo;
 	}
+
+	@ManyToOne
+	@JoinColumn(name="codigo_equipe", referencedColumnName="codigo")
 	public Equipe getEquipe() {
 		return equipe;
 	}
-	@ManyToOne
-	@JoinColumn(name="codigo_equipe", referencedColumnName="codigo")
+
+
 	public void setEquipe(Equipe equipe) {
 		this.equipe = equipe;
 	}
+
 	@ManyToOne
 	@JoinColumn(name="codigo_servico", referencedColumnName="codigo")
 	public Servico getServico() {
 		return servico;
 	}
+
+
 	public void setServico(Servico servico) {
 		this.servico = servico;
 	}
-	
-	
+
+
 
 	@Override
 	public int hashCode() {
@@ -106,6 +128,8 @@ public class Atividade implements Serializable{
 						.hashCode());
 		return result;
 	}
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -157,6 +181,8 @@ public class Atividade implements Serializable{
 			return false;
 		return true;
 	}
+
+
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		// TODO Auto-generated method stub

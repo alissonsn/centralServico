@@ -14,7 +14,7 @@ public class AtividadeImpl implements IAtividade{
 	public AtividadeImpl(Session sessao){
 		this.sessao = sessao;
 	}
-
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Atividade> listar() {
 		return sessao.createCriteria(Atividade.class).addOrder(Order.asc("definicao")).list();

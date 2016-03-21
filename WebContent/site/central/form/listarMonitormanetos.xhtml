@@ -2,7 +2,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-                xmlns:f="http://java.sun.com/jsf/core">
+    xmlns:f="http://java.sun.com/jsf/core">
 
 	
 			<h:form>	
@@ -16,10 +16,10 @@
          		<h:outputText value="#{monitoramento.categoria}"/>
       		</p:column>
       		<p:column headerText="Descrição da Categoria">
-         		<h:outputText value="#{monitoramento.desCat}"/>
+         		<h:outputText value="#{monitoramento.descategoria}"/>
       		</p:column>
       		<p:column headerText="Item de Monitoramento">
-         		<h:outputText value="#{monitoramento.item}"/>
+         		<h:outputText value="#{monitoramento.itemMonitoramento}"/>
       		</p:column>
       		<p:column headerText="Protocolo">
          		<h:outputText value="#{monitoramento.protocolo}"/>
@@ -31,10 +31,10 @@
       		<p:column>
 					
 					
-					<h:link outcome="CadastroMonitoramento" value="Editar">
+				<h:link outcome="CadastroMonitoramento" value="Editar">
 					<i class="icon-edit"></i>
 					<f:param name="codigo"  value="#{monitoramento.codigo}"/>
-					</h:link>
+				</h:link>
 			</p:column>
 			
 			<p:column>

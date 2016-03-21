@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import org.hibernate.Session;
 
+import modelo.AtividadeImpl;
+import modelo.EquipeImpl;
+import modelo.FalhaImpl;
 import modelo.IAtividade;
 import modelo.IEquipe;
 import modelo.IFalha;
@@ -13,9 +16,6 @@ import modelo.IResponsavel;
 import modelo.IServico;
 import modelo.IServidor;
 import modelo.ISolFalha;
-import modelo.AtividadeImpl;
-import modelo.EquipeImpl;
-import modelo.FalhaImpl;
 import modelo.MonitoramentoImpl;
 import modelo.ReqInfoImpl;
 import modelo.ResponsavelImpl;

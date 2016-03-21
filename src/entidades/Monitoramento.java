@@ -12,12 +12,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table
-public class Monitoramento implements Serializable{
+public class Monitoramento implements Serializable, Cloneable{
 	private Integer codigo;
-	private String categoria;
 	private String defMonitoramento;
-	private String desCat;
-	private String item;
+	private String categoria;
+	private String descategoria;
+	private String itemMonitoramento;
 	private String protocolo;
 	private Servico servico;
 
@@ -26,52 +26,66 @@ public class Monitoramento implements Serializable{
 	public Integer getCodigo() {
 		return codigo;
 	}
+
 	public void setCodigo(Integer codigo) {
 		this.codigo = codigo;
 	}
-	@Column
-	public String getCategoria() {
-		return categoria;
-	}
-	public void setCategoria(String categoria) {
-		this.categoria = categoria;
-	}
+
 	@Column
 	public String getDefMonitoramento() {
 		return defMonitoramento;
 	}
+
 	public void setDefMonitoramento(String defMonitoramento) {
 		this.defMonitoramento = defMonitoramento;
 	}
+
 	@Column
-	public String getDesCat() {
-		return desCat;
+	public String getCategoria() {
+		return categoria;
 	}
-	public void setDesCat(String desCat) {
-		this.desCat = desCat;
+
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
 	}
+
 	@Column
-	public String getItem() {
-		return item;
+	public String getDescategoria() {
+		return descategoria;
 	}
-	public void setItem(String item) {
-		this.item = item;
+
+	public void setDescategoria(String descategoria) {
+		this.descategoria = descategoria;
 	}
+
+	@Column
+	public String getItemMonitoramento() {
+		return itemMonitoramento;
+	}
+
+	public void setItemMonitoramento(String itemMonitoramento) {
+		this.itemMonitoramento = itemMonitoramento;
+	}
+
 	@Column
 	public String getProtocolo() {
 		return protocolo;
 	}
+
 	public void setProtocolo(String protocolo) {
 		this.protocolo = protocolo;
 	}
+
 	@ManyToOne
 	@JoinColumn(name="codigo_servico", referencedColumnName="codigo")
 	public Servico getServico() {
 		return servico;
 	}
+
 	public void setServico(Servico servico) {
 		this.servico = servico;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -82,13 +96,18 @@ public class Monitoramento implements Serializable{
 		result = prime
 				* result
 				+ ((defMonitoramento == null) ? 0 : defMonitoramento.hashCode());
-		result = prime * result + ((desCat == null) ? 0 : desCat.hashCode());
-		result = prime * result + ((item == null) ? 0 : item.hashCode());
+		result = prime * result
+				+ ((descategoria == null) ? 0 : descategoria.hashCode());
+		result = prime
+				* result
+				+ ((itemMonitoramento == null) ? 0 : itemMonitoramento
+						.hashCode());
 		result = prime * result
 				+ ((protocolo == null) ? 0 : protocolo.hashCode());
 		result = prime * result + ((servico == null) ? 0 : servico.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -113,15 +132,15 @@ public class Monitoramento implements Serializable{
 				return false;
 		} else if (!defMonitoramento.equals(other.defMonitoramento))
 			return false;
-		if (desCat == null) {
-			if (other.desCat != null)
+		if (descategoria == null) {
+			if (other.descategoria != null)
 				return false;
-		} else if (!desCat.equals(other.desCat))
+		} else if (!descategoria.equals(other.descategoria))
 			return false;
-		if (item == null) {
-			if (other.item != null)
+		if (itemMonitoramento == null) {
+			if (other.itemMonitoramento != null)
 				return false;
-		} else if (!item.equals(other.item))
+		} else if (!itemMonitoramento.equals(other.itemMonitoramento))
 			return false;
 		if (protocolo == null) {
 			if (other.protocolo != null)
