@@ -1,0 +1,53 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+	  
+	  
+	  <h:form>
+			
+			<h:messages />
+			<p:carousel value="#{cadastroEquipeBean.equipes}" headerText="Responsive" var="equipe" itemStyle="text-align:center" responsive="true">
+        <p:panelGrid columns="2" style="width:100%;margin:10px 10px" columnClasses="label,value" layout="grid" styleClass="ui-panelgrid-blank">
+            <f:facet name="header">
+                
+            </f:facet>
+ 
+            <h:outputText value="Nome da Equipe" />
+            <h:outputText value="#{equipe.nome}" />
+ 
+                        
+            <h:column>
+            		<f:facet name="header">Editar</f:facet>
+					<h:link outcome="CadastroEquipes" value="Editar">
+					<f:param name="codigo"  value="#{equipe.codigo}"/>
+					</h:link>
+			</h:column>
+				
+								
+			<h:column>
+				<f:facet name="header">Excluir</f:facet>
+				<h:commandLink value="Excluir"
+				 action="#{cadastroEquipeBean.excluir(equipe)}"
+				 onclick="if (!confirm('Confirmar a exclusão desta Equipe? ')) return false"/>
+			</h:column>
+            
+        	</p:panelGrid>
+ 
+        <f:facet name="footer">
+                
+        </f:facet>
+    </p:carousel>
+			
+			
+			
+			
+			
+						
+			
+		</h:form>
+	  
+
+</ui:composition>

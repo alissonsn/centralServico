@@ -1,0 +1,55 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+	
+			<h:form>	
+	
+          	<div class="table-responsive">
+   				<p:dataTable tableStyleClass="table table-striped" value="#{cadastroServidorBean.servidores}" var="servidor">
+      		<p:column headerText="CPU">
+         		<h:outputText value="#{servidor.cpu}"/>
+      		</p:column>
+      		<p:column headerText="Hostname">
+         		<h:outputText value="#{servidor.hostname}"/>
+      		</p:column>
+      		<p:column headerText="IP">
+         		<h:outputText value="#{servidor.ip}"/>
+      		</p:column>
+      		<p:column headerText="Local">
+         		<h:outputText value="#{servidor.local}"/>
+      		</p:column>
+      		<p:column headerText="Memoria">
+         		<h:outputText value="#{servidor.memoria}"/>
+      		</p:column>
+      		<p:column headerText="Sistema Operacional">
+         		<h:outputText value="#{servidor.os}"/>
+      		</p:column>
+      		<p:column headerText="Responsavel">
+         		<h:outputText value="#{servidor.responsavel.nome}"/>
+      		</p:column>
+      		
+      		
+      		<p:column>		
+					<h:link outcome="CadastroServidor" value="Editar">
+					<i class="icon-edit"></i>
+					<f:param name="codigo"  value="#{servidor.codigo}"/>
+					</h:link>
+			</p:column>
+			
+			<p:column>
+				
+				<h:commandLink value="Excluir"
+				 action="#{cadastroServidorBean.excluir(servidor)}"
+				 onclick="if (!confirm('Confirmar a exclusão deste Servidor? ')) return false"/>
+				 <i class="icon-remove-sign"></i>
+			</p:column>
+			
+   				</p:dataTable>
+			</div>			
+			</h:form>			
+
+
+</ui:composition>

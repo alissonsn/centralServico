@@ -1,0 +1,76 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+	
+	
+	
+<!--Basic Elements-->
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">Cadastro de Equipe</h3>
+      </div>
+      <div class="panel-body">
+        <h:form style="border-radius: 0px;" styleClass="form-horizontal group-border-dashed">
+          <div class="form-group">
+          	<h:outputLabel styleClass="col-sm-3 control-label" value="Nome do Responsavel" />
+            <div class="col-sm-6">
+              <h:inputText value="#{cadastroResponsavelBean.responsavel.nome}" styleClass="form-control"/>
+            </div>
+          </div>
+          <div class="form-group">
+          	<h:outputLabel styleClass="col-sm-3 control-label" value="Numero de Telefone" />
+            <div class="col-sm-6">
+              <p:inputMask value="#{cadastroResponsavelBean.responsavel.cel}" styleClass="form-control" mask="(99)99999.9999"/>
+            </div>
+          </div>
+          <div class="form-group">
+          	<h:outputLabel styleClass="col-sm-3 control-label" value="Ramal" />
+            <div class="col-sm-6">
+            <p:inputMask value="#{cadastroResponsavelBean.responsavel.ramal}" styleClass="form-control" mask="999"/>
+            </div>
+          </div>
+          <div class="form-group">
+          	<h:outputLabel styleClass="col-sm-3 control-label" value="Matricula" />
+            <div class="col-sm-6">
+              <h:inputText value="#{cadastroResponsavelBean.responsavel.matricula}" styleClass="form-control"/>
+            </div>
+          </div>
+          <div class="form-group">
+          	<h:outputLabel styleClass="col-sm-3 control-label" value="Email" />
+            <div class="col-sm-6">
+              <h:inputText value="#{cadastroResponsavelBean.responsavel.email}" styleClass="form-control"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Equipe</label>
+            <div class="col-sm-6">
+              	<h:selectOneMenu value="#{cadastroResponsavelBean.responsavel.equipe}" required="true" label="Equipe" styleClass="form-control">
+				<f:selectItem itemLabel="Selecione a Equipe que o responsavel faz parte" noSelectionOption="true"/>
+				<f:selectItems value="#{cadastroResponsavelBean.equipes}" var="equipe" itemValue="#{equipe}" itemLabel="#{equipe.nome}"/>
+				</h:selectOneMenu>
+            </div>
+          </div>
+
+          
+              <div class="form-group">
+                  <div class="col-sm-6">
+                  <h:commandButton action="#{cadastroResponsavelBean.cadastrar()}" value="Salvar" styleClass="btn btn-success" />
+                  </div>  
+              </div>
+        </h:form>
+      </div>
+    </div>
+  </div>
+</div>
+	
+	
+
+
+
+
+</ui:composition>

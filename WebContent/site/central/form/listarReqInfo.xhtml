@@ -1,0 +1,56 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+	
+			<h:form>	
+	
+          	<div class="table-responsive">
+   				<p:dataTable tableStyleClass="table table-striped" value="#{cadastroReqInfoBean.reqInfos}" var="reqinfo">
+      		<p:column headerText="Categoria">
+         		<h:outputText value="#{reqinfo.categoria}"/>
+      		</p:column>
+      		<p:column headerText="Descrição da Categoria">
+         		<h:outputText value="#{reqinfo.descat}"/>
+      		</p:column>
+      		<p:column headerText="Informação">
+         		<h:outputText value="#{reqinfo.info}"/>
+      		</p:column>
+      		<p:column headerText="Descrição da Informação">
+         		<h:outputText value="#{reqinfo.descInfo}"/>
+      		</p:column>
+      		<p:column headerText="Protocolo">
+         		<h:outputText value="#{reqinfo.protocolo}"/>
+      		</p:column>
+      		<p:column headerText="Servico">
+         		<h:outputText value="#{reqinfo.servico.nome}"/>
+      		</p:column>
+      		
+      		
+      		<p:column>
+					
+					
+					<h:link outcome="CadastroReqInfo" value="Editar">
+					<i class="icon-edit"></i>
+					<f:param name="codigo"  value="#{reqinfo.codigo}"/>
+					</h:link>
+			</p:column>
+			
+			<p:column>
+				
+				<h:commandLink value="Excluir"
+				 action="#{cadastroReqInfoBean.excluir(reqinfo)}"
+				 onclick="if (!confirm('Confirmar a exclusão deste Responsavek? ')) return false"/>
+				 <i class="icon-remove-sign"></i>
+			</p:column>
+			
+   				</p:dataTable>
+			</div>			
+			</h:form>			
+			
+
+
+
+</ui:composition>

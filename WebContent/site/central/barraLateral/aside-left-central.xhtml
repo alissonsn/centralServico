@@ -1,0 +1,83 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html">
+	
+	<div class="sf-aside-left">
+	<ul class="sidebar-elements">
+		<li>
+			<a href="../../../index.xhtml">
+				<i class="icon fa fa-home"></i>
+				<span>Início</span></a>
+			</li>
+		
+		<li>
+			<a href="Equipe.xhtml">
+				<i class="fa fa-users"></i>
+				<span>Equipe</span>
+			</a>
+		</li>
+		<li>
+			<a href="Responsavel.xhtml">
+				<i class="fa fa-users"></i>
+				<span>Responsavel</span>
+			</a>
+		</li>
+		<li>
+			<a href="Servidor.xhtml">
+				<i class="fa fa-users"></i>
+				<span>Servidor</span>
+			</a>
+		</li>
+		<li>
+			<a href="Servico.xhtml">
+				<i class="fa fa-users"></i>
+				<span>Serviço</span>
+			</a>
+		</li>
+		<li>
+			<a href="ReqInfo.xhtml">
+				<i class="fa fa-users"></i>
+				<span>Requisição de Informação</span>
+			</a>
+		</li>
+		<li>
+			<a href="Falha.xhtml">
+				<i class="fa fa-users"></i>
+				<span>Falhas</span>
+			</a>
+		</li>
+		<li>
+			<a href="SolFalha.xhtml">
+				<i class="fa fa-users"></i>
+				<span>Solução de Falhas</span>
+			</a>
+		</li>
+		<li>
+			<a href="Atividade.xhtml">
+				<i class="fa fa-users"></i>
+				<span>Atividades</span>
+			</a>
+		</li>
+		<li>
+			<a href="Monitoramento.xhtml">
+				<i class="fa fa-users"></i>
+				<span>Monitoramentos</span>
+			</a>
+		</li>
+		
+		<li>
+		<h:form>
+                  <h:commandButton action="#{PessoaCentralBean.logout()}" value="Logout" />
+			</h:form>
+		</li>
+		
+		<li>
+			<a href="#">
+				<i class="fa fa-users"></i>
+				<span>Desativado</span>
+			</a>
+		</li>
+	</ul>
+</div>
+	
+	</ui:composition>

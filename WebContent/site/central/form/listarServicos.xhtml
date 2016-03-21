@@ -1,0 +1,45 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+	
+			<h:form>	
+	
+          	<div class="table-responsive">
+   				<p:dataTable tableStyleClass="table table-striped" value="#{cadastroServicoBean.servicos}" var="servico">
+      		<p:column headerText="Nome">
+         		<h:outputText value="#{servico.nome}"/>
+      		</p:column>
+      		<p:column headerText="Servidor">
+         		<h:outputText value="#{servico.servidor.hostname}"/>
+      		</p:column>
+      		<p:column headerText="Equipe">
+         		<h:outputText value="#{servico.equipe.nome}"/>
+      		</p:column>
+      		
+      		
+      		<p:column>		
+					<h:link outcome="CadastroServico" value="Editar">
+					<i class="icon-edit"></i>
+					<f:param name="codigo"  value="#{servico.codigo}"/>
+					</h:link>
+			</p:column>
+			
+			<p:column>
+				
+				<h:commandLink value="Excluir"
+				 action="#{cadastroServicoBean.excluir(servico)}"
+				 onclick="if (!confirm('Confirmar a exclusão deste Responsavek? ')) return false"/>
+				 <i class="icon-remove-sign"></i>
+			</p:column>
+			
+   				</p:dataTable>
+			</div>			
+			</h:form>			
+			
+
+
+
+</ui:composition>

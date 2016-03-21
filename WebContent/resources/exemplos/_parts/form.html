@@ -1,0 +1,421 @@
+<!--Basi forms-->
+<div class="row">
+  <div class="col-sm-6">
+    <div class="panel">
+      <div class="panel-heading">
+        <div class="tools">
+            <a href="#" title="Editar"><i class="icon fa fa-edit"></i></a>
+            <a href="#" title="Configurar"><i class="icon fa fa-cog"></i></a>
+            <a href="#" title="Outras opções"><i class="icon fa fa-ellipsis-v"></i></a>
+        </div>
+        <h3 class="panel-title">Formulário básico</h3>
+      </div>
+      <div class="panel-body">
+        <form role="form">
+          <div class="form-group">
+            <label>Email address</label>
+            <input type="email" placeholder="Enter email" class="form-control">
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" placeholder="Password" class="form-control">
+          </div>
+          <div class="am-checkbox">
+            <input id="check1" type="checkbox">
+            <label for="check1">Remember me</label>
+          </div>
+          <div class="text-right">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button class="btn btn-default">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">Formulário Horizontal</h3>
+      </div>
+      <div class="panel-body">
+        <form role="form" class="form-horizontal">
+          <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+            <div class="col-sm-10">
+              <input id="inputEmail3" type="email" placeholder="Email" class="form-control">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+            <div class="col-sm-10">
+              <input id="inputPassword3" type="password" placeholder="Password" class="form-control">
+            </div>
+          </div>
+          
+          <div class="am-checkbox">
+            <input id="check2" type="checkbox">
+            <label for="check2">Remember me</label>
+          </div>
+          <div class="spacer text-right">
+            <button type="submit" class="btn btn-primary">Registrer</button>
+            <button class="btn btn-default">Cancel</button>
+          </div>
+          
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Basic Elements-->
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">Basic Elements</h3>
+      </div>
+      <div class="panel-body">
+        <form action="#" style="border-radius: 0px;" class="form-horizontal group-border-dashed">
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Input Text</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Input Password</label>
+            <div class="col-sm-6">
+              <input type="password" class="form-control">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Placeholder Input</label>
+            <div class="col-sm-6">
+              <input type="text" placeholder="Placeholder text" class="form-control">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Disabled Input</label>
+            <div class="col-sm-6">
+              <input type="text" disabled="disabled" placeholder="Disabled input text" class="form-control">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Readonly Input</label>
+            <div class="col-sm-6">
+              <input type="text" readonly="readonly" value="Readonly input text" class="form-control">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Textarea</label>
+            <div class="col-sm-6">
+              <textarea class="form-control"></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  
+  <!--Select & Option Elements-->
+  <div class="col-md-6">
+    <div class="panel">
+      <div class="panel-heading">
+        <div class="panel-title">Select &amp; Option Elements</div>
+      </div>
+      <div class="panel-body">
+        <form action="#" class="form-horizontal group-border-dashed">
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Basic Select</label>
+            <div class="col-sm-6">
+              <select class="form-control">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Multiple Select</label>
+            <div class="col-sm-6">
+              <select multiple="" class="form-control">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Radio</label>
+            <div class="col-sm-6">
+              <div class="am-radio">
+                <input type="radio" checked="" name="rad1" id="rad1">
+                <label for="rad1">Option 1</label>
+              </div>
+              <div class="am-radio">
+                <input type="radio" checked="" name="rad1" id="rad2">
+                <label for="rad2">Option 2</label>
+              </div>
+              <div class="am-radio">
+                <input type="radio" checked="" name="rad1" id="rad3">
+                <label for="rad3">Option 3</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Inline Radio</label>
+            <div class="col-sm-6">
+              <div class="am-radio inline">
+                <input type="radio" checked="" name="rad2" id="rad4">
+                <label for="rad4">Option 1</label>
+              </div>
+              <div class="am-radio inline">
+                <input type="radio" checked="" name="rad2" id="rad5">
+                <label for="rad5">Option 2</label>
+              </div>
+              <div class="am-radio inline">
+                <input type="radio" checked="" name="rad2" id="rad6">
+                <label for="rad6">Option 3</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Checkbox</label>
+            <div class="col-sm-6">
+              <div class="am-checkbox">
+                <input id="check3" type="checkbox">
+                <label for="check3">Option 1</label>
+              </div>
+              <div class="am-checkbox">
+                <input id="check4" type="checkbox">
+                <label for="check4">Option 2</label>
+              </div>
+              <div class="am-checkbox">
+                <input id="check5" type="checkbox">
+                <label for="check5">Option 3</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Inline Checkbox</label>
+            <div class="col-sm-6">
+              <div class="am-checkbox inline">
+                <input id="check6" type="checkbox">
+                <label for="check6">Option 1</label>
+              </div>
+              <div class="am-checkbox inline">
+                <input id="check7" type="checkbox">
+                <label for="check7">Option 2</label>
+              </div>
+              <div class="am-checkbox inline">
+                <input id="check8" type="checkbox">
+                <label for="check8">Option 3</label>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+          
+  <!--Input Groups-->
+  <div class="col-md-6">
+    <div class="panel">
+      <div class="panel-heading">
+        <div class="panel-title">Input Groups</div>
+      </div>
+      <div class="panel-body">
+        <form action="#" style="border-radius: 0px;" class="form-horizontal group-border-dashed">
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Input Text</label>
+            <div class="col-sm-6">
+              <div class="input-group mb2"><span class="input-group-addon">@</span>
+                <input type="text" placeholder="Username" class="form-control">
+              </div>
+              <div class="input-group mb2">
+                <input type="text" class="form-control"><span class="input-group-addon">.00</span>
+              </div>
+              <div class="input-group mb2"><span class="input-group-addon">$</span>
+                <input type="text" class="form-control"><span class="input-group-addon">.00</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Input Sizing</label>
+            <div class="col-sm-6">
+              <div class="input-group input-group-lg mb2"><span class="input-group-addon">@</span>
+                <input type="text" placeholder="Username" class="form-control">
+              </div>
+              <div class="input-group mb2"><span class="input-group-addon">@</span>
+                <input type="text" placeholder="Username" class="form-control">
+              </div>
+              <div class="input-group input-group-sm mb2"><span class="input-group-addon">@</span>
+                <input type="text" placeholder="Username" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Checkbox &amp; Radio</label>
+            <div class="col-sm-6">
+              <div class="input-group mb2"><span class="input-group-addon">
+                  <div class="am-checkbox">
+                    <input type="checkbox" id="check9">
+                    <label for="check9"></label>
+                  </div></span>
+                <input type="text" class="form-control">
+              </div>
+              <div class="input-group mb2"><span class="input-group-addon">
+                  <div class="am-radio">
+                    <input type="radio" id="rad7">
+                    <label for="rad7"></label>
+                  </div></span>
+                <input type="text" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Button Addons</label>
+            <div class="col-sm-6">
+              <div class="input-group mb2">
+                <input type="text" class="form-control"><span class="input-group-btn">
+                  <button type="button" class="btn btn-primary">Go!</button></span>
+              </div>
+              <div class="input-group mb2">
+                <input type="text" class="form-control">
+                <div class="input-group-btn">
+                  <button type="button" data-toggle="dropdown" class="btn btn-primary dropdown-toggle">Action <span class="caret"></span></button>
+                  <ul class="dropdown-menu pull-right">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="input-group mb2">
+                <input type="text" class="form-control">
+                <div class="input-group-btn">
+                  <button tabindex="-1" type="button" class="btn btn-primary">Action</button>
+                  <button tabindex="-1" data-toggle="dropdown" type="button" class="btn btn-primary btn-shade1 dropdown-toggle"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+                  <ul role="menu" class="dropdown-menu pull-right">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Formulário multiplas colunas -->
+<div class="panel">
+  <div class="panel-heading">
+    <h3 class="panel-title">Formulário em multiplas colunas</h3>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-sm-12 col-md-offset-1 col-md-10">
+         <p>Utilizando <code>.col-*-offset-*</code> é possível adicionar espaçamento lateral.</p>
+
+         <form role="form">
+            <div class='row'>
+              <div class='col-sm-4'>    
+                  <div class='form-group'>
+                      <label for="user_title">Primeiro nome</label>
+                      <input class="form-control" id="user_title" name="user[title]" size="30" type="text" />
+                  </div>
+              </div>
+              <div class='col-sm-4'>
+                  <div class='form-group'>
+                      <label for="user_firstname">Nome do Meio</label>
+                      <input class="form-control" id="user_firstname" name="user[firstname]" required="true" size="30" type="text" />
+                  </div>
+              </div>
+              <div class='col-sm-4'>
+                  <div class='form-group'>
+                      <label for="user_lastname">Último Nome</label>
+                      <input class="form-control" id="user_lastname" name="user[lastname]" required="true" size="30" type="text" />
+                  </div>
+              </div>
+            </div>
+            
+            <fieldset>
+              <legend>Endereço</legend>
+            
+              <p>Seções no formulário devem ser feitas usando 
+                <code><?php echo htmlentities("<fieldset> <legend> Nome seção </legend> ... </fildset>")?></code>. 
+              </p>
+
+              <div class='row'>
+                <div class='col-sm-6'>    
+                    <div class='form-group'>
+                        <label for="user_title">Estado</label>
+                        <input class="form-control" id="user_estado" name="user[title]" size="30" type="text" />
+                    </div>
+                </div>
+                <div class='col-sm-6'>
+                    <div class='form-group'>
+                        <label for="user_firstname">Cidade</label>
+                        <input class="form-control" id="user_cidade" name="user[firstname]" required="true" size="30" type="text" />
+                    </div>
+                </div>
+              </div> 
+
+              <div class='row'>
+                <div class='col-sm-2'>    
+                    <div class='form-group'>
+                        <label for="user_title">Tipo</label>
+                        <input class="form-control" id="user_estado" name="user[title]" size="30" type="text" />
+                    </div>
+                </div>
+                <div class='col-sm-8'>    
+                    <div class='form-group'>
+                        <label for="user_title">Logradouro</label>
+                        <input class="form-control" id="user_estado" name="user[title]" size="30" type="text" />
+                    </div>
+                </div>
+                <div class='col-sm-2'>
+                    <div class='form-group'>
+                        <label for="user_firstname">Número</label>
+                        <input class="form-control" id="user_cidade" name="user[firstname]" required="true" size="30" type="text" />
+                    </div>
+                </div>
+              </div>  
+            </fieldset>
+
+            <fieldset>
+              <legend>Contato</legend>
+              
+              <div class='row'>
+                  <div class='col-sm-12'>
+                      <div class='form-group'>
+
+                          <label for="user_email">Email</label>
+                          <input class="form-control required email" id="user_email" name="user[email]" required="true" size="30" type="text" />
+                      </div>
+                  </div>
+              </div>
+            </fieldset> 
+
+         </form>
+      </div>
+    </div>
+  </div>
+</div>

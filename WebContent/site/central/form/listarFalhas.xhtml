@@ -1,0 +1,53 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+			<h:form>	
+	
+          	<div class="table-responsive">
+   				<p:dataTable tableStyleClass="table table-striped" value="#{cadastroFalhaBean.falhas}" var="falha">
+      		<p:column headerText="Falha">
+         		<h:outputText value="#{falha.falha}"/>
+      		</p:column>
+      		<p:column headerText="Descrição da Falha">
+         		<h:outputText value="#{falha.defFalha}"/>
+      		</p:column>
+      		<p:column headerText="Palavra Chave">
+         		<h:outputText value="#{falha.palavraChave}"/>
+      		</p:column>
+      		<p:column headerText="Solicitação Monitoramento">
+         		<h:outputText value="#{falha.solicitacaoMonitoramento}"/>
+      		</p:column>
+      		
+      		<p:column headerText="Servico">
+         		<h:outputText value="#{falha.servico.nome}"/>
+      		</p:column>
+      		
+      		
+      		<p:column>
+					
+					
+					<h:link outcome="CadastroFalha" value="Editar">
+					<i class="icon-edit"></i>
+					<f:param name="codigo"  value="#{falha.codigo}"/>
+					</h:link>
+			</p:column>
+			
+			<p:column>
+				
+				<h:commandLink value="Excluir"
+				 action="#{cadastroFalhaBean.excluir(falha)}"
+				 onclick="if (!confirm('Confirmar a exclusão desta Falha? ')) return false"/>
+				 <i class="icon-remove-sign"></i>
+			</p:column>
+			
+   				</p:dataTable>
+			</div>			
+			</h:form>			
+			
+
+
+
+</ui:composition>

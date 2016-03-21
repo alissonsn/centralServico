@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html">
+
+	<nav class="navbar navbar-static-top navbar-default sf-top-header">
+		<div class="container-fluid">
+
+			<div class="navbar-header">
+
+				<a class="navbar-brand" href="#"> 
+				<img src="resources/img/logo-control.png" alt="Logomarca" title="_NOME_DO_SISTEMA_" />
+					<h:outputText styleClass="sr-only" value="NOME_DO_SISTEMA_"  />
+				</a>
+
+				<!-- BOTÃO EXIBIDO PARA TELA DE TAMANHO REDUZIDO -->
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Alternar exibição de navegação</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+
+			</div>
+
+			<div id="sf-navbar-collapse" class="collapse navbar-collapse">
+
+				<ul class="nav navbar-nav navbar-right sf-icons-nav">
+					
+					<!-- <ui:include src="navbar_item_systems.xhtml" />
+					<ui:include src="navbar_item_notifications.xhtml" />
+					<ui:include src="navbar_item_contrast.xhtml" />
+					 -->
+				</ul>
+			</div>
+
+		</div>
+	</nav>
+
+
+</ui:composition>

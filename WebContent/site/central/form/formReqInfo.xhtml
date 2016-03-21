@@ -1,0 +1,76 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+	
+	
+	
+<!--Basic Elements-->
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">Cadastro de Requisição de Informação</h3>
+      </div>
+      <div class="panel-body">
+        <h:form style="border-radius: 0px;" styleClass="form-horizontal group-border-dashed">
+          <div class="form-group">
+          	<h:outputLabel styleClass="col-sm-3 control-label" value="Categoria" />
+            <div class="col-sm-6">
+              <h:inputText value="#{cadastroReqInfoBean.reqInfo.categoria}" styleClass="form-control"/>
+            </div>
+          </div>
+          <div class="form-group">
+          	<h:outputLabel styleClass="col-sm-3 control-label" value="Descrição da Categoria" />
+            <div class="col-sm-6">
+              <h:inputText value="#{cadastroReqInfoBean.reqInfo.descat}" styleClass="form-control"/>
+            </div>
+          </div>
+          <div class="form-group">
+          	<h:outputLabel styleClass="col-sm-3 control-label" value="Informação" />
+            <div class="col-sm-6">
+              <h:inputText value="#{cadastroReqInfoBean.reqInfo.info}" styleClass="form-control"/>
+            </div>
+          </div>
+          <div class="form-group">
+          	<h:outputLabel styleClass="col-sm-3 control-label" value="Descrição da Informação" />
+            <div class="col-sm-6">
+              <h:inputText value="#{cadastroReqInfoBean.reqInfo.descInfo}" styleClass="form-control"/>
+            </div>
+          </div>
+          <div class="form-group">
+          	<h:outputLabel styleClass="col-sm-3 control-label" value="Protocolo" />
+            <div class="col-sm-6">
+              <h:inputText value="#{cadastroReqInfoBean.reqInfo.protocolo}" styleClass="form-control"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Serviço</label>
+            <div class="col-sm-6">
+              	<h:selectOneMenu value="#{cadastroReqInfoBean.reqInfo.servico}" required="true" label="Servico" styleClass="form-control">
+				<f:selectItem itemLabel="Selecione o Servico Responsavel pela Requisição" noSelectionOption="true"/>
+				<f:selectItems value="#{cadastroReqInfoBean.servicos}" var="servico" itemValue="#{servico}" itemLabel="#{servico.nome}"/>
+				</h:selectOneMenu>
+            </div>
+          </div>
+          
+          
+              <div class="form-group">
+                  <div class="col-sm-6">
+                  <h:commandButton action="#{cadastroReqInfoBean.cadastrar()}" value="Salvar" styleClass="btn btn-success" />
+                  </div>  
+              </div>
+        </h:form>
+      </div>
+    </div>
+  </div>
+</div>
+	
+	
+
+
+
+
+</ui:composition>

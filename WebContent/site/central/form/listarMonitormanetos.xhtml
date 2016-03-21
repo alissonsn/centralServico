@@ -1,0 +1,55 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+	
+			<h:form>	
+	
+          	<div class="table-responsive">
+   				<p:dataTable tableStyleClass="table table-striped" value="#{cadastroMonitoramentoBean.monitoramentos}" var="monitoramento">
+      		<p:column headerText="Definição">
+         		<h:outputText value="#{monitoramento.defMonitoramento}"/>
+      		</p:column>
+      		<p:column headerText="Categoria">
+         		<h:outputText value="#{monitoramento.categoria}"/>
+      		</p:column>
+      		<p:column headerText="Descrição da Categoria">
+         		<h:outputText value="#{monitoramento.desCat}"/>
+      		</p:column>
+      		<p:column headerText="Item de Monitoramento">
+         		<h:outputText value="#{monitoramento.item}"/>
+      		</p:column>
+      		<p:column headerText="Protocolo">
+         		<h:outputText value="#{monitoramento.protocolo}"/>
+      		</p:column>
+      		<p:column headerText="Servico">
+         		<h:outputText value="#{monitoramento.servico.nome}"/>
+      		</p:column>
+      		
+      		<p:column>
+					
+					
+					<h:link outcome="CadastroMonitoramento" value="Editar">
+					<i class="icon-edit"></i>
+					<f:param name="codigo"  value="#{monitoramento.codigo}"/>
+					</h:link>
+			</p:column>
+			
+			<p:column>
+				
+				<h:commandLink value="Excluir" 
+				 action="#{cadastroMonitoramentoBean.remover(monitoramento)}"
+				 onclick="if (!confirm('Confirmar a exclusão deste Monitoramento? ')) return false"/>
+				 <i class="icon-remove-sign"></i>
+			</p:column>
+			
+   				</p:dataTable>
+			</div>			
+			</h:form>			
+			
+
+
+
+</ui:composition>

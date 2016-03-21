@@ -1,0 +1,95 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+	
+	
+	
+<!--Basic Elements-->
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">Cadastro de Atividade</h3>
+      </div>
+      <div class="panel-body">
+        <h:form style="border-radius: 0px;" styleClass="form-horizontal group-border-dashed">
+          <div class="form-group">
+          	<h:outputLabel styleClass="col-sm-3 control-label" value="Definição" />
+            <div class="col-sm-6">
+              <h:inputText value="#{cadastroAtividadeBean.atividade.definicao}" styleClass="form-control"/>
+            </div>
+          </div>
+          <div class="form-group">
+          	<h:outputLabel styleClass="col-sm-3 control-label" value="Escopo de Entrada" />
+            <div class="col-sm-6">
+              <h:inputText value="#{cadastroAtividadeBean.atividade.escopoentrada}" styleClass="form-control"/>
+            </div>
+          </div>
+          <div class="form-group">
+          	<h:outputLabel styleClass="col-sm-3 control-label" value="Palavra Chave" />
+            <div class="col-sm-6">
+              <h:inputText value="#{cadastroFalhaBean.falha.palavraChave}" styleClass="form-control"/>
+            </div>
+          </div>
+          <div class="form-group">
+              <h:outputLabel styleClass="col-sm-3 control-label" value="Tipo de Disponibilidade" />
+                  <div class="col-sm-6">
+                    <h:selectOneMenu value="#{cadastroAtividadeBean.atividade.disponibilidade}" styleClass="form-control">
+   						<f:selectItem itemLabel="Selecione o Tipo de Disponibilidade da Atividade" noSelectionOption="true"/>
+   						<f:selectItem itemValue="24x7" itemLabel="24x7" />
+   						<f:selectItem itemValue="8x5" itemLabel="8x5" />
+			</h:selectOneMenu>
+                  </div>  
+          </div>
+          <div class="form-group">
+          	<h:outputLabel styleClass="col-sm-3 control-label" value="Solicitação de Atividade" />
+            <div class="col-sm-6">
+              <h:inputText value="#{cadastroAtividadeBean.atividade.solicitacaoAtividade}" styleClass="form-control"/>
+            </div>
+          </div>
+          <div class="form-group">
+          	<h:outputLabel styleClass="col-sm-3 control-label" value="Protocolo" />
+            <div class="col-sm-6">
+              <h:inputText value="#{cadastroAtividadeBean.atividade.protocolo}" styleClass="form-control"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Equipe</label>
+            <div class="col-sm-6">
+              	<h:selectOneMenu value="#{cadastroAtividadeBean.atividade.equipe}" required="true" label="Equipe" styleClass="form-control">
+				<f:selectItem itemLabel="Selecione a Equipe Responsavel pela Atividade" noSelectionOption="true"/>
+				<f:selectItems value="#{cadastroAtividadeBean.equipes}" var="equipe" itemValue="#{equipe}" itemLabel="#{equipe.nome}"/>
+				</h:selectOneMenu>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Serviço</label>
+            <div class="col-sm-6">
+              	<h:selectOneMenu value="#{cadastroAtividadeBean.atividade.servico}" required="true" label="Servico" styleClass="form-control">
+				<f:selectItem itemLabel="Selecione o Servico Responsavel pela Falha" noSelectionOption="true"/>
+				<f:selectItems value="#{cadastroAtividadeBean.servicos}" var="servico" itemValue="#{servico}" itemLabel="#{servico.nome}"/>
+				</h:selectOneMenu>
+            </div>
+          </div>
+          
+          
+              <div class="form-group">
+                  <div class="col-sm-6">
+                  <h:commandButton action="#{cadastroAtividadeBean.cadastrar()}" value="Salvar" styleClass="btn btn-success" />
+                  </div>  
+              </div>
+        </h:form>
+      </div>
+    </div>
+  </div>
+</div>
+	
+	
+
+
+
+
+</ui:composition>

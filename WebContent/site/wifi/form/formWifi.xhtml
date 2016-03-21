@@ -1,0 +1,78 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+	
+	
+	
+<!--Basic Elements-->
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">Cadastro de Usuarios</h3>
+      </div>
+      <div class="panel-body">
+        <h:form style="border-radius: 0px;" styleClass="form-horizontal group-border-dashed">
+          <div class="form-group">
+          	<h:outputLabel styleClass="col-sm-3 control-label" value="Usuario" />
+            <div class="col-sm-6">
+              <h:inputText value="#{PessoaWifiBean.pessoaWifi.uid}" styleClass="form-control"/>
+            </div>
+          </div>
+          <div class="form-group">
+          <h:outputLabel styleClass="col-sm-3 control-label" value="Senha" />
+            <div class="col-sm-6">
+            <h:inputSecret  value="#{PessoaWifiBean.pessoaWifi.senha}" styleClass="form-control"/>
+            </div>
+          </div>
+          <div class="form-group">
+          <h:outputLabel styleClass="col-sm-3 control-label" value="CPF" />
+            <div class="col-sm-6">
+            <p:inputMask value="#{PessoaWifiBean.pessoaWifi.CPF}" styleClass="form-control" mask="999.999.999-99"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <h:outputLabel styleClass="col-sm-3 control-label" value="Email" />
+            <div class="col-sm-6">
+            <h:inputText value="#{PessoaWifiBean.pessoaWifi.email}" styleClass="form-control"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <p:outputLabel for="mask" styleClass="col-sm-3 control-label" value="Data de Nasimento" />
+            <div class="col-sm-6">
+            <p:calendar id="mask" value="#{PessoaWifiBean.pessoaWifi.nascimento}" pattern="dd/MM/yyyy" mask="true" navigator="true" showOn="button">
+            <f:convertDateTime pattern="dd/MM/yyyy" type="both" dateStyle="short"/>
+            </p:calendar>
+            </div>
+          </div>
+              <div class="form-group">
+              <h:outputLabel styleClass="col-sm-3 control-label" value="Validade" />
+                  <div class="col-sm-6">
+                    <h:selectOneMenu value="#{PessoaWifiBean.pessoaWifi.validade}" styleClass="form-control">
+   						<f:selectItem itemValue="cn=turno,ou=policies,dc=ufrn,dc=br" itemLabel="Turno" />
+   						<f:selectItem itemValue="cn=dia,ou=policies,dc=ufrn,dc=br" itemLabel="Dia" />	   							
+   						<f:selectItem itemValue="cn=semana,ou=policies,dc=ufrn,dc=br" itemLabel="Semana" />
+   						<f:selectItem itemValue="cn=mes,ou=policies,dc=ufrn,dc=br" itemLabel="Mes" />
+				</h:selectOneMenu>
+                  </div>  
+              </div>
+              <div class="form-group">
+                  <div class="col-sm-6">
+                  <h:commandButton action="#{PessoaWifiBean.AdicionarUsuario()}" value="Salvar" styleClass="btn btn-success" />
+                  </div>  
+              </div>
+        </h:form>
+      </div>
+    </div>
+  </div>
+</div>
+	
+	
+
+
+
+
+</ui:composition>

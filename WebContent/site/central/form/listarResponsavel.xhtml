@@ -1,0 +1,53 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+	
+			<h:form>	
+	
+          	<div class="table-responsive">
+   				<p:dataTable tableStyleClass="table table-striped" value="#{cadastroResponsavelBean.responsaveis}" var="responsavel">
+      		<p:column headerText="Nome">
+         		<h:outputText value="#{responsavel.nome}"/>
+      		</p:column>
+      		<p:column headerText="Numero do Telefone">
+         		<h:outputText value="#{responsavel.cel}"/>
+      		</p:column>
+      		<p:column headerText="Ramal">
+         		<h:outputText value="#{responsavel.ramal}"/>
+      		</p:column>
+      		<p:column headerText="Matricula">
+         		<h:outputText value="#{responsavel.matricula}"/>
+      		</p:column>
+      		<p:column headerText="Equipe">
+         		<h:outputText value="#{responsavel.equipe.nome}"/>
+      		</p:column>
+      		
+      		
+      		<p:column>
+					
+					
+					<h:link outcome="CadastroResponsaveis" value="Editar">
+					<i class="icon-edit"></i>
+					<f:param name="codigo"  value="#{responsavel.codigo}"/>
+					</h:link>
+			</p:column>
+			
+			<p:column>
+				
+				<h:commandLink value="Excluir"
+				 action="#{cadastroResponsavelBean.excluir(responsavel)}"
+				 onclick="if (!confirm('Confirmar a exclusão deste Responsavek? ')) return false"/>
+				 <i class="icon-remove-sign"></i>
+			</p:column>
+			
+   				</p:dataTable>
+			</div>			
+			</h:form>			
+			
+
+
+
+</ui:composition>

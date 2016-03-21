@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+		<property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+		<property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/itilsinfo</property>
+		<property name="hibernate.connection.username">postgres</property>
+		<property name="hibernate.connection.password">postgres</property>
+
+		<property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+		<property name="hibernate.hbm2ddl.auto">update</property>
+		<property name="show_sql">true</property>
+		<property name="format_sql">true</property>
+
+		<mapping class="entidades.Equipe"/>
+		<mapping class="entidades.Responsavel"/>
+		<mapping class="entidades.Servidor"/>
+		<mapping class="entidades.Servico"/>
+		<mapping class="entidades.ReqInfo"/>
+		<mapping class="entidades.Falha"/>
+		<mapping class="entidades.Atividade"/>
+		<mapping class="entidades.Monitoramento"/>
+		<mapping class="entidades.SolFalha"/>
+
+	</session-factory>
+</hibernate-configuration>

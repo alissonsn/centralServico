@@ -1,0 +1,58 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+	
+			<h:form>	
+	
+          	<div class="table-responsive">
+   				<p:dataTable tableStyleClass="table table-striped" value="#{cadastroAtividadeBean.atividades}" var="atividade">
+      		<p:column headerText="Definição">
+         		<h:outputText value="#{atividade.definicao}"/>
+      		</p:column>
+      		<p:column headerText="Escopo de Entrada">
+         		<h:outputText value="#{atividade.escopoentrada}"/>
+      		</p:column>
+      		<p:column headerText="Tipo de Disopnibilidade">
+         		<h:outputText value="#{atividade.disponibilidade}"/>
+      		</p:column>
+      		<p:column headerText="Solicitação de Atividade">
+         		<h:outputText value="#{atividade.solicitacaoAtividade}"/>
+      		</p:column>
+      		<p:column headerText="Protocolo">
+         		<h:outputText value="#{atividade.protocolo}"/>
+      		</p:column>
+      		<p:column headerText="Equipe">
+         		<h:outputText value="#{atividade.equipe.nome}"/>
+      		</p:column>
+      		<p:column headerText="Servico">
+         		<h:outputText value="#{atividade.servico.nome}"/>
+      		</p:column>
+      		
+      		<p:column>
+					
+					
+					<h:link outcome="CadastroAtividade" value="Editar">
+					<i class="icon-edit"></i>
+					<f:param name="codigo"  value="#{atividade.codigo}"/>
+					</h:link>
+			</p:column>
+			
+			<p:column>
+				
+				<h:commandLink value="Excluir"
+				 action="#{cadastroAtividadeBean.remover(atividade)}"
+				 onclick="if (!confirm('Confirmar a exclusão desta Atividade? ')) return false"/>
+				 <i class="icon-remove-sign"></i>
+			</p:column>
+			
+   				</p:dataTable>
+			</div>			
+			</h:form>			
+			
+
+
+
+</ui:composition>
