@@ -20,15 +20,15 @@
       		<p:column headerText="Solicitação Monitoramento">
          		<h:outputText value="#{falha.solicitacaoMonitoramento}"/>
       		</p:column>
-      		
-      		<p:column headerText="Servico">
+      		<p:column filterBy="#{falha.servico.nome}" style="text-align: center"
+					filterMatchMode="startsWith">
+      		<f:facet name="header">
+						<h:outputText value="Servico" />
+					</f:facet>
          		<h:outputText value="#{falha.servico.nome}"/>
       		</p:column>
       		
-      		
       		<p:column>
-					
-					
 					<h:link outcome="CadastroFalha" value="Editar">
 					<i class="icon-edit"></i>
 					<f:param name="codigo"  value="#{falha.codigo}"/>
@@ -36,7 +36,6 @@
 			</p:column>
 			
 			<p:column>
-				
 				<h:commandLink value="Excluir"
 				 action="#{cadastroFalhaBean.excluir(falha)}"
 				 onclick="if (!confirm('Confirmar a exclusão desta Falha? ')) return false"/>

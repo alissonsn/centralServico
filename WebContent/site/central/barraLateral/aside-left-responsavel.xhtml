@@ -23,13 +23,10 @@
 			</a>
 		</li>
 		<li>
-			<a href="../../logout.xhtml">
-			<i class="fa fa-sign-out"></i>
-				<span>Logout</span>
-				
-			</a>
+		<h:form>
+                  <h:commandButton action="#{PessoaCentralBean.logout()}" value="Logout" />
+			</h:form>
 		</li>
-		
 	</ul>
 </div>
 	

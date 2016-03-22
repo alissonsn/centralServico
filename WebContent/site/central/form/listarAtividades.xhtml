@@ -24,10 +24,18 @@
       		<p:column headerText="Protocolo">
          		<h:outputText value="#{atividade.protocolo}"/>
       		</p:column>
-      		<p:column headerText="Equipe">
+      		<p:column filterBy="#{atividade.equipe.nome}" style="text-align: center"
+					filterMatchMode="startsWith">
+      		<f:facet name="header">
+						<h:outputText value="Equipe" />
+					</f:facet>
          		<h:outputText value="#{atividade.equipe.nome}"/>
       		</p:column>
-      		<p:column headerText="Servico">
+      		<p:column filterBy="#{atividade.servico.nome}" style="text-align: center"
+					filterMatchMode="startsWith">
+      		<f:facet name="header">
+						<h:outputText value="Servico" />
+					</f:facet>
          		<h:outputText value="#{atividade.servico.nome}"/>
       		</p:column>
       		

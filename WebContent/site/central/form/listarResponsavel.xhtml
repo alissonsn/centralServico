@@ -9,6 +9,7 @@
 	
           	<div class="table-responsive">
    				<p:dataTable tableStyleClass="table table-striped" value="#{cadastroResponsavelBean.responsaveis}" var="responsavel">
+      		
       		<p:column headerText="Nome">
          		<h:outputText value="#{responsavel.nome}"/>
       		</p:column>
@@ -21,7 +22,11 @@
       		<p:column headerText="Matricula">
          		<h:outputText value="#{responsavel.matricula}"/>
       		</p:column>
-      		<p:column headerText="Equipe">
+      		<p:column filterBy="#{responsavel.equipe.nome}" style="text-align: center"
+					filterMatchMode="startsWith">
+      		<f:facet name="header">
+						<h:outputText value="Equipe" />
+					</f:facet>
          		<h:outputText value="#{responsavel.equipe.nome}"/>
       		</p:column>
       		

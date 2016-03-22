@@ -15,7 +15,11 @@
       		<p:column headerText="Servidor">
          		<h:outputText value="#{servico.servidor.hostname}"/>
       		</p:column>
-      		<p:column headerText="Equipe">
+      		<p:column filterBy="#{servico.equipe.nome}" style="text-align: center"
+					filterMatchMode="startsWith">
+      		<f:facet name="header">
+						<h:outputText value="Equipe" />
+					</f:facet>
          		<h:outputText value="#{servico.equipe.nome}"/>
       		</p:column>
       		

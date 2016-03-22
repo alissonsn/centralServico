@@ -27,7 +27,11 @@
       		<p:column headerText="Sistema Operacional">
          		<h:outputText value="#{servidor.os}"/>
       		</p:column>
-      		<p:column headerText="Responsavel">
+      		<p:column filterBy="#{servidor.responsavel.nome}" style="text-align: center"
+					filterMatchMode="startsWith">
+      		<f:facet name="header">
+						<h:outputText value="Responsavel" />
+					</f:facet>
          		<h:outputText value="#{servidor.responsavel.nome}"/>
       		</p:column>
       		
