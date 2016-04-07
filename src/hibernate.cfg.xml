@@ -23,6 +23,7 @@
 		<mapping class="entidades.Atividade"/>
 		<mapping class="entidades.Monitoramento"/>
 		<mapping class="entidades.SolFalha"/>
+		<mapping class="entidades.Rede"/>
 
 	</session-factory>
 </hibernate-configuration>

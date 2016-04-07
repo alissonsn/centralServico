@@ -1,0 +1,25 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+ 
+	
+<h:form id="form">
+    <p:carousel value="#{cadastroAtividadeBean.atividades}" headerText="Responsive" var="atividade" itemStyle="text-align:center" responsive="true">
+       <div class="row">
+  			<div class="col-md-4">
+    			<div class="panel">
+      				<div class="panel-heading">
+						<h:outputText value="#{atividade.definicao}" />
+      				</div>
+      				<div class="panel-body">
+                	   <h:outputText value="#{atividade.servico.nome}" />
+      				</div>
+    			</div>
+  			</div>
+       </div>
+   </p:carousel>
+</h:form>
+
+</ui:composition>

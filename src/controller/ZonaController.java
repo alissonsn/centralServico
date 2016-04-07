@@ -5,14 +5,9 @@ import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import modelo.PessoaWifiDAO;
-import modelo.PessoaWifiDAOImpl;
 import modelo.ZonaDAO;
 import modelo.ZonaDAOImpl;
 
-import com.novell.ldap.LDAPException;
-
-import entidades.PessoaWifi;
 import entidades.Zona;
 
 @SessionScoped

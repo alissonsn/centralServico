@@ -1,0 +1,61 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+			<h:form>	
+	
+          	<div class="table-responsive">
+   				<p:dataTable tableStyleClass="table table-striped" value="#{cadastroRedeBean.listaredes}" var="rede" paginator="true" rows="10">
+      		<p:column filterBy="#{rede.ip}" style="text-align: center"
+					filterMatchMode="startsWith">
+      		<f:facet name="header">
+						<h:outputText value="Ip" />
+					</f:facet>
+         		<h:outputText value="#{rede.ip}"/>
+      		</p:column>
+      		<p:column headerText="Mascara">
+         		<h:outputText value="#{rede.mascara}"/>
+      		</p:column>
+      		<p:column headerText="Vlan">
+         		<h:outputText value="#{rede.vlan}"/>
+      		</p:column>
+      		<p:column headerText="Local">
+         		<h:outputText value="#{rede.local}"/>
+      		</p:column>
+      		<p:column headerText="Gateway">
+         		<h:outputText value="#{rede.gateway}"/>
+      		</p:column>
+      		<p:column headerText="DHCP">
+         		<h:outputText value="#{rede.dhcp}"/>
+      		</p:column>
+			<p:column headerText="Ip Externo">
+         		<h:outputText value="#{rede.ip_externo}"/>
+      		</p:column>      		
+      		<p:column headerText="Porta">
+         		<h:outputText value="#{rede.porta}"/>
+      		</p:column>
+      		
+      		<p:column>
+					<h:link outcome="CadastroRede" value="Editar">
+					<i class="icon-edit"></i>
+					<f:param name="codigo"  value="#{rede.codigo}"/>
+					</h:link>
+			</p:column>
+			
+			<p:column>
+				<h:commandLink value="Excluir"
+				 action="#{cadastroRedeBean.deletar(rede)}"
+				 onclick="if (!confirm('Confirmar a exclusão desta rede? ')) return false"/>
+				 <i class="icon-remove-sign"></i>
+			</p:column>
+			
+   				</p:dataTable>
+			</div>			
+			</h:form>			
+			
+
+
+
+</ui:composition>

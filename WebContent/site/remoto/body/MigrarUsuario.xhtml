@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<f:facet name="first">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<title>SINFO</title>
+	</f:facet>
+
+	<f:facet name="middle">
+
+		<h:outputStylesheet name="css/sinfo-theme-admin.css" />
+		<h:outputStylesheet library="font-awesome" name="vendor/fontawesome/css/font-awesome.css" />
+
+		<h:outputScript name="vendor/jQuery/dist/jquery.min.js" />
+		<h:outputScript
+			name="vendor/bootstrap-sass/assets/javascripts/bootstrap.min.js" />
+	</f:facet>
+
+</h:head>
+<h:body>
+
+<div id="site-wrapper">
+      <ui:include src="../cabecalho/cabecalho.xhtml" />
+      <ui:include src="../../templateTelaLogin/admin_barra_sistema.xhtml" />
+      
+      
+      <div class="container-fluid">
+      	<ui:include src="../barraLateral/aside-left-ssh.xhtml" />  
+        
+
+        <div class="sf-content">
+
+          <div class="main-content">
+				<ui:include src="../form/formssh.xhtml" />          
+          </div>
+          
+        </div>
+
+      </div>
+
+      
+    </div>
+	<ui:include src="../../templateTelaLogin/rodape.xhtml" />
+
+
+</h:body>
+</html>

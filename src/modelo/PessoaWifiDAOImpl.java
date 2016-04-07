@@ -1,10 +1,16 @@
 package modelo;
 
+import java.io.UnsupportedEncodingException;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.ArrayList;
+import java.util.Date;
 
 import javax.faces.context.FacesContext;
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -13,6 +19,7 @@ import com.novell.ldap.LDAPAttributeSet;
 import com.novell.ldap.LDAPConnection;
 import com.novell.ldap.LDAPEntry;
 import com.novell.ldap.LDAPException;
+import com.novell.ldap.LDAPSearchResults;
 
 import entidades.PessoaWifi;
 
@@ -88,10 +95,10 @@ public class PessoaWifiDAOImpl implements PessoaWifiDAO{
 
 	@Override
 	public void update(PessoaWifi pessoaWifi) {
-		LDAPConnection conn = new LDAPConnection();
+		//LDAPConnection conn = new LDAPConnection();
 		//(String base, int scope, String filter, String[] attrs, boolean typesOnly)
 		//conn.search("uid=*,ou=802.1x,dc=ufrn,dc=br", 0, , arg3, arg4);
-		LDAPAttributeSet attributes = new LDAPAttributeSet();
+		//LDAPAttributeSet attributes = new LDAPAttributeSet();
 
 
 	}
@@ -102,18 +109,56 @@ public class PessoaWifiDAOImpl implements PessoaWifiDAO{
 
 	}
 
-	@Override
-	public PessoaWifi find(String uid) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
-	public List<PessoaWifi> findAll() {
+	public ArrayList<PessoaWifi> findAll() throws UnsupportedEncodingException, ParseException {
+
+		ArrayList<PessoaWifi> pessoa = new ArrayList<PessoaWifi>();
+		String loginDN = "uid=vc1,ou=admin,ou=802.1x,dc=ufrn,dc=br";
+		String password = "vc1";
+		String searchBase = "ou=802.1x,dc=ufrn,dc=br", searchFilter = "(objectClass=pwdPolicy)";
+		int searchScope = LDAPConnection.SCOPE_ONE;
+		String[] atributos = {"uid", "modifiersName", "modifyTimestamp", "pwdPolicySubentry"};
+
+		LDAPConnection lc = new LDAPConnection();
+		try {
+			lc.connect("10.3.226.126", 389 );
+			lc.bind( LDAPConnection.LDAP_V3, loginDN,  password.getBytes("UTF8"));
+			LDAPSearchResults searchResults = lc.search(searchBase, searchScope, searchFilter, atributos, false);
+			while (searchResults.hasMore() ) {
+				PessoaWifi pessoaWifi = new PessoaWifi();
+				LDAPEntry nextEntry = null;
+				try {
+					nextEntry = searchResults.next();
+				} catch(LDAPException e) {
+					System.out.println("Error: " + e);
+					continue;
+				}
+
+				LDAPAttribute attributeuid = nextEntry.getAttribute("uid");
+				LDAPAttribute attributemodifiersName = nextEntry.getAttribute("modifiersName");
+				LDAPAttribute attributemodifyTimestamp = nextEntry.getAttribute("modifyTimestamp");
+				LDAPAttribute attributepwdPolicySubentry = nextEntry.getAttribute("pwdPolicySubentry");
+
+				DateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss'Z'");
+				Date date = (Date) formatter.parse(attributemodifyTimestamp.getStringValue());
 
 
-		String[] attrIDs = {"sn", "telephonenumber", "golfhandicap", "mail"};
-		return null;
+
+
+				pessoaWifi.setUid(attributeuid.getStringValue());
+				pessoaWifi.setModificador(attributemodifiersName.getStringValue());
+				pessoaWifi.setUltimaModificacao(date);
+				pessoaWifi.setValidade(attributepwdPolicySubentry.getStringValue());
+				pessoa.add(pessoaWifi);
+			}
+		} catch( LDAPException e ) {
+			System.out.println("Error " + e.toString() );
+		}
+
+
+
+		return pessoa;
 	}
 
 	@Override
@@ -134,7 +179,7 @@ public class PessoaWifiDAOImpl implements PessoaWifiDAO{
 			}else{
 				estado = false;
 			}
-
+			
 
 		} catch (LDAPException e) {
 			// TODO Auto-generated catch block
@@ -149,6 +194,8 @@ public class PessoaWifiDAOImpl implements PessoaWifiDAO{
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 		LDAPConnection conexao = (LDAPConnection) session.getAttribute("ldapWifi");
+		session.removeAttribute("usuarioWifi");
+		session.removeAttribute("senhaWifi");
 		conexao.disconnect();
 		session.invalidate();
 

@@ -20,6 +20,17 @@
         <filter-name>loginwifi</filter-name>
         <url-pattern>/site/wifi/body/*</url-pattern>
     </filter-mapping>
+    <!-- login filter -->
+    <filter>
+        <filter-name>loginssh</filter-name>
+        <filter-class>filtro.FiltroSegurancaSSH</filter-class>
+    </filter>
+    <!-- set the login filter to secure all the pages in the /secured/* path
+        of the application -->
+    <filter-mapping>
+        <filter-name>loginssh</filter-name>
+        <url-pattern>/site/remoto/body/*</url-pattern>
+    </filter-mapping>
 	<!-- login filter -->
     <filter>
         <filter-name>loginCentral</filter-name>
@@ -31,7 +42,17 @@
         <filter-name>loginCentral</filter-name>
         <url-pattern>/site/central/body/*</url-pattern>
     </filter-mapping>
-
+	<!-- login filter -->
+    <filter>
+        <filter-name>loginDns</filter-name>
+        <filter-class>filtro.FiltroSegurancaDns</filter-class>
+    </filter>
+    <!-- set the login filter to secure all the pages in the /secured/* path
+        of the application -->
+    <filter-mapping>
+        <filter-name>loginDns</filter-name>
+        <url-pattern>/site/dns/body/*</url-pattern>
+    </filter-mapping>
 
 
 
@@ -95,4 +116,5 @@
         <extension>ico</extension>
         <mime-type>image/x-icon</mime-type>
     </mime-mapping>
+
 </web-app>

@@ -4,7 +4,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<f:metadata>
+        <f:viewAction action="#{PessoaWifiBean.isvalidate()}" />
+</f:metadata>
+
 
 <h:head>
 	<f:facet name="first">
@@ -29,18 +34,17 @@
 <h:body>
 
 <div id="site-wrapper">
-      <ui:include src="../../templateTelaLogin/navbar_top_index.xhtml" />
+      <ui:include src="../cabecalho/cabecalho.xhtml" />
       <ui:include src="../../templateTelaLogin/admin_barra_sistema.xhtml" />
       
       
       <div class="container-fluid">
-      	<ui:include src="../barraLateral/aside-left-dns.xhtml" /> 
+      	<ui:include src="../barraLateral/aside-left-registro.xhtml" /> 
         
 
         <div class="sf-content">
 
           <div class="main-content">
-				<ui:include src="../form/formRegistro.xhtml" />          
           </div>
           
         </div>

@@ -2,7 +2,7 @@ package controller;
 
 import javax.faces.bean.ManagedBean;
 
-import com.novell.ldap.LDAPException;
+
 
 import entidades.PessoaCentral;
 import modelo.PessoaCentralDAO;
@@ -19,24 +19,23 @@ public class PessoaCentralController {
 		}
 		return  "login.xhtml?faces-redirect=true";
 	}
-	
+
 	public String isvalidate(){
 		String pagina = "";
 		if (pessoaCentralDAO.isValidate() == true) {
-			pagina = "http://177.20.144.247:8080/centralServico/site/central/body/central.xhtml";
+			pagina = "http://snmp.info.ufrn.br:8080/centralServico/site/central/body/central.xhtml";
 		}else{
 
-			pagina = "http://177.20.144.247:8080/centralServico/site/central/login.xhtml";
+			pagina = "http://snmp.info.ufrn.br:8080/centralServico/site/central/login.xhtml";
 		}
 		return pagina;
 
 	}
-	
-	
+
 
 	public String logout(){
 		pessoaCentralDAO.logout();
-		return "http://177.20.144.247:8080/centralServico/index.xhtml?faces-redirect=true";
+		return "http://snmp.info.ufrn.br:8080/centralServico/index.xhtml?faces-redirect=true";
 	}
 
 	public PessoaCentral getPessoaCentral() {

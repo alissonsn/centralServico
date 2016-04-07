@@ -1,8 +1,7 @@
 package modelo;
 
-import java.text.SimpleDateFormat;
-import java.util.List;
 
+import java.util.List;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -34,6 +33,8 @@ public class ZonaDAOImpl implements ZonaDAO{
 	    attributesZona.add(new LDAPAttribute("relativeDomainName", "@"));
 	    attributesZona.add(new LDAPAttribute("zoneName", dns.getDominio()));
 
+	    
+	    
 	    //Atributos para criação do galho relativeDomainName com Soa
 		LDAPAttributeSet attributes = new LDAPAttributeSet();
 		String dnAdmin = "uid="+ usuario+",ou=admin,ou=dns,dc=ufrn,dc=br";

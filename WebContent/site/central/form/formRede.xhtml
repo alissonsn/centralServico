@@ -1,0 +1,84 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+	
+	
+	
+<!--Basic Elements-->
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">Cadastro de Atividade</h3>
+      </div>
+      <div class="panel-body">
+        <h:form style="border-radius: 0px;" styleClass="form-horizontal group-border-dashed">
+          <div class="form-group">
+          	<h:outputLabel styleClass="col-sm-3 control-label" value="Ip" />
+            <div class="col-sm-6">
+              <h:inputText value="#{cadastroRedeBean.rede.ip}" styleClass="form-control"/>
+            </div>
+          </div>
+          <div class="form-group">
+          	<h:outputLabel styleClass="col-sm-3 control-label" value="Mascara" />
+            <div class="col-sm-6">
+              <h:inputText value="#{cadastroRedeBean.rede.mascara}" styleClass="form-control"/>
+            </div>
+          </div>
+          <div class="form-group">
+          	<h:outputLabel styleClass="col-sm-3 control-label" value="Vlan" />
+            <div class="col-sm-6">
+              <h:inputText value="#{cadastroRedeBean.rede.vlan}" styleClass="form-control"/>
+            </div>
+          </div>
+          <div class="form-group">
+          	<h:outputLabel styleClass="col-sm-3 control-label" value="Local" />
+            <div class="col-sm-6">
+              <h:inputText value="#{cadastroRedeBean.rede.local}" styleClass="form-control"/>
+            </div>
+          </div>
+          <div class="form-group">
+          	<h:outputLabel styleClass="col-sm-3 control-label" value="gateway" />
+            <div class="col-sm-6">
+              <h:inputText value="#{cadastroRedeBean.rede.gateway}" styleClass="form-control"/>
+            </div>
+          </div>
+          <div class="form-group">
+          	<h:outputLabel styleClass="col-sm-3 control-label" value="DHCP" />
+            <div class="col-sm-6">
+              <h:inputText value="#{cadastroRedeBean.rede.dhcp}" styleClass="form-control"/>
+            </div>
+          </div>
+          <div class="form-group">
+          	<h:outputLabel styleClass="col-sm-3 control-label" value="Ip Externo" />
+            <div class="col-sm-6">
+              <h:inputText value="#{cadastroRedeBean.rede.ip_externo}" styleClass="form-control"/>
+            </div>
+          </div>
+          <div class="form-group">
+          	<h:outputLabel styleClass="col-sm-3 control-label" value="Porta" />
+            <div class="col-sm-6">
+              <h:inputText value="#{cadastroRedeBean.rede.porta}" styleClass="form-control"/>
+            </div>
+          </div>
+          
+          
+              <div class="form-group">
+                  <div class="col-sm-6">
+                  <h:commandButton action="#{cadastroRedeBean.cadastrar()}" value="Salvar" styleClass="btn btn-success" />
+                  </div>  
+              </div>
+        </h:form>
+      </div>
+    </div>
+  </div>
+</div>
+	
+	
+
+
+
+
+</ui:composition>

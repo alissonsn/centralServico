@@ -11,13 +11,9 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
 import modelo.IFalha;
-import modelo.IResponsavel;
-import modelo.IServidor;
 import modelo.ISolFalha;
 import util.Repositorios;
 import entidades.Falha;
-import entidades.Responsavel;
-import entidades.Servidor;
 import entidades.SolFalha;
 
 

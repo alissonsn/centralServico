@@ -1,34 +1,19 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html">
-	
+	xmlns:h="http://java.sun.com/jsf/html">
+
 	<div class="sf-aside-left">
-	<ul class="sidebar-elements">
-		<li>
-		<a href="../../../index.xhtml">
-				<i class="icon fa fa-home"></i>
-				<span>Início</span></a>
-			</li>
-		
-		<li>
-			<a href="CadastroUsuario.xhtml">
-				<i class="fa fa-user-plus"></i>
-				<span>Cadastro de Usuario</span>
-			</a>
-		</li>
-		<li>
-			<a href="ListarUsuarios.xhtml">
-				<i class="fa fa-users"></i>
-				<span>Listar Usuarios</span>
-			</a>
-		</li>
-		<li>
-			<h:form>
-                  <h:commandButton action="#{PessoaWifiBean.logout()}" value="Logout" />
-			</h:form>
-		</li>
-		
-	</ul>
-</div>
-	
-	</ui:composition>
+		<ul class="sidebar-elements">
+			<li><a href="../../../index.xhtml"> <i
+					class="icon fa fa-home"></i> <span>Início</span></a></li>
+
+			<li><a href="CadastroUsuario.xhtml"> <i
+					class="fa fa-user-plus"></i> <span>Cadastro de Usuario</span>
+			</a></li>
+			<li><a href="ListarUsuarios.xhtml"> <i class="fa fa-users"></i>
+					<span>Listar Usuarios</span>
+			</a></li>
+		</ul>
+	</div>
+
+</ui:composition>

@@ -7,9 +7,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
-import entidades.Equipe;
 import entidades.Monitoramento;
-import modelo.IEquipe;
 import modelo.IMonitoramento;
 import util.Repositorios;
 

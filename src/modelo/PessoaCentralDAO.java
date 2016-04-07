@@ -1,7 +1,5 @@
 package modelo;
 
-import com.novell.ldap.LDAPException;
-
 import entidades.PessoaCentral;
 
 

@@ -11,6 +11,9 @@ public class PessoaWifi implements Serializable{
 		private String email;
 		private Date nascimento;
 		private String validade;
+		private String modificador;
+		private Date ultimaModificacao;
+		private String dn;
 
 
 		public String getUid() {
@@ -61,16 +64,48 @@ public class PessoaWifi implements Serializable{
 			this.validade = validade;
 		}
 
+		public String getModificador() {
+			return modificador;
+		}
+
+		public void setModificador(String modificador) {
+			this.modificador = modificador;
+		}
+
+		public Date getUltimaModificacao() {
+			return ultimaModificacao;
+		}
+
+		public void setUltimaModificacao(Date ultimaModificacao) {
+			this.ultimaModificacao = ultimaModificacao;
+		}
+
+		public String getDn() {
+			return dn;
+		}
+
+		public void setDn(String dn) {
+			this.dn = dn;
+		}
+
+
 		@Override
 		public int hashCode() {
 			final int prime = 31;
 			int result = 1;
 			result = prime * result + ((CPF == null) ? 0 : CPF.hashCode());
+			result = prime * result + ((dn == null) ? 0 : dn.hashCode());
 			result = prime * result + ((email == null) ? 0 : email.hashCode());
+			result = prime * result
+					+ ((modificador == null) ? 0 : modificador.hashCode());
 			result = prime * result
 					+ ((nascimento == null) ? 0 : nascimento.hashCode());
 			result = prime * result + ((senha == null) ? 0 : senha.hashCode());
 			result = prime * result + ((uid == null) ? 0 : uid.hashCode());
+			result = prime
+					* result
+					+ ((ultimaModificacao == null) ? 0 : ultimaModificacao
+							.hashCode());
 			result = prime * result
 					+ ((validade == null) ? 0 : validade.hashCode());
 			return result;
@@ -90,10 +125,20 @@ public class PessoaWifi implements Serializable{
 					return false;
 			} else if (!CPF.equals(other.CPF))
 				return false;
+			if (dn == null) {
+				if (other.dn != null)
+					return false;
+			} else if (!dn.equals(other.dn))
+				return false;
 			if (email == null) {
 				if (other.email != null)
 					return false;
 			} else if (!email.equals(other.email))
+				return false;
+			if (modificador == null) {
+				if (other.modificador != null)
+					return false;
+			} else if (!modificador.equals(other.modificador))
 				return false;
 			if (nascimento == null) {
 				if (other.nascimento != null)
@@ -109,6 +154,11 @@ public class PessoaWifi implements Serializable{
 				if (other.uid != null)
 					return false;
 			} else if (!uid.equals(other.uid))
+				return false;
+			if (ultimaModificacao == null) {
+				if (other.ultimaModificacao != null)
+					return false;
+			} else if (!ultimaModificacao.equals(other.ultimaModificacao))
 				return false;
 			if (validade == null) {
 				if (other.validade != null)

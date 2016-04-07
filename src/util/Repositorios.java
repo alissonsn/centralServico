@@ -9,12 +9,14 @@ import modelo.IAtividade;
 import modelo.IEquipe;
 import modelo.IFalha;
 import modelo.IMonitoramento;
+import modelo.IRede;
 import modelo.IReqInfo;
 import modelo.IResponsavel;
 import modelo.IServico;
 import modelo.IServidor;
 import modelo.ISolFalha;
 import modelo.MonitoramentoImpl;
+import modelo.RedeImpl;
 import modelo.ReqInfoImpl;
 import modelo.ResponsavelImpl;
 import modelo.ServicoImpl;
@@ -62,6 +64,10 @@ public class Repositorios implements Serializable {
 		return new SolFalhaImpl(this.getSession());
 	}
 
+	public IRede getRede(){
+		return new RedeImpl(this.getSession());
+	}
+	
 	private Session getSession() {
 		return (Session) FacesUtil.getRequestAttribute("session");
 	}

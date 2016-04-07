@@ -7,10 +7,8 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
-import modelo.IServidor;
 import modelo.ISolFalha;
 import util.Repositorios;
-import entidades.Servidor;
 import entidades.SolFalha;
 
 

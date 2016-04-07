@@ -1,21 +1,13 @@
 package modelo;
 
-import java.text.SimpleDateFormat;
-import java.util.List;
-
 import javax.faces.context.FacesContext;
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.novell.ldap.LDAPAttribute;
-import com.novell.ldap.LDAPAttributeSet;
 import com.novell.ldap.LDAPConnection;
-import com.novell.ldap.LDAPEntry;
 import com.novell.ldap.LDAPException;
 
 import entidades.PessoaDns;
-import entidades.PessoaWifi;
 
 public class PessoaDnsDAOImpl implements PessoaDnsDAO{
 
@@ -34,7 +26,7 @@ public class PessoaDnsDAOImpl implements PessoaDnsDAO{
 				HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 				session.setAttribute("usuarioDns", pessoaDNs.getUid());
 				session.setAttribute("senhaDns", pessoaDNs.getSenha());
-				session.setAttribute("ldapDns", conn);
+				//session.setAttribute("ldapDns", conn);
 				estado = true;
 			}else{
 				estado = false;
@@ -53,8 +45,10 @@ public class PessoaDnsDAOImpl implements PessoaDnsDAO{
 	public void logout() throws LDAPException {
 		FacesContext fc = FacesContext.getCurrentInstance();
 		HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
-		LDAPConnection conexao = (LDAPConnection) session.getAttribute("ldapDNs");
-		conexao.disconnect();
+		//LDAPConnection conexao = (LDAPConnection) session.getAttribute("ldapDNs");
+		//conexao.disconnect();
+		session.removeAttribute("usuarioDns");
+		session.removeAttribute("senhaDns");
 		session.invalidate();
 
 

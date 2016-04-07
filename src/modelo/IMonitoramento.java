@@ -2,7 +2,7 @@ package modelo;
 
 import java.util.List;
 
-import entidades.Atividade;
+
 import entidades.Monitoramento;
 
 public interface IMonitoramento {

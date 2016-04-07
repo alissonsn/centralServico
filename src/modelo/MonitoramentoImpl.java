@@ -5,7 +5,6 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 
-import entidades.Equipe;
 import entidades.Monitoramento;
 
 public class MonitoramentoImpl implements IMonitoramento{

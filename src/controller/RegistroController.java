@@ -1,22 +1,17 @@
 package controller;
 
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import modelo.PessoaWifiDAO;
-import modelo.PessoaWifiDAOImpl;
-import modelo.RegistroDAO;
-import modelo.RegistroDAOImpl;
-import modelo.ZonaDAO;
-import modelo.ZonaDAOImpl;
-
 import com.novell.ldap.LDAPException;
 
-import entidades.PessoaWifi;
+import modelo.RegistroDAO;
+import modelo.RegistroDAOImpl;
 import entidades.Registro;
-import entidades.Zona;
+
 
 @SessionScoped
 @ManagedBean(name="RegistroBean")
@@ -30,6 +25,15 @@ public class RegistroController implements Serializable{
 		registroDAO.createRegistroReverso(registro);
 			return "dns.xhtml?faces-redirect=true";
 	}
+
+
+	public String RemoverRegistro() throws UnsupportedEncodingException, LDAPException{
+		RegistroDAO registroDAO = new RegistroDAOImpl();
+		registroDAO.delete(registro);
+		return "registro.xhtml?faces-redirect=true";
+	}
+
+
 
 	public Registro getRegistro() {
 		return registro;
@@ -47,5 +51,5 @@ public class RegistroController implements Serializable{
 		this.registroDAO = registroDAO;
 	}
 
-	
+
 }
