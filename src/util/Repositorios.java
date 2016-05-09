@@ -3,24 +3,30 @@ package util;
 import java.io.Serializable;
 
 import modelo.AtividadeImpl;
+import modelo.CargoImpl;
 import modelo.EquipeImpl;
 import modelo.FalhaImpl;
 import modelo.IAtividade;
+import modelo.ICargo;
 import modelo.IEquipe;
 import modelo.IFalha;
+import modelo.IIpResponsavel;
 import modelo.IMonitoramento;
 import modelo.IRede;
 import modelo.IReqInfo;
 import modelo.IResponsavel;
 import modelo.IServico;
 import modelo.IServidor;
+import modelo.ISetor;
 import modelo.ISolFalha;
+import modelo.IpResponsavelImpl;
 import modelo.MonitoramentoImpl;
 import modelo.RedeImpl;
 import modelo.ReqInfoImpl;
 import modelo.ResponsavelImpl;
 import modelo.ServicoImpl;
 import modelo.ServidorImpl;
+import modelo.SetorImpl;
 import modelo.SolFalhaImpl;
 
 import org.hibernate.Session;
@@ -66,6 +72,18 @@ public class Repositorios implements Serializable {
 
 	public IRede getRede(){
 		return new RedeImpl(this.getSession());
+	}
+
+	public ISetor getSetor(){
+		return new SetorImpl(this.getSession());
+	}
+
+	public ICargo getCargo(){
+		return new CargoImpl(this.getSession());
+	}
+	
+	public IIpResponsavel getIpResponsavel(){
+		return new IpResponsavelImpl(this.getSession());
 	}
 	
 	private Session getSession() {

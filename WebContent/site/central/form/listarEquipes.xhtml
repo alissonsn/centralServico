@@ -12,9 +12,8 @@
       		<p:column headerText="Nome">
          		<h:outputText value="#{equipe.nome}"/>
       		</p:column>
+      		
       		<p:column>
-					
-					
 					<h:link outcome="CadastroEquipes" value="Editar">
 					<i class="icon-edit"></i>
 					<f:param name="codigo"  value="#{equipe.codigo}"/>
@@ -22,7 +21,6 @@
 			</p:column>
 			
 			<p:column>
-				
 				<h:commandLink value="Excluir"
 				 action="#{cadastroEquipeBean.excluir(equipe)}"
 				 onclick="if (!confirm('Confirmar a exclusão desta Equipe? ')) return false"/>

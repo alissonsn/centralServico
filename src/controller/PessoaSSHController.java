@@ -50,6 +50,12 @@ public class PessoaSSHController implements Serializable{
 		pessoaSSHDAO.logout();
 		return "http://snmp.info.ufrn.br:8080/centralServico/index.xhtml?faces-redirect=true";
 	}
+	
+	public String criarUsuario() throws UnsupportedEncodingException, ParseException{
+		PessoaSSHDAO pessoaSSHDAO = new PessoaSSHDAOImpl();
+		pessoaSSHDAO.create(pessoaSSH);
+		return "body/ssh.xhtml?faces-redirect=true";
+	}
 
 	public String migrarUsuario() throws UnsupportedEncodingException, ParseException{
 		PessoaSSHDAO pessoaSSHDAO = new PessoaSSHDAOImpl();

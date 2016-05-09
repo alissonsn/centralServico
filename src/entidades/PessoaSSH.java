@@ -8,6 +8,7 @@ public class PessoaSSH implements Serializable{
 		private String uid;
 		private String cn;
 		private String senha;
+		private String uidNumber;
 		private String gidNumber;
 		private String email;
 		private String userPassword;
@@ -38,6 +39,14 @@ public class PessoaSSH implements Serializable{
 
 		public void setSenha(String senha) {
 			this.senha = senha;
+		}
+
+		public String getUidNumber() {
+			return uidNumber;
+		}
+
+		public void setUidNumber(String uidNumber) {
+			this.uidNumber = uidNumber;
 		}
 
 		public String getGidNumber() {
@@ -97,9 +106,13 @@ public class PessoaSSH implements Serializable{
 			result = prime * result
 					+ ((gidNumber == null) ? 0 : gidNumber.hashCode());
 			result = prime * result
+					+ ((mensagem == null) ? 0 : mensagem.hashCode());
+			result = prime * result
 					+ ((modificador == null) ? 0 : modificador.hashCode());
 			result = prime * result + ((senha == null) ? 0 : senha.hashCode());
 			result = prime * result + ((uid == null) ? 0 : uid.hashCode());
+			result = prime * result
+					+ ((uidNumber == null) ? 0 : uidNumber.hashCode());
 			result = prime
 					* result
 					+ ((ultimaModificacao == null) ? 0 : ultimaModificacao
@@ -133,6 +146,11 @@ public class PessoaSSH implements Serializable{
 					return false;
 			} else if (!gidNumber.equals(other.gidNumber))
 				return false;
+			if (mensagem == null) {
+				if (other.mensagem != null)
+					return false;
+			} else if (!mensagem.equals(other.mensagem))
+				return false;
 			if (modificador == null) {
 				if (other.modificador != null)
 					return false;
@@ -147,6 +165,11 @@ public class PessoaSSH implements Serializable{
 				if (other.uid != null)
 					return false;
 			} else if (!uid.equals(other.uid))
+				return false;
+			if (uidNumber == null) {
+				if (other.uidNumber != null)
+					return false;
+			} else if (!uidNumber.equals(other.uidNumber))
 				return false;
 			if (ultimaModificacao == null) {
 				if (other.ultimaModificacao != null)

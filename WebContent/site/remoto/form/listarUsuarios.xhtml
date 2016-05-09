@@ -9,6 +9,7 @@
 	
           	<div class="table-responsive">
    				<p:dataTable tableStyleClass="table table-striped" value="#{PessoaSSHBean.Listarusuario()}" var="pessoas">
+      		
       		<p:column filterBy="#{pessoas.uid}" style="text-align: center"
 					filterMatchMode="startsWith">
       		<f:facet name="header">

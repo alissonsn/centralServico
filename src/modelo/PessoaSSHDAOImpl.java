@@ -25,13 +25,15 @@ import entidades.PessoaSSH;
 import entidades.PessoaWifi;
 
 public class PessoaSSHDAOImpl implements PessoaSSHDAO{
-
+	int uid = 1001;
+	
+	
 	@Override
 	public boolean login(PessoaSSH pessoaSSH) {
 		LDAPConnection conn = new LDAPConnection();
 		boolean estado = false;
 		try {
-			conn.connect("10.3.226.126",389);
+			conn.connect("10.3.156.9",389);
 			String baseAdmin  = "uid="+ pessoaSSH.getUid()+ ",ou=admin,ou=ssh,dc=ufrn,dc=br";
 			conn.bind(LDAPConnection.LDAP_V3, baseAdmin, pessoaSSH.getSenha().getBytes());
 			if (conn.isBound()) {
@@ -67,8 +69,7 @@ public class PessoaSSHDAOImpl implements PessoaSSHDAO{
 
 	@Override
 	public boolean isValidate() {
-		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().
-									getExternalContext().getRequest();
+		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		HttpSession session = (HttpSession) req.getSession();
 
 		String usuario = (String) session.getAttribute("usuarioSSH");
@@ -84,7 +85,55 @@ public class PessoaSSHDAOImpl implements PessoaSSHDAO{
 
 	@Override
 	public void create(PessoaSSH pessoaSSH) {
-		// TODO Auto-generated method stub
+		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		HttpSession session = (HttpSession) req.getSession();
+		String usuario = (String) session.getAttribute("usuarioSSH");
+		String senha = (String) session.getAttribute("senhaSSH");
+		LDAPAttributeSet attributes = new LDAPAttributeSet();
+
+
+		String dnAdmin = "uid="+ usuario+",ou=admin,ou=ssh,dc=ufrn,dc=br";
+
+		String[] objectClass = new String[4];
+	    objectClass[0] = "top";
+	    objectClass[1] = "posixAccount";
+	    objectClass[2] = "shadowAccount";
+	    objectClass[3] = "account";
+
+	    attributes.add(new LDAPAttribute("objectClass", objectClass));
+
+	    
+	    attributes.add(new LDAPAttribute("cn", pessoaSSH.getUid()));
+	    attributes.add(new LDAPAttribute("gidNumber", pessoaSSH.getGidNumber()));
+	    attributes.add(new LDAPAttribute("uidNumber", pessoaSSH.getUidNumber()));
+	    attributes.add(new LDAPAttribute("uid", pessoaSSH.getUid()));
+	    //attributes.add(new LDAPAttribute("mail", pessoaAbobora.getEmail()));
+	    attributes.add(new LDAPAttribute("homeDirectory", "/bin/"+pessoaSSH.getUid()));
+	    attributes.add(new LDAPAttribute("gecos", pessoaSSH.getUid()+",,,"));
+	    attributes.add(new LDAPAttribute("userPassword", pessoaSSH.getUserPassword()));
+	    
+	    LDAPConnection conn = new LDAPConnection();
+		try {
+			conn.connect("10.3.156.9",389);
+		} catch (LDAPException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			conn.bind(LDAPConnection.LDAP_V3, dnAdmin, senha.getBytes());
+		} catch (LDAPException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String base = "uid="+pessoaSSH.getUid()+",ou=ssh,dc=ufrn,dc=br";
+		LDAPEntry entry = new LDAPEntry(base, attributes);
+		try {
+			conn.add(entry);
+
+		} catch (LDAPException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 
@@ -104,15 +153,25 @@ public class PessoaSSHDAOImpl implements PessoaSSHDAO{
 	public ArrayList<PessoaSSH> findAll() throws UnsupportedEncodingException,
 			ParseException {
 		
+		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		HttpSession session = (HttpSession) req.getSession();
+		String usuario = (String) session.getAttribute("usuarioSSH");
+		String senha = (String) session.getAttribute("senhaSSH");
+		//LDAPAttributeSet attributes = new LDAPAttributeSet();
+
+
+		String dnAdmin = "uid="+ usuario+",ou=admin,ou=ssh,dc=ufrn,dc=br";
+		
+		
+		
 		ArrayList<PessoaSSH> pessoa = new ArrayList<PessoaSSH>();
-		String searchBase = "ou=bolsistas,ou=redes,ou=sinfo,dc=ufrn,dc=br", 
-								searchFilter = "(uid=*)";
+		String searchBase = "ou=ssh,dc=ufrn,dc=br", searchFilter = "(uid=*)";
 		int searchScope = LDAPConnection.SCOPE_ONE;
 		String[] atributos = {"uid", "modifiersName", "modifyTimestamp"};
 		LDAPConnection lc = new LDAPConnection();
 		try {
-			lc.connect("10.3.226.126", 389 );
-			//lc.bind( LDAPConnection.LDAP_V3, loginDN,  password.getBytes("UTF8"));
+			lc.connect("10.3.156.9", 389 );
+			lc.bind( LDAPConnection.LDAP_V3, dnAdmin,  senha.getBytes("UTF8"));
 			LDAPSearchResults searchResults = lc.search(searchBase, searchScope, searchFilter, atributos, false);
 			while (searchResults.hasMore() ) {
 				PessoaSSH pessoaSSH = new PessoaSSH();
@@ -155,6 +214,7 @@ public class PessoaSSHDAOImpl implements PessoaSSHDAO{
 	@SuppressWarnings("deprecation")
 	@Override
 	public void migrate(PessoaSSH pessoaSSH) throws UnsupportedEncodingException, ParseException {
+		
 		PessoaSSH pessoaAbobora = listAbobora(pessoaSSH);
 
 		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
@@ -163,7 +223,7 @@ public class PessoaSSHDAOImpl implements PessoaSSHDAO{
 		String senha = (String) session.getAttribute("senhaSSH");
 		LDAPAttributeSet attributes = new LDAPAttributeSet();
 
-
+		String dnAdmin = "uid="+ usuario+",ou=admin,ou=ssh,dc=ufrn,dc=br";
 
 		String[] objectClass = new String[4];
 	    objectClass[0] = "top";
@@ -173,30 +233,31 @@ public class PessoaSSHDAOImpl implements PessoaSSHDAO{
 
 	    attributes.add(new LDAPAttribute("objectClass", objectClass));
 
-
-	    attributes.add(new LDAPAttribute("cn", pessoaAbobora.getCn()));
+	    uid += 1;
+	    String numero = "" + uid;
+	    attributes.add(new LDAPAttribute("cn", pessoaAbobora.getUid()));
 	    attributes.add(new LDAPAttribute("gidNumber", "10"));
-	    attributes.add(new LDAPAttribute("uidNumber", "20000"));
+	    attributes.add(new LDAPAttribute("uidNumber", numero));
 	    attributes.add(new LDAPAttribute("uid", pessoaAbobora.getUid()));
 	    //attributes.add(new LDAPAttribute("mail", pessoaAbobora.getEmail()));
 	    attributes.add(new LDAPAttribute("homeDirectory", "/bin/"+pessoaAbobora.getUid()));
 	    attributes.add(new LDAPAttribute("gecos", pessoaAbobora.getUid()+",,,"));
 	    attributes.add(new LDAPAttribute("userPassword", pessoaAbobora.getUserPassword()));
-
+	    
 	    LDAPConnection conn = new LDAPConnection();
 		try {
-			conn.connect("10.3.226.126",389);
+			conn.connect("10.3.156.9",389);
 		} catch (LDAPException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		try {
-			conn.bind(LDAPConnection.LDAP_V3, "cn=admin,dc=ufrn,dc=br", "gob0l1nux");
+			conn.bind(LDAPConnection.LDAP_V3, dnAdmin, senha.getBytes());
 		} catch (LDAPException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String base = "uid="+pessoaAbobora.getUid()+",ou=bolsistas,ou=redes,ou=sinfo,dc=ufrn,dc=br";
+		String base = "uid="+pessoaAbobora.getUid()+",ou=ssh,dc=ufrn,dc=br";
 		LDAPEntry entry = new LDAPEntry(base, attributes);
 		try {
 			conn.add(entry);
@@ -217,7 +278,7 @@ public class PessoaSSHDAOImpl implements PessoaSSHDAO{
 		String searchBase = "ou=pessoa,dc=ufrn,dc=br", searchFilter = "(uid="+pessoaSSH.getUid()+")";
 		int searchScope = LDAPConnection.SCOPE_ONE;
 		//String[] atributos = {"userPassword", "cn", "uid", "mail", "gidNumber"};
-		String[] atributos = {"userPassword", "cn", "uid", "mail"};
+		String[] atributos = {"userPassword", "uid", "mail"};
 		LDAPConnection lc = new LDAPConnection();
 		try {
 			lc.connect("10.3.226.192", 389 );
@@ -233,15 +294,15 @@ public class PessoaSSHDAOImpl implements PessoaSSHDAO{
 				}
 
 				LDAPAttribute attributeuid = nextEntry.getAttribute("uid");
-				LDAPAttribute attributecn = nextEntry.getAttribute("cn");
+				//LDAPAttribute attributeuidNumber = nextEntry.getAttribute("uidNumber");
 				LDAPAttribute attributemail = nextEntry.getAttribute("mail");
 				LDAPAttribute attributeuserPassword = nextEntry.getAttribute("userPassword");
 				//LDAPAttribute attributegidNumber = nextEntry.getAttribute("gidNumber");
 
 				pessoaSSH.setUid(attributeuid.getStringValue());
-				pessoaSSH.setCn(attributecn.getStringValue());
 				pessoaSSH.setEmail(attributemail.getStringValue());
 				pessoaSSH.setUserPassword(attributeuserPassword.getStringValue());
+				//pessoaSSH.setUidNumber(attributeuidNumber.getStringValue());
 				//pessoaSSH.setGidNumber(attributegidNumber.getStringValue());
 
 			}

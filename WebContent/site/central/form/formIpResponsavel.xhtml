@@ -1,0 +1,90 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+	
+	
+	
+<!--Basic Elements-->
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel">
+      <div class="panel-heading">
+        <h3 class="panel-title">Cadastro de Responsavel</h3>
+      </div>
+      <div class="panel-body">
+        <h:form style="border-radius: 0px;" styleClass="form-horizontal group-border-dashed">
+          <div class="form-group">
+          	<h:outputLabel styleClass="col-sm-3 control-label" value="Nome do Servidor" />
+            <div class="col-sm-6">
+              <h:inputText value="#{cadastroIpResponsavelBean.ipresponsavel.nomeServidor}" styleClass="form-control"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Setor</label>
+            <div class="col-sm-6">
+              	<h:selectOneMenu value="#{cadastroIpResponsavelBean.ipresponsavel.setor}" required="true" label="Setor" styleClass="form-control">
+				<f:selectItem itemLabel="Selecione a Setor que o responsavel faz parte" noSelectionOption="true"/>
+				<f:selectItems value="#{cadastroIpResponsavelBean.setores}" var="setor" itemValue="#{setor}" itemLabel="#{setor.local}"/>
+				</h:selectOneMenu>
+            </div>
+          </div>
+          <div class="form-group">
+          	<h:outputLabel styleClass="col-sm-3 control-label" value="Email" />
+            <div class="col-sm-6">
+              <h:inputText value="#{cadastroIpResponsavelBean.ipresponsavel.email}" styleClass="form-control"/>
+            </div>
+          </div>
+          <div class="form-group">
+          	<h:outputLabel styleClass="col-sm-3 control-label" value="Telefone" />
+            <div class="col-sm-6">
+              <h:inputText value="#{cadastroIpResponsavelBean.ipresponsavel.telefone}" styleClass="form-control"/>
+            </div>
+          </div>
+          <div class="form-group">
+          	<h:outputLabel styleClass="col-sm-3 control-label" value="Celular" />
+            <div class="col-sm-6">
+              <h:inputText value="#{cadastroIpResponsavelBean.ipresponsavel.celular}" styleClass="form-control"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label">Cargo</label>
+            <div class="col-sm-6">
+              	<h:selectOneMenu value="#{cadastroIpResponsavelBean.ipresponsavel.cargo}" required="true" label="Cargo" styleClass="form-control">
+				<f:selectItem itemLabel="Selecione a Cargo que o responsavel faz parte" noSelectionOption="true"/>
+				<f:selectItems value="#{cadastroIpResponsavelBean.cargos}" var="cargo" itemValue="#{cargo}" itemLabel="#{cargo.nome}"/>
+				</h:selectOneMenu>
+            </div>
+          </div>
+          <div class="form-group">
+          	<h:outputLabel styleClass="col-sm-3 control-label" value="Funcao" />
+            <div class="col-sm-6">
+              <h:inputText value="#{cadastroIpResponsavelBean.ipresponsavel.funcao}" styleClass="form-control"/>
+            </div>
+          </div>
+          <div class="form-group">
+          	<h:outputLabel styleClass="col-sm-3 control-label" value="Lotacao" />
+            <div class="col-sm-6">
+              <h:inputText value="#{cadastroIpResponsavelBean.ipresponsavel.lotacao}" styleClass="form-control"/>
+            </div>
+          </div>
+          
+              <div class="form-group">
+                  <div class="col-sm-6">
+                  <h:commandButton action="#{cadastroIpResponsavelBean.salvar()}" value="Salvar" styleClass="btn btn-success" />
+                  </div>  
+              </div>
+        </h:form>
+      </div>
+    </div>
+  </div>
+</div>
+	
+	
+
+
+
+
+</ui:composition>

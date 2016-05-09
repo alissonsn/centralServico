@@ -12,7 +12,7 @@ public class PessoaWifi implements Serializable{
 		private Date nascimento;
 		private String validade;
 		private String modificador;
-		private Date ultimaModificacao;
+		private String ultimaModificacao;
 		private String dn;
 
 
@@ -72,11 +72,11 @@ public class PessoaWifi implements Serializable{
 			this.modificador = modificador;
 		}
 
-		public Date getUltimaModificacao() {
+		public String getUltimaModificacao() {
 			return ultimaModificacao;
 		}
 
-		public void setUltimaModificacao(Date ultimaModificacao) {
+		public void setUltimaModificacao(String ultimaModificacao) {
 			this.ultimaModificacao = ultimaModificacao;
 		}
 

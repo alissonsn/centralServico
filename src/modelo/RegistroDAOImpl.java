@@ -57,7 +57,7 @@ public class RegistroDAOImpl implements RegistroDAO{
 		LDAPConnection conexao = new LDAPConnection();
 
 		try {
-			conexao.connect("10.3.226.126",389);
+			conexao.connect("10.3.156.9",389);
 		} catch (LDAPException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -104,13 +104,13 @@ public class RegistroDAOImpl implements RegistroDAO{
 									primeiroOctal.toString()+".in-addr.arpa"));
 		attributesRegistroReverso.add(new LDAPAttribute("dNSTTL", "3600"));
 		attributesRegistroReverso.add(new LDAPAttribute("dNSClass", "IN"));
-		attributesRegistroReverso.add(new LDAPAttribute("pTRRecord", registro.getNomeMaquina()+"."+registro.getDominio()));
+		attributesRegistroReverso.add(new LDAPAttribute("pTRRecord", registro.getNomeMaquina()+"."+registro.getDominio()+"."));
 
 		String dnAdmin = "uid="+ usuario+",ou=admin,ou=dns,dc=ufrn,dc=br";
 		LDAPConnection conexao = new LDAPConnection();
 
 		try {
-			conexao.connect("10.3.226.126",389);
+			conexao.connect("10.3.156.9",389);
 		} catch (LDAPException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -163,7 +163,7 @@ public class RegistroDAOImpl implements RegistroDAO{
 
 
 		LDAPConnection lc = new LDAPConnection();
-		lc.connect("10.3.226.126", 389 );
+		lc.connect("10.3.156.9", 389 );
 		lc.bind( LDAPConnection.LDAP_V3, dnAdmin,  password.getBytes("UTF8"));
 
 		System.out.println(registro.getNomeMaquina()+"."+registro.getDominio()+".");
@@ -213,7 +213,7 @@ public class RegistroDAOImpl implements RegistroDAO{
 
 		LDAPConnection lc = new LDAPConnection();
 		try {
-			lc.connect("10.3.226.126", 389 );
+			lc.connect("10.3.156.9", 389 );
 			lc.bind( LDAPConnection.LDAP_V3, dnAdmin,  password.getBytes("UTF8"));
 			LDAPSearchResults searchResults = lc.search(searchBase, searchScope, searchFilter, atributos, false);
 
