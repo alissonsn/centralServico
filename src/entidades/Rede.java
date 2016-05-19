@@ -21,7 +21,8 @@ public class Rede implements Serializable{
 	private String dhcp;
 	private String ip_externo;
 	private String porta;
-	
+	private String net;	
+	private String host;
 	
 	@Id
 	@GeneratedValue
@@ -87,81 +88,21 @@ public class Rede implements Serializable{
 	public void setporta(String porta) {
 		this.porta = porta;
 	}
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
-		result = prime * result + ((dhcp == null) ? 0 : dhcp.hashCode());
-		result = prime * result + ((gateway == null) ? 0 : gateway.hashCode());
-		result = prime * result + ((ip == null) ? 0 : ip.hashCode());
-		result = prime * result
-				+ ((ip_externo == null) ? 0 : ip_externo.hashCode());
-		result = prime * result + ((local == null) ? 0 : local.hashCode());
-		result = prime * result + ((mascara == null) ? 0 : mascara.hashCode());
-		result = prime * result
-				+ ((porta == null) ? 0 : porta.hashCode());
-		result = prime * result + ((vlan == null) ? 0 : vlan.hashCode());
-		return result;
+	@Column
+	public String getNet() {
+		return net;
 	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Rede other = (Rede) obj;
-		if (codigo == null) {
-			if (other.codigo != null)
-				return false;
-		} else if (!codigo.equals(other.codigo))
-			return false;
-		if (dhcp == null) {
-			if (other.dhcp != null)
-				return false;
-		} else if (!dhcp.equals(other.dhcp))
-			return false;
-		if (gateway == null) {
-			if (other.gateway != null)
-				return false;
-		} else if (!gateway.equals(other.gateway))
-			return false;
-		if (ip == null) {
-			if (other.ip != null)
-				return false;
-		} else if (!ip.equals(other.ip))
-			return false;
-		if (ip_externo == null) {
-			if (other.ip_externo != null)
-				return false;
-		} else if (!ip_externo.equals(other.ip_externo))
-			return false;
-		if (local == null) {
-			if (other.local != null)
-				return false;
-		} else if (!local.equals(other.local))
-			return false;
-		if (mascara == null) {
-			if (other.mascara != null)
-				return false;
-		} else if (!mascara.equals(other.mascara))
-			return false;
-		if (porta == null) {
-			if (other.porta != null)
-				return false;
-		} else if (!porta.equals(other.porta))
-			return false;
-		if (vlan == null) {
-			if (other.vlan != null)
-				return false;
-		} else if (!vlan.equals(other.vlan))
-			return false;
-		return true;
+	public void setNet(String net) {
+		this.net = net;
+	}
+	@Column
+	public String getHost() {
+		return host;
+	}
+	public void setHost(String host) {
+		this.host = host;
 	}
 	
-
 	
 }
 

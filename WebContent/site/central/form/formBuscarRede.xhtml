@@ -1,0 +1,70 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+	<!--Basic Elements-->
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel">
+				<div class="panel-heading">
+					<h3 class="panel-title">Buscar Rede</h3>
+				</div>
+				<div class="panel-body">
+					<h:form style="border-radius: 0px;"
+						styleClass="form-horizontal group-border-dashed">
+						<div class="form-group">
+							<h:outputLabel styleClass="col-sm-3 control-label" value="Ip" />
+							<div class="col-sm-6">
+								<h:inputText value="#{cadastroRedeBean.rede.host}"
+									styleClass="form-control" />
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-6">
+								<h:commandButton value="Buscar" styleClass="btn btn-success"
+									action="#{cadastroRedeBean.listarRede}"></h:commandButton>
+							</div>
+						</div>
+					</h:form>
+
+					<div class="table-responsive">
+						<p:dataTable tableStyleClass="table table-striped"
+							value="#{cadastroRedeBean.listaRede}" var="rede"
+							rendered="#{not empty cadastroRedeBean.listaRede}">
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Ip" />
+								</f:facet>
+								<h:outputText value="#{rede.ip}" />
+							</p:column>
+							<p:column headerText="Mascara">
+								<h:outputText value="#{rede.mascara}" />
+							</p:column>
+							<p:column headerText="Vlan">
+								<h:outputText value="#{rede.vlan}" />
+							</p:column>
+							<p:column headerText="Local">
+								<h:outputText value="#{rede.local}" />
+							</p:column>
+							<p:column headerText="Gateway">
+								<h:outputText value="#{rede.gateway}" />
+							</p:column>
+							<p:column headerText="DHCP">
+								<h:outputText value="#{rede.dhcp}" />
+							</p:column>
+							<p:column headerText="Ip Externo">
+								<h:outputText value="#{rede.ip_externo}" />
+							</p:column>
+							<p:column headerText="Porta">
+								<h:outputText value="#{rede.porta}" />
+							</p:column>
+						</p:dataTable>
+						<h:outputText value = "O Ip não faz parte das Redes cadastradas!" rendered = "#{cadastroRedeBean.exibeMsgListaVazia}"/>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</ui:composition>
