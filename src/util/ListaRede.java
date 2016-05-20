@@ -1,4 +1,4 @@
-package testes;
+package util;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import entidades.Rede;
+
+/*
+ * Classe ListaRede, utiliza o metodo BuscaRede da Classe BuscaRede para buscar
+ * a rede cadastrada no banco de dados.
+ * 
+ * */
 
 public class ListaRede {
 
