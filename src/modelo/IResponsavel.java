@@ -4,6 +4,12 @@ import java.util.List;
 
 import entidades.Responsavel;
 
+/** Interface que contém as assinaturas de metodos de responsavel.
+*
+* @author silas
+*
+*/
+
 public interface IResponsavel {
 	public List<Responsavel> listar();
 	public Responsavel porCodigo(Integer codigo);

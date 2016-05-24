@@ -5,6 +5,12 @@ import java.util.List;
 
 import entidades.SolFalha;
 
+/** Interface que contém as assinaturas de metodos das soluções de falhas.
+*
+* @author silas
+*
+*/
+
 public interface ISolFalha {
 	public List<SolFalha> listar();
 	public SolFalha porCodigo(Integer codigo);

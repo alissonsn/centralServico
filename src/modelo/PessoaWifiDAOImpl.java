@@ -4,15 +4,18 @@ import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.TimeZone;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import util.Utilitaria;
+import jcifs.util.Hexdump;
+import jcifs.util.MD4;
 
 import com.novell.ldap.LDAPAttribute;
 import com.novell.ldap.LDAPAttributeSet;
@@ -23,11 +26,20 @@ import com.novell.ldap.LDAPSearchResults;
 
 import entidades.PessoaWifi;
 
+/** Classe PessoaWifiImpl que implementa a Interface das PessoasWifiDAO, esta classe implementa os metodos da classe PessoaWifi.
+*
+* @author silas
+* @see   Utilitaria 
+*/
+
 public class PessoaWifiDAOImpl implements PessoaWifiDAO{
+	Utilitaria util = new Utilitaria();
 
-
+	/** Metodo que cria pessoawifi.
+	 * @param pessoawifi, requer objeto pessoawifi para sua criação.
+	 */
 	@Override
-	public void create(PessoaWifi pessoaWifi) {
+	public void create(PessoaWifi pessoaWifi) throws UnsupportedEncodingException {
 		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		HttpSession session = (HttpSession) req.getSession();
 		String usuario = (String) session.getAttribute("usuarioWifi");
@@ -62,7 +74,7 @@ public class PessoaWifiDAOImpl implements PessoaWifiDAO{
 	    attributes.add(new LDAPAttribute("mail", pessoaWifi.getEmail()));
 	    attributes.add(new LDAPAttribute("brPersonCPF", pessoaWifi.getCPF()));
 	    attributes.add(new LDAPAttribute("schacDateofBirth", dataFormatada));
-	    attributes.add(new LDAPAttribute("sambaNTPassword", pessoaWifi.getSenha()));
+	    attributes.add(new LDAPAttribute("sambaNTPassword",  this.SambaNTPassword(pessoaWifi.getSenha())));
 	    attributes.add(new LDAPAttribute("userPassword", pessoaWifi.getSenha()));
 	    attributes.add(new LDAPAttribute("pwdAttribute", "userPassword"));
 	    attributes.add(new LDAPAttribute("pwdPolicySubentry", pessoaWifi.getValidade()));
@@ -109,13 +121,20 @@ public class PessoaWifiDAOImpl implements PessoaWifiDAO{
 
 	}
 
-
+	/** Metodo que consulta todas as pessoas cadastradas na rede wifi visitantes num diretorio LDAP..
+	 *
+	 * @return List<PessoaWifi>, Contendo todas as pessoas cadastradas no diretorio LDAP.
+	 */
 	@Override
 	public ArrayList<PessoaWifi> findAll() throws UnsupportedEncodingException, ParseException {
-
+		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		HttpSession session = (HttpSession) req.getSession();
+		String usuario = (String) session.getAttribute("usuarioWifi");
+		String senha = (String) session.getAttribute("senhaWifi");
+		
+		
 		ArrayList<PessoaWifi> pessoa = new ArrayList<PessoaWifi>();
-		String loginDN = "uid=vc1,ou=admin,ou=802.1x,dc=ufrn,dc=br";
-		String password = "vc1";
+		String loginDN = "uid=" + usuario +",ou=admin,ou=802.1x,dc=ufrn,dc=br";
 		String searchBase = "ou=802.1x,dc=ufrn,dc=br", searchFilter = "(objectClass=pwdPolicy)";
 		int searchScope = LDAPConnection.SCOPE_ONE;
 		String[] atributos = {"uid", "modifiersName", "modifyTimestamp", "pwdPolicySubentry"};
@@ -123,7 +142,7 @@ public class PessoaWifiDAOImpl implements PessoaWifiDAO{
 		LDAPConnection lc = new LDAPConnection();
 		try {
 			lc.connect("10.3.226.126", 389 );
-			lc.bind( LDAPConnection.LDAP_V3, loginDN,  password.getBytes("UTF8"));
+			lc.bind( LDAPConnection.LDAP_V3, loginDN,  senha.getBytes("UTF8"));
 			LDAPSearchResults searchResults = lc.search(searchBase, searchScope, searchFilter, atributos, false);
 			while (searchResults.hasMore() ) {
 				PessoaWifi pessoaWifi = new PessoaWifi();
@@ -140,15 +159,13 @@ public class PessoaWifiDAOImpl implements PessoaWifiDAO{
 				LDAPAttribute attributemodifyTimestamp = nextEntry.getAttribute("modifyTimestamp");
 				LDAPAttribute attributepwdPolicySubentry = nextEntry.getAttribute("pwdPolicySubentry");
 
-				DateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss'Z'");
-				Date date = (Date) formatter.parse(attributemodifyTimestamp.getStringValue());
-
-
+				Date data = util. TimestampDateString(attributemodifyTimestamp.getStringValue());
+				String dataFormatada = util.DateString(data);
 
 
 				pessoaWifi.setUid(attributeuid.getStringValue());
 				pessoaWifi.setModificador(attributemodifiersName.getStringValue());
-				pessoaWifi.setUltimaModificacao(date);
+				pessoaWifi.setUltimaModificacao(dataFormatada);
 				pessoaWifi.setValidade(attributepwdPolicySubentry.getStringValue());
 				pessoa.add(pessoaWifi);
 			}
@@ -161,6 +178,10 @@ public class PessoaWifiDAOImpl implements PessoaWifiDAO{
 		return pessoa;
 	}
 
+	/** Metodo de login num diretorio LDAP.
+	 *  @param pessoaWifi
+	 * @return boolean, retorna verdadeiro login sucesso falso login invalido.
+	 */
 	@Override
 	public boolean login(PessoaWifi pessoaWifi) {
 		LDAPConnection conn = new LDAPConnection();
@@ -179,7 +200,7 @@ public class PessoaWifiDAOImpl implements PessoaWifiDAO{
 			}else{
 				estado = false;
 			}
-			
+
 
 		} catch (LDAPException e) {
 			// TODO Auto-generated catch block
@@ -189,6 +210,21 @@ public class PessoaWifiDAOImpl implements PessoaWifiDAO{
 
 	}
 
+	/** Metodo que gera senha sambaNTPassword apartir de uma senha em texto plano.
+	 *  @param password, senha em texto plano.
+	 * @return String, retorn senha criptografada.
+	 */
+	private String SambaNTPassword(String password) throws UnsupportedEncodingException {
+        MD4 md4 = new MD4();
+        byte[] bpass = password.getBytes("UnicodeLittleUnmarked");
+        md4.engineUpdate(bpass, 0, bpass.length);
+        byte[] hashbytes = md4.engineDigest();
+        String ntHash = Hexdump.toHexString(hashbytes, 0, hashbytes.length * 2);
+        return ntHash;
+    }
+
+	/** Metodo de logout num diretorio LDAP.
+	 */
 	@Override
 	public void logout() throws LDAPException {
 		FacesContext fc = FacesContext.getCurrentInstance();
@@ -198,10 +234,26 @@ public class PessoaWifiDAOImpl implements PessoaWifiDAO{
 		session.removeAttribute("senhaWifi");
 		conexao.disconnect();
 		session.invalidate();
-
-
-
 	}
+
+	/** Metodo que verifica vencimento da conta.
+	 *  @param hoje, pessoaWifi, data de hoje e a pessoa.
+	 * @return boolean, retorna true se a conta ainda está ativa falso se esta expirada.
+	 */
+	@Override
+	public boolean verificavencimento(Date hoje, PessoaWifi pessoaWifi){
+		boolean data;
+		Date validade = util.expiraConta(pessoaWifi);
+		if (validade.before(hoje)){
+			data = true;
+		}
+		else if (validade.after(hoje))
+			data = false;
+		else
+			data = true;
+		return data;
+	}
+
 
 	@Override
 	public boolean isValidate() {
@@ -218,7 +270,4 @@ public class PessoaWifiDAOImpl implements PessoaWifiDAO{
 		}
 		return pagina;
 	}
-
-
-
 }

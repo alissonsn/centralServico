@@ -52,7 +52,7 @@ public class ZonaDAOImpl implements ZonaDAO{
 
 	    LDAPConnection conn = new LDAPConnection();
 		try {
-			conn.connect("10.3.226.126",389);
+			conn.connect("10.3.156.9",389);
 		} catch (LDAPException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -126,7 +126,7 @@ public class ZonaDAOImpl implements ZonaDAO{
 
 	    LDAPConnection conn = new LDAPConnection();
 		try {
-			conn.connect("10.3.226.126",389);
+			conn.connect("10.3.156.9",389);
 		} catch (LDAPException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

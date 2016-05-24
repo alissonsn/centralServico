@@ -4,6 +4,11 @@ import java.util.List;
 
 import entidades.Falha;
 
+/** Interface que contém as assinaturas de metodos das falhas.
+*
+* @author silas
+*
+*/
 
 public interface IFalha {
 	public List<Falha> listar();

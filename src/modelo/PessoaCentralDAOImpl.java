@@ -4,19 +4,29 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import util.Utilitaria;
+
 import com.novell.ldap.LDAPConnection;
 import com.novell.ldap.LDAPException;
 
 import entidades.PessoaCentral;
 
+/** Classe PessoaCentralDAOImpl que implementa a Interface das PessoasCentralDAO, esta classe implementa os metodos da classe PessoaCentral.
+*
+* @author silas 
+*/
 public class PessoaCentralDAOImpl implements PessoaCentralDAO{
 
+	/** Metodo de login num diretorio LDAP.
+	 *  @param pessoaCentral
+	 * @return boolean, retorna verdadeiro login sucesso falso login invalido.
+	 */
 	@Override
 	public boolean login(PessoaCentral pessoaCentral) {
 		LDAPConnection conn = new LDAPConnection();
 		boolean estado = false;
 		try {
-			conn.connect("10.3.226.126",389);
+			conn.connect("10.3.156.9",389);
 			String baseAdmin  = "uid="+ pessoaCentral.getUid()+ ",ou=admin,ou=802.1x,dc=ufrn,dc=br";
 			conn.bind(LDAPConnection.LDAP_V3, baseAdmin, pessoaCentral.getSenha().getBytes());
 			if (conn.isBound()) {
@@ -39,6 +49,8 @@ public class PessoaCentralDAOImpl implements PessoaCentralDAO{
 
 	}
 
+	/** Metodo de logout num diretorio LDAP.
+	 */
 	@Override
 	public void logout() {
 		FacesContext fc = FacesContext.getCurrentInstance();

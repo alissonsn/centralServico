@@ -4,7 +4,11 @@ import java.util.List;
 
 import entidades.ReqInfo;
 
-
+/** Interface que contém as assinaturas de metodos de requisição de informação.
+*
+* @author silas
+*
+*/
 
 public interface IReqInfo {
 

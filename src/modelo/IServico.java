@@ -4,7 +4,11 @@ import java.util.List;
 
 import entidades.Servico;
 
-
+/** Interface que contém as assinaturas de metodos das serviço.
+*
+* @author silas
+*
+*/
 
 public interface IServico {
 

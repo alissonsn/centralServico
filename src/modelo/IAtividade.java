@@ -4,7 +4,11 @@ import java.util.List;
 
 import entidades.Atividade;
 
-
+/** Interface que contém as assinaturas de metodos das atividades.
+*
+* @author silas
+*
+*/
 
 public interface IAtividade {
 	public List<Atividade> listar();

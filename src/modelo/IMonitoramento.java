@@ -5,6 +5,12 @@ import java.util.List;
 
 import entidades.Monitoramento;
 
+/** Interface que contém as assinaturas de metodos de monitoramento.
+*
+* @author silas
+*
+*/
+
 public interface IMonitoramento {
 	public List<Monitoramento> listar();
 	public Monitoramento porCodigo(Integer codigo);

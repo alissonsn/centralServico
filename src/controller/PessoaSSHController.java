@@ -20,7 +20,7 @@ import entidades.PessoaSSH;
 @ManagedBean(name="PessoaSSHBean")
 public class PessoaSSHController implements Serializable{
 	PessoaSSH pessoaSSH = new PessoaSSH();
-	ArrayList<PessoaSSH> pessoasSSH= new ArrayList<PessoaSSH>();
+	ArrayList<PessoaSSH> pessoasSSH = new ArrayList<PessoaSSH>();
 	PessoaSSHDAO pessoaSSHDAO = new PessoaSSHDAOImpl();
 
 	public String logar(){
@@ -49,6 +49,12 @@ public class PessoaSSHController implements Serializable{
 	public String logout() throws LDAPException{
 		pessoaSSHDAO.logout();
 		return "http://snmp.info.ufrn.br:8080/centralServico/index.xhtml?faces-redirect=true";
+	}
+	
+	public String criarUsuario() throws UnsupportedEncodingException, ParseException{
+		PessoaSSHDAO pessoaSSHDAO = new PessoaSSHDAOImpl();
+		pessoaSSHDAO.create(pessoaSSH);
+		return "body/ssh.xhtml?faces-redirect=true";
 	}
 
 	public String migrarUsuario() throws UnsupportedEncodingException, ParseException{

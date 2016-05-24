@@ -24,6 +24,9 @@
 		<mapping class="entidades.Monitoramento"/>
 		<mapping class="entidades.SolFalha"/>
 		<mapping class="entidades.Rede"/>
+		<mapping class="entidades.Setor"/>
+		<mapping class="entidades.Cargo"/>
+		<mapping class="entidades.IpResponsavel"/>
 
 	</session-factory>
 </hibernate-configuration>

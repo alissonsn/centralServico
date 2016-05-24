@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -28,7 +29,18 @@ public class PessoaWifiController implements Serializable{
 		}
 		return "login.xhtml?faces-redirect=true";
 	}
-	
+
+	public boolean dataHoje(PessoaWifi pessoaWifi){
+		Date hoje = new Date();
+		if (pessoaWifiDAO.verificavencimento(hoje, pessoaWifi)) {
+			System.out.println(pessoaWifiDAO.verificavencimento(hoje, pessoaWifi));
+			//System.out.println(pessoaWifi.getValidade());
+			return true;
+		}
+		System.out.println(pessoaWifiDAO.verificavencimento(hoje, pessoaWifi));
+		return false;
+	}
+
 	public String isvalidate(){
 		String pagina = "";
 		if (pessoaWifiDAO.isValidate() == true) {
@@ -46,7 +58,7 @@ public class PessoaWifiController implements Serializable{
 		return "http://snmp.info.ufrn.br:8080/centralServico/index.xhtml?faces-redirect=true";
 	}
 
-	public String AdicionarUsuario(){
+	public String AdicionarUsuario() throws UnsupportedEncodingException{
 			PessoaWifiDAO pessoaWifiDAO = new PessoaWifiDAOImpl();
 			pessoaWifiDAO.create(pessoaWifi);
 			return "wifi.xhtml?faces-redirect=true";
@@ -66,7 +78,7 @@ public class PessoaWifiController implements Serializable{
 	public void setPessoaWifi(PessoaWifi pessoaWifi) throws CloneNotSupportedException {
 		this.pessoaWifi = pessoaWifi;
 		if (this.pessoaWifi == null) {
-			this.pessoaWifi = new PessoaWifi(); 
+			this.pessoaWifi = new PessoaWifi();
 		}else{
 			this.pessoaWifi = (PessoaWifi) pessoaWifi.clone();
 		}

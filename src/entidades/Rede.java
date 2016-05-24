@@ -8,10 +8,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/** Classe para objetos Equipe, é o modelo de um objeto Equipe.
+*
+* @author silas
+*
+*/
+
 @Entity
 @Table
-public class Rede implements Serializable{
-	
+public class Rede implements Serializable, Cloneable{
+
 	private Integer codigo;
 	private String ip;
 	private String mascara;
@@ -21,8 +27,7 @@ public class Rede implements Serializable{
 	private String dhcp;
 	private String ip_externo;
 	private String porta;
-	
-	
+
 	@Id
 	@GeneratedValue
 	public Integer getCodigo() {
@@ -81,12 +86,13 @@ public class Rede implements Serializable{
 		this.ip_externo = ip_externo;
 	}
 	@Column
-	public String getporta() {
+	public String getPorta() {
 		return porta;
 	}
-	public void setporta(String porta) {
+	public void setPorta(String porta) {
 		this.porta = porta;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -99,8 +105,7 @@ public class Rede implements Serializable{
 				+ ((ip_externo == null) ? 0 : ip_externo.hashCode());
 		result = prime * result + ((local == null) ? 0 : local.hashCode());
 		result = prime * result + ((mascara == null) ? 0 : mascara.hashCode());
-		result = prime * result
-				+ ((porta == null) ? 0 : porta.hashCode());
+		result = prime * result + ((porta == null) ? 0 : porta.hashCode());
 		result = prime * result + ((vlan == null) ? 0 : vlan.hashCode());
 		return result;
 	}
@@ -160,8 +165,11 @@ public class Rede implements Serializable{
 			return false;
 		return true;
 	}
-	
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		// TODO Auto-generated method stub
+		return super.clone();
+	}
 
-	
+
 }
-
