@@ -9,6 +9,7 @@
 	
           	<div class="table-responsive">
    				<p:dataTable tableStyleClass="table table-striped" value="#{PessoaSSHBean.Listarusuario()}" var="pessoas">
+      		
       		<p:column filterBy="#{pessoas.uid}" style="text-align: center"
 					filterMatchMode="startsWith">
       		<f:facet name="header">
@@ -25,6 +26,14 @@
          		</h:outputText>
       		</p:column>
       					
+      					
+      		<p:column>
+					<h:link outcome="CadastroUsuario" value="Editar">
+					<i class="icon-edit"></i>
+					<f:param name="codigo"  value="#{pessoas.uid}"/>
+					</h:link>
+			</p:column>
+      		
    				</p:dataTable>
 			</div>			
 			</h:form>			

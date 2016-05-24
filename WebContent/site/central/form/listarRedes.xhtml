@@ -4,10 +4,14 @@
 	xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core">
 
+	
 			<h:form>	
 	
           	<div class="table-responsive">
-   				<p:dataTable tableStyleClass="table table-striped" value="#{cadastroRedeBean.listaredes}" var="rede" paginator="true" rows="10">
+   				<p:dataTable value="#{cadastroRedeBean.redes}" var="rede" 
+   								paginator="true" rows="10"
+   								rowsPerPageTemplate="5,10,15,20" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" >
+      		
       		<p:column filterBy="#{rede.ip}" style="text-align: center"
 					filterMatchMode="startsWith">
       		<f:facet name="header">
@@ -46,7 +50,7 @@
 			
 			<p:column>
 				<h:commandLink value="Excluir"
-				 action="#{cadastroRedeBean.deletar(rede)}"
+				 action="#{cadastroRedeBean.excluir(rede)}"
 				 onclick="if (!confirm('Confirmar a exclusão desta rede? ')) return false"/>
 				 <i class="icon-remove-sign"></i>
 			</p:column>

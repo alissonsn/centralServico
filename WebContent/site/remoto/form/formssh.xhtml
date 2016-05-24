@@ -22,9 +22,16 @@
               <h:inputText value="#{PessoaSSHBean.pessoaSSH.uid}" styleClass="form-control"/>
             </div>
           </div>
+          <div class="form-group">
+          <h:outputLabel styleClass="col-sm-3 control-label" value="Senha" />
+            <div class="col-sm-6">
+            <h:inputSecret  value="#{PessoaSSHBean.pessoaSSH.senha}" styleClass="form-control"/>
+            </div>
+          </div>
+          
               <div class="form-group">
                   <div class="col-sm-6">
-                  <h:commandButton action="#{PessoaSSHBean.migrarUsuario()}" value="Migrar" styleClass="btn btn-success" />
+                  <h:commandButton action="#{PessoaSSHBean.criarUsuario()}" value="Salvar" styleClass="btn btn-success" />
                   </div>  
               </div>
         </h:form>

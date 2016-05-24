@@ -1,0 +1,72 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+	
+			<h:form>	
+	
+          	<div class="table-responsive">
+   				<p:dataTable  id="ipresponsaveis" value="#{cadastroIpResponsavelBean.ipresponsaveis}" var="ipresponsavel"
+   				paginator="true" rows="10"
+   								rowsPerPageTemplate="5,10,15,20" paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" >
+      		
+      		<f:facet name="header">
+				Listar responsaveis 
+        <p:commandButton id="toggler" value="Columns" style="float:right" icon="ui-icon-calculator" />
+        <p:columnToggler datasource="ipresponsaveis" trigger="toggler" />
+    </f:facet>
+      		
+      		
+      		<p:column headerText="Nome do Servidor">
+         		<h:outputText value="#{ipresponsavel.nomeServidor}"/>
+      		</p:column>
+      		<p:column headerText="Setor">
+         		<h:outputText value="#{ipresponsavel.setor.local}"/>
+      		</p:column>
+      		<p:column headerText="Email">
+         		<h:outputText value="#{ipresponsavel.email}"/>
+      		</p:column>
+      		<p:column headerText="Numero do Telefone">
+         		<h:outputText value="#{ipresponsavel.telefone}"/>
+      		</p:column>
+      		<p:column headerText="Numero do Celular">
+         		<h:outputText value="#{ipresponsavel.celular}"/>
+      		</p:column>
+      		<p:column headerText="Cargo">
+         		<h:outputText value="#{ipresponsavel.cargo.nome}"/>
+      		</p:column>
+      		<p:column headerText="Funcao">
+         		<h:outputText value="#{ipresponsavel.funcao}"/>
+      		</p:column>
+      		<p:column headerText="Lotacao">
+         		<h:outputText value="#{ipresponsavel.lotacao}"/>
+      		</p:column>
+      		
+      		
+      		<p:column>
+					
+					
+					<h:link outcome="CadastroIPResponsaveis" value="Editar">
+					<i class="icon-edit"></i>
+					<f:param name="codigo"  value="#{ipresponsavel.codigo}"/>
+					</h:link>
+			</p:column>
+			
+			<p:column>
+				
+				<h:commandLink value="Excluir"
+				 action="#{cadastroIpResponsavelBean.remover(ipresponsavel)}"
+				 onclick="if (!confirm('Confirmar a exclusão deste Responsavek? ')) return false"/>
+				 <i class="icon-remove-sign"></i>
+			</p:column>
+			
+   				</p:dataTable>
+			</div>			
+			</h:form>			
+			
+
+
+
+</ui:composition>

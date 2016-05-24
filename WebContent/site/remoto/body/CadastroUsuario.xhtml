@@ -6,6 +6,10 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
+<f:metadata>
+      	<f:viewParam name="codigo" value="#{PessoaSSHBean.pessoaSSH}"></f:viewParam>
+</f:metadata>
+
 <h:head>
 	<f:facet name="first">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -34,13 +38,13 @@
       
       
       <div class="container-fluid">
-      	<ui:include src="../barraLateral/aside-left-wifi.xhtml" />  
+      	<ui:include src="../barraLateral/aside-left-ssh.xhtml" />  
         
 
         <div class="sf-content">
 
           <div class="main-content">
-				<ui:include src="../form/formWifi.xhtml" />          
+				<ui:include src="../form/formssh.xhtml" />          
           </div>
           
         </div>
@@ -49,7 +53,7 @@
 
       
     </div>
-	<ui:include src="../../templateTelaLogin/rodape.xhtml" />
+	<ui:include src="../rodape/rodape.xhtml" />
 
 
 </h:body>

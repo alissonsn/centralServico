@@ -1,0 +1,37 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+	
+			<h:form>	
+	
+          	<div class="table-responsive">
+   				<p:dataTable tableStyleClass="table table-striped" value="#{cadastroCargoBean.cargos}" var="cargo">
+      		<p:column headerText="Nome do Cargo">
+         		<h:outputText value="#{cargo.nome}"/>
+      		</p:column>
+      		
+      		<p:column>
+					<h:link outcome="CadastroCargo" value="Editar">
+					<i class="icon-edit"></i>
+					<f:param name="codigo"  value="#{cargo.codigo}"/>
+					</h:link>
+			</p:column>
+			
+			<p:column>
+				<h:commandLink value="Excluir"
+				 action="#{cadastroCargoBean.excluir(cargo)}"
+				 onclick="if (!confirm('Confirmar a exclusão deste Cargo? ')) return false"/>
+				 <i class="icon-remove-sign"></i>
+			</p:column>
+			
+   				</p:dataTable>
+			</div>			
+			</h:form>			
+			
+
+
+
+</ui:composition>
