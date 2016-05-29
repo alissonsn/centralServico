@@ -78,6 +78,10 @@ public class PessoaDnsDAOImpl implements PessoaDnsDAO{
 
 	}
 
+	/** Metodo que verifica vencimento da conta.
+	 *  @param hoje, pessoaWifi, data de hoje e a pessoa.
+	 * @return boolean, retorna true se a conta ainda está ativa falso se esta expirada.
+	 */
 	@Override
 	public boolean isValidate() {
 		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();

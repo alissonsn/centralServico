@@ -16,6 +16,9 @@ import entidades.Zona;
 
 public class ZonaDAOImpl implements ZonaDAO{
 
+	/** Metodo que cria zona direta.
+	 * @param zona, requer objeto zona  para sua criação.
+	 */
 	@Override
 	public void createZonaDireta(Zona dns) {
 		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
@@ -77,6 +80,9 @@ public class ZonaDAOImpl implements ZonaDAO{
 		}
 	}
 
+	/** Metodo que cria zona reversa.
+	 * @param zona, requer objeto zona  para sua criação.
+	 */
 	@Override
 	public void createZonaReversa(Zona dns) {
 		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
@@ -149,31 +155,6 @@ public class ZonaDAOImpl implements ZonaDAO{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-
-
-
-
-
-	@Override
-	public void update(Zona dns) {
-	}
-
-	@Override
-	public void delete(String uid) {
-
-	}
-
-	@Override
-	public Zona find(String uid) {
-
-		return null;
-	}
-
-	@Override
-	public List<Zona> findAll() {
-
-		return null;
 	}
 
 }

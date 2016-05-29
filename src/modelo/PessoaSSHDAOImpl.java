@@ -153,18 +153,6 @@ public class PessoaSSHDAOImpl implements PessoaSSHDAO{
 
 	}
 
-	@Override
-	public void update(PessoaSSH pessoaSSH) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void delete(String uid) {
-		// TODO Auto-generated method stub
-
-	}
-
 	/** Metodo que lista todos os usuario da base de um servidor ldap.
 	 *  @return ArrayList<PessoaSSH>, retorna a lista usuarios da base ssh.
 	 */
@@ -357,8 +345,6 @@ public class PessoaSSHDAOImpl implements PessoaSSHDAO{
 		String dnAdmin = "uid="+ usuario+",ou=admin,ou=ssh,dc=ufrn,dc=br";
 		
 		
-		
-		
 		String searchBase = "ou=ssh,dc=ufrn,dc=br", searchFilter = "(uid="+uid+")";
 		int searchScope = LDAPConnection.SCOPE_ONE;
 		String[] atributos = {"uid", "modifiersName", "modifyTimestamp"};
@@ -400,8 +386,6 @@ public class PessoaSSHDAOImpl implements PessoaSSHDAO{
 			
 		}
 
-		return pessoa;
-
-	
+		return pessoa;	
 	}
 }

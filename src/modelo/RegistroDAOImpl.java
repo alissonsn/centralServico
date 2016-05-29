@@ -27,9 +27,17 @@ import entidades.PessoaDns;
 import entidades.PessoaWifi;
 import entidades.Registro;
 
+/** Classe RegstroDAOImpl que implementa a Interface RegistroDAO, esta classe implementa crud da entidade Registro.
+*
+* @author silas
+*
+*/
 
 public class RegistroDAOImpl implements RegistroDAO{
 
+	/** Metodo que cria registro direto.
+	 * @param registro, requer objeto registro para sua criação.
+	 */
 	@Override
 	public void createRegistroDireto(Registro registro) {
 		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
@@ -79,6 +87,9 @@ public class RegistroDAOImpl implements RegistroDAO{
 		}
 	}
 
+	/** Metodo que cria registro reverso.
+	 * @param registro, requer objeto registro para sua criação.
+	 */
 	@Override
 	public void createRegistroReverso(Registro registro) {
 		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
@@ -133,14 +144,9 @@ public class RegistroDAOImpl implements RegistroDAO{
 		}
 	}
 
-
-
-	@Override
-	public void update(Registro registro) {
-		// TODO Auto-generated method stub
-
-	}
-
+	/** Metodo que remove registro.
+	 * @param registro, requer objeto registro para sua remoção.
+	 */
 	@Override
 	public void delete(Registro registro) throws UnsupportedEncodingException, LDAPException {
 		List<String> atributo = new ArrayList<String>();
@@ -182,18 +188,28 @@ public class RegistroDAOImpl implements RegistroDAO{
 
 	}
 
+	/** Metodo que consulta registro especifico por seu dominio. 
+	 * @return Registro, Contendo registro cadastrado.
+	 */
 	@Override
 	public Registro find(String dominio) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	
+	/** Metodo que consulta todas registro cadastrado. 
+	 * @return List<Registro>, Contendo todos os registros cadastrados.
+	 */
 	@Override
 	public List<Registro> findAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	/** Metodo que consulta todos registros reversos cadastrados. 
+	 * @return List<String'>, Contendo todos os registros reversos cadastrados.
+	 */
 	@Override
 	public List<String> listarRegistroReverso(Registro registro) throws UnsupportedEncodingException {
 		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();

@@ -17,8 +17,12 @@ import modelo.IFalha;
 */
 
 public class FalhaImpl implements IFalha{
+	
+	//Atributo de sessao do hibernate
 	private Session sessao;
 
+	/**Construtor da desta classe que inicializa o atributo de sessao.
+	*/
 	public FalhaImpl(Session sessao){
 		this.sessao = sessao;
 	}

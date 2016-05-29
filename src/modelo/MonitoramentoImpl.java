@@ -14,8 +14,12 @@ import entidades.Monitoramento;
 */
 
 public class MonitoramentoImpl implements IMonitoramento{
+	
+	//Atributo de sessao do hibernate
 	private Session sessao;
 	
+	/**Construtor da desta classe que inicializa o atributo de sessao.
+	*/
 	public MonitoramentoImpl(Session sessao) {
 		this.sessao = sessao;
 	}

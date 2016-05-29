@@ -15,8 +15,12 @@ import org.hibernate.criterion.Order;
 */
 
 public class CargoImpl implements ICargo{
+	
+	//Atributo de sessao do hibernate
 	private Session sessao;
-
+	
+	/**Construtor da desta classe que inicializa o atributo de sessao.
+	*/
 	public CargoImpl(Session sessao){
 		this.sessao = sessao;
 	}

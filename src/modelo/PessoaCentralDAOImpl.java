@@ -60,7 +60,9 @@ public class PessoaCentralDAOImpl implements PessoaCentralDAO{
 		session.invalidate();
 	}
 
-
+	/** Metodo isValidate.
+	 * @return boolean, retorna true se o usuario ainda está conectado falso caso contrário.
+	 */
 	@Override
 	public boolean isValidate() {
 		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();

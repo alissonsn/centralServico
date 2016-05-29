@@ -15,8 +15,12 @@ import modelo.IAtividade;
 */
 
 public class AtividadeImpl implements IAtividade{
+	
+	//Atributo de sessao do hibernate
 	private Session sessao;
 
+	/**Construtor da desta classe que inicializa o atributo de sessao.
+	*/
 	public AtividadeImpl(Session sessao){
 		this.sessao = sessao;
 	}

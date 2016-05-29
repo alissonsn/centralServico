@@ -16,8 +16,11 @@ import modelo.IEquipe;
 */
 
 public class EquipeImpl implements IEquipe{
+	//Atributo de sessao do hibernate
 	private Session sessao;
 
+	/**Construtor da desta classe que inicializa o atributo de sessao.
+	*/
 	public EquipeImpl(Session sessao){
 		this.sessao = sessao;
 	}

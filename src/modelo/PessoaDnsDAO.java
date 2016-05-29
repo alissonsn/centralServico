@@ -15,13 +15,35 @@ import entidades.PessoaSSH;
 */
 
 public interface PessoaDnsDAO {
+	
+	/** Metodo de login.
+	 *@param pessoaDNs, contém objeto para fazer o login.
+	 * @return boolean, retorna true se o login der sucesso e falso caso contrario.
+	 */
 	public boolean login(PessoaDns pessoaDNs);
+	
+	/** Metodo de logout.
+	 */
 	public void logout() throws LDAPException;
+	
+	/** Metodo isValidate.
+	 * @return boolean, retorna true se o usuario ainda está conectado falso caso contrário.
+	 */
 	public boolean isValidate();
 	
+	/** Metodo que cria usuario dns.
+	 * @param pessoaDNS, requer objeto pessoaDNS para sua criação.
+	 */
 	public void create(PessoaDns pessoaDNS);
+	
+	/** Metodo que consulta todas os usuario cadastrado.
+	 *
+	 * @return List<PessoaDns>, Contendo todos os usuarios cadastrados.
+	 */
 	public ArrayList<PessoaDns> findAll() throws UnsupportedEncodingException, ParseException;
+	
+	/** Metodo que migra usuario de uma base para outra.
+	 *@param pessoaDNS, requer objeto par migração
+	 */
 	public void migrate(PessoaDns pessoaDNS) throws UnsupportedEncodingException;
-	
-	
 }

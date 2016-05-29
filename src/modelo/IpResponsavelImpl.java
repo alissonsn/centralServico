@@ -15,8 +15,12 @@ import entidades.Responsavel;
 */
 
 public class IpResponsavelImpl implements IIpResponsavel{
+	
+	//Atributo de sessao do hibernate
 	private Session sessao;
 
+	/**Construtor da desta classe que inicializa o atributo de sessao.
+	*/
 	public IpResponsavelImpl(Session sessao){
 		this.sessao = sessao;
 	}

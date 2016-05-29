@@ -9,7 +9,20 @@ import entidades.PessoaCentral;
 */
 
 public interface PessoaCentralDAO {
+	
+	/** Metodo de login.
+	 *@param pessoaCentral, contém objeto para fazer o login.
+	 * @return boolean, retorna true se o login der sucesso e falso caso contrario.
+	 */
 	public boolean login(PessoaCentral pessoaCentral);
+	
+	/** Metodo de logout.
+	 */
 	public void logout();
+	
+	/** Metodo isValidate.
+	 * @return boolean, retorna true se o usuario ainda está conectado falso caso contrário.
+	 */
+	
 	public boolean isValidate();
 }

@@ -105,22 +105,7 @@ public class PessoaWifiDAOImpl implements PessoaWifiDAO{
 
 	}
 
-	@Override
-	public void update(PessoaWifi pessoaWifi) {
-		//LDAPConnection conn = new LDAPConnection();
-		//(String base, int scope, String filter, String[] attrs, boolean typesOnly)
-		//conn.search("uid=*,ou=802.1x,dc=ufrn,dc=br", 0, , arg3, arg4);
-		//LDAPAttributeSet attributes = new LDAPAttributeSet();
-
-
-	}
-
-	@Override
-	public void delete(String uid) {
-		// TODO Auto-generated method stub
-
-	}
-
+	
 	/** Metodo que consulta todas as pessoas cadastradas na rede wifi visitantes num diretorio LDAP..
 	 *
 	 * @return List<PessoaWifi>, Contendo todas as pessoas cadastradas no diretorio LDAP.
@@ -187,7 +172,7 @@ public class PessoaWifiDAOImpl implements PessoaWifiDAO{
 		LDAPConnection conn = new LDAPConnection();
 		boolean estado = false;
 		try {
-			conn.connect("10.3.226.126",389);
+			conn.connect("10.3.156.9",389);
 			String baseAdmin  = "uid="+ pessoaWifi.getUid()+ ",ou=admin,ou=802.1x,dc=ufrn,dc=br";
 			conn.bind(LDAPConnection.LDAP_V3, baseAdmin, pessoaWifi.getSenha().getBytes());
 			if (conn.isBound()) {
@@ -254,7 +239,9 @@ public class PessoaWifiDAOImpl implements PessoaWifiDAO{
 		return data;
 	}
 
-
+	/** Metodo isValidate.
+	 * @return boolean, retorna true se o usuario ainda está conectado falso caso contrário.
+	 */
 	@Override
 	public boolean isValidate() {
 		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
