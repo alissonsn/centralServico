@@ -3,6 +3,11 @@ package entidades;
 import java.io.Serializable;
 import java.util.Date;
 
+/** Classe PessoaWifi que possui os metodos de acesso getter e setters da entidade PessoaWifi.
+*
+* @author silas
+*
+*/
 
 public class PessoaWifi implements Serializable{
 		private String uid;

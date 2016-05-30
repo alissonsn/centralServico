@@ -3,6 +3,11 @@ package entidades;
 import java.io.Serializable;
 import java.util.Date;
 
+/** Classe PessoaDns que possui os metodos de acesso getter e setters da entidade PessoaDns.
+*
+* @author silas
+*
+*/
 
 public class PessoaDns implements Serializable{
 		private String uid;

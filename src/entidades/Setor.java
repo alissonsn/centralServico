@@ -8,7 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/** Classe para objetos Equipe, é o modelo de um objeto Equipe.
+/** Classe Setor que possui os metodos de acesso getter e setters, 
+ * e também o mapeamento relacional das tabelas via hibernate, da entidade Setor.
 *
 * @author silas
 *

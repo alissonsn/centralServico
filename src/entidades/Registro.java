@@ -2,6 +2,12 @@ package entidades;
 
 import java.io.Serializable;
 
+/** Classe Registro que possui os metodos de acesso getter e setters da entidade Registro.
+*
+* @author silas
+*
+*/
+
 public class Registro implements Serializable{
 	private String dominio;
 	private String ip;

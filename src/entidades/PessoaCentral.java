@@ -1,5 +1,11 @@
 package entidades;
 
+/** Classe PessoaCentral que possui os metodos de acesso getter e setters da entidade PessoaCentral.
+*
+* @author silas
+*
+*/
+
 public class PessoaCentral {
 	private String uid;
 	private String senha;

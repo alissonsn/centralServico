@@ -3,6 +3,11 @@ package entidades;
 import java.io.Serializable;
 import java.util.Date;
 
+/** Classe PessoaSSH que possui os metodos de acesso getter e setters da entidade PessoaSSH.
+*
+* @author silas
+*
+*/
 
 public class PessoaSSH implements Serializable{
 		private String uid;

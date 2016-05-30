@@ -2,6 +2,12 @@ package entidades;
 
 import java.io.Serializable;
 
+/** Classe Zona que possui os metodos de acesso getter e setters da entidade Zona.
+*
+* @author silas
+*
+*/
+
 public class Zona implements Serializable{
 	private String zona;
 	private String dominio;

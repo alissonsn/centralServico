@@ -10,6 +10,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/** Classe Monitoramento que possui os metodos de acesso getter e setters, 
+ * e também o mapeamento relacional das tabelas via hibernate, da entidade Monitoramento.
+*
+* @author silas
+*
+*/
+
 @Entity
 @Table
 public class Monitoramento implements Serializable, Cloneable{
