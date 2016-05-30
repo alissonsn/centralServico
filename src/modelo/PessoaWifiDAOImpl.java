@@ -82,7 +82,7 @@ public class PessoaWifiDAOImpl implements PessoaWifiDAO{
 
 	    LDAPConnection conn = new LDAPConnection();
 		try {
-			conn.connect("10.3.226.126",389);
+			conn.connect("10.3.156.9",389);
 		} catch (LDAPException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -126,7 +126,7 @@ public class PessoaWifiDAOImpl implements PessoaWifiDAO{
 
 		LDAPConnection lc = new LDAPConnection();
 		try {
-			lc.connect("10.3.226.126", 389 );
+			lc.connect("10.3.156.9", 389 );
 			lc.bind( LDAPConnection.LDAP_V3, loginDN,  senha.getBytes("UTF8"));
 			LDAPSearchResults searchResults = lc.search(searchBase, searchScope, searchFilter, atributos, false);
 			while (searchResults.hasMore() ) {
