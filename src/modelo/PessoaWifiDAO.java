@@ -27,11 +27,6 @@ public interface PessoaWifiDAO {
 	/** Metodo de logout num diretorio LDAP.
 	 */
 	public void logout() throws LDAPException;
-	
-	/** Metodo isValidate.
-	 * @return boolean, retorna true se o usuario ainda está conectado falso caso contrário.
-	 */
-	public boolean isValidate();
 
 	/** Metodo que cria pessoawifi.
 	 * @param pessoawifi, requer objeto pessoawifi para sua criação.

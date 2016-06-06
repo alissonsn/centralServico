@@ -77,25 +77,7 @@ public class PessoaDnsDAOImpl implements PessoaDnsDAO{
 
 
 	}
-
-	/** Metodo que verifica vencimento da conta.
-	 *  @param hoje, pessoaWifi, data de hoje e a pessoa.
-	 * @return boolean, retorna true se a conta ainda está ativa falso se esta expirada.
-	 */
-	@Override
-	public boolean isValidate() {
-		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-		HttpSession session = (HttpSession) req.getSession();
-		String usuario = (String) session.getAttribute("usuarioDns");
-		String senha = (String) session.getAttribute("senhaDns");
-		boolean pagina = false;
-		if (usuario != null && senha != null) {
-			pagina = true;
-		}else{
-			pagina = false;
-		}
-		return pagina;
-	}
+	
 
 	/** Metodo que migra um usuario da base de um servidor ldap para outro.
 	 *  @param pessoaDNS, usuario que será migrado.

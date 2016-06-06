@@ -20,19 +20,6 @@ public class PessoaCentralController {
 		return  "login.xhtml?faces-redirect=true";
 	}
 
-	public String isvalidate(){
-		String pagina = "";
-		if (pessoaCentralDAO.isValidate() == true) {
-			pagina = "http://snmp.info.ufrn.br:8080/centralServico/site/central/body/central.xhtml";
-		}else{
-
-			pagina = "http://snmp.info.ufrn.br:8080/centralServico/site/central/login.xhtml";
-		}
-		return pagina;
-
-	}
-
-
 	public String logout(){
 		pessoaCentralDAO.logout();
 		return "http://snmp.info.ufrn.br:8080/centralServico/index.xhtml?faces-redirect=true";

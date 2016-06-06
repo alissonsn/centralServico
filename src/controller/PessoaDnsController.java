@@ -34,19 +34,6 @@ public class PessoaDnsController implements Serializable{
 		return "login.xhtml?faces-redirect=true";
 	}
 
-	public String isvalidate(){
-		String pagina = "";
-		if (pessoaDnsDAO.isValidate() == true) {
-			System.out.println(pessoaDnsDAO.isValidate());
-			pagina = "http://snmp.info.ufrn.br:8080/centralServico/site/dns/body/dns.xhtml";
-		}else{
-			System.out.println(pessoaDnsDAO.isValidate());
-			pagina = "http://snmp.info.ufrn.br:8080/centralServico/site/dns/login.xhtml";
-		}
-		return pagina;
-	}
-
-
 	public String AdicionarUsuario() throws UnsupportedEncodingException{
 		PessoaDnsDAO pessoaDNSDAO = new PessoaDnsDAOImpl();
 		pessoaDNSDAO.create(pessoaDns);

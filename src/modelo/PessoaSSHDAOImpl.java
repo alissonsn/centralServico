@@ -80,22 +80,6 @@ public class PessoaSSHDAOImpl implements PessoaSSHDAO{
 
 	}
 
-	@Override
-	public boolean isValidate() {
-		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-		HttpSession session = (HttpSession) req.getSession();
-
-		String usuario = (String) session.getAttribute("usuarioSSH");
-		String senha = (String) session.getAttribute("senhaSSH");
-		boolean pagina = false;
-		if (usuario != null && senha != null) {
-			pagina = true;
-		}else{
-			pagina = false;
-		}
-		return pagina;
-	}
-
 	/** Metodo que cria usuario da base ssh de um servidor ldap.
 	 *  @param pessoaSSH, requer objeto pessoaSSH para sua criação.
 	 */

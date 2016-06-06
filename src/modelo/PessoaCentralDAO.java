@@ -19,10 +19,4 @@ public interface PessoaCentralDAO {
 	/** Metodo de logout.
 	 */
 	public void logout();
-	
-	/** Metodo isValidate.
-	 * @return boolean, retorna true se o usuario ainda está conectado falso caso contrário.
-	 */
-	
-	public boolean isValidate();
 }

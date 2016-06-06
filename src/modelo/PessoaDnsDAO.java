@@ -26,11 +26,6 @@ public interface PessoaDnsDAO {
 	 */
 	public void logout() throws LDAPException;
 	
-	/** Metodo isValidate.
-	 * @return boolean, retorna true se o usuario ainda está conectado falso caso contrário.
-	 */
-	public boolean isValidate();
-	
 	/** Metodo que cria usuario dns.
 	 * @param pessoaDNS, requer objeto pessoaDNS para sua criação.
 	 */

@@ -59,23 +59,4 @@ public class PessoaCentralDAOImpl implements PessoaCentralDAO{
 		session.removeAttribute("senhaCentral");
 		session.invalidate();
 	}
-
-	/** Metodo isValidate.
-	 * @return boolean, retorna true se o usuario ainda está conectado falso caso contrário.
-	 */
-	@Override
-	public boolean isValidate() {
-		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-		HttpSession session = (HttpSession) req.getSession();
-		String usuario = (String) session.getAttribute("usuarioCentral");
-		String senha = (String) session.getAttribute("senhaCentral");
-		boolean pagina = false;
-		if (usuario != null && senha != null) {
-			pagina = true;
-		}else{
-			pagina = false;
-		}
-		return pagina;
-	}
-
 }

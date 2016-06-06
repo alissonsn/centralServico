@@ -41,18 +41,6 @@ public class PessoaWifiController implements Serializable{
 		return false;
 	}
 
-	public String isvalidate(){
-		String pagina = "";
-		if (pessoaWifiDAO.isValidate() == true) {
-			pagina = "http://snmp.info.ufrn.br:8080/centralServico/site/wifi/body/wifi.xhtml";
-		}else{
-			pagina = "http://snmp.info.ufrn.br:8080/centralServico/site/wifi/login.xhtml";
-		}
-		return pagina;
-
-	}
-
-
 	public String logout() throws LDAPException{
 		pessoaWifiDAO.logout();
 		return "http://snmp.info.ufrn.br:8080/centralServico/index.xhtml?faces-redirect=true";

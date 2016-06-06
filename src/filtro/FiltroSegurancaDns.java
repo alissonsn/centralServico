@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -21,7 +22,7 @@ import javax.servlet.http.HttpSession;
 */
 
 @WebFilter(urlPatterns="/site/dns/body/")
-public class FiltroSegurancaDns implements Filter {
+public class FiltroSegurancaDns  implements Filter {
 
 	@Override
 	public void destroy() {
@@ -36,26 +37,31 @@ public class FiltroSegurancaDns implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
-		//Atributo de requisição http
-		HttpServletRequest httpRequest = (HttpServletRequest) request;
-		//Atributo de resposta de requisição http
-		HttpServletResponse httpResponse = (HttpServletResponse) response;
-		//Atributo de sessao de requisição http
-		HttpSession sessao = httpRequest.getSession(false);
-		//Comparando se os atributos de sessão estão nulos, se não forem o sistema libera o acesso
-		// senão redireciona o usuario para pagina inicial do sistema.
-		if (sessao.getAttribute("usuarioDns") != null && sessao.getAttribute("senhaDns") != null){
-			//Aplica a politica 
-			chain.doFilter(request, response);
-			 } else {
-				//Redirencionando o usuario para a pagina inicial do sistema
-				 httpResponse.sendRedirect("http://snmp.info.ufrn.br:8080/centralServico/index.xhtml");
-        }
-	}
+		try {
+			 
+			//Atributo de requisição http
+            HttpServletRequest req = (HttpServletRequest) request;
+            //Atributo de resposta de requisição http
+            HttpServletResponse res = (HttpServletResponse) response;
+            //Atributo de sessao de requisição http
+            HttpSession ses = req.getSession(false);
+            //String da requisição http
+            String reqURI = req.getRequestURI();
+            //Comparando se os atributos de sessão estão nulos, se não forem o sistema libera o acesso para a pagina solicitada
+    		//senão redireciona o usuario para pagina de login do sistema.
+            if (  (ses != null && ses.getAttribute("usuarioDns") != null && ses.getAttribute("senhaDns") != null)
+                                       || reqURI.indexOf("/site/dns/body/") >= 0 && reqURI.contains("javax.faces.resource") )
+                   chain.doFilter(request, response);
+            else   
+            	//Usuario não tem sessao aberta ainda, portanto o servidor redireciona ele para a pagina de login.
+                   res.sendRedirect(req.getContextPath() + "/site/dns/login.xhtml");  
+      }
+     catch(Throwable t) {
+         System.out.println( t.getMessage());
+     }
+    }
+ 
 	@Override
 	public void init(FilterConfig arg0) throws ServletException {
-		// TODO Auto-generated method stub
-
-	}
-
+	}	
 }

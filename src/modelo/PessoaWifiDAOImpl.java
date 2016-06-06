@@ -238,23 +238,4 @@ public class PessoaWifiDAOImpl implements PessoaWifiDAO{
 			data = true;
 		return data;
 	}
-
-	/** Metodo isValidate.
-	 * @return boolean, retorna true se o usuario ainda está conectado falso caso contrário.
-	 */
-	@Override
-	public boolean isValidate() {
-		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-		HttpSession session = (HttpSession) req.getSession();
-
-		String usuario = (String) session.getAttribute("usuarioWifi");
-		String senha = (String) session.getAttribute("senhaWifi");
-		boolean pagina = false;
-		if (usuario != null && senha != null) {
-			pagina = true;
-		}else{
-			pagina = false;
-		}
-		return pagina;
-	}
 }

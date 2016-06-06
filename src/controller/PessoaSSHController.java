@@ -34,18 +34,6 @@ public class PessoaSSHController implements Serializable{
 		return pagina;
 	}
 
-	public String isvalidate(){
-		String pagina = "";
-		if (pessoaSSHDAO.isValidate() == true) {
-			pagina = "http://snmp.info.ufrn.br:8080/centralServico/site/remoto/body/ssh.xhtml";
-		}else{
-			pagina = "http://snmp.info.ufrn.br:8080/centralServico/site/remoto/login.xhtml";
-		}
-		return pagina;
-
-	}
-
-
 	public String logout() throws LDAPException{
 		pessoaSSHDAO.logout();
 		return "http://snmp.info.ufrn.br:8080/centralServico/index.xhtml?faces-redirect=true";

@@ -26,11 +26,6 @@ public interface PessoaSSHDAO {
 	/** Metodo de logout num diretorio LDAP.
 	 */
 	public void logout() throws LDAPException;
-	
-	/** Metodo isValidate.
-	 * @return boolean, retorna true se o usuario ainda está conectado falso caso contrário.
-	 */
-	public boolean isValidate();
 
 	/** Metodo que cria usuario dns.
 	 * @param pessoaSSH, requer objeto pessoaSSH para sua criação.

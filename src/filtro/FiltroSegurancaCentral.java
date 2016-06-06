@@ -35,21 +35,28 @@ public class FiltroSegurancaCentral implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
-		//Atributo de requisição http
-		HttpServletRequest httpRequest = (HttpServletRequest) request;
-		//Atributo de resposta de requisição http
-		HttpServletResponse httpResponse = (HttpServletResponse) response;
-		//Atributo de sessao de requisição http
-		HttpSession sessao = httpRequest.getSession(false);
-		//Comparando se os atributos de sessão estão nulos, se não forem o sistema libera o acesso
-		//senão redireciona o usuario para pagina inicial do sistema.
-		if (sessao.getAttribute("usuarioCentral") != null && sessao.getAttribute("senhaCentral") != null){
-			//Aplica a politica 
-			chain.doFilter(request, response);
-			 } else {
-				//Redirencionando o usuario para a pagina inicial do sistema
-				 httpResponse.sendRedirect("http://snmp.info.ufrn.br:8080/centralServico/index.xhtml");
-        }
+		try {
+			 
+			//Atributo de requisição http
+	       HttpServletRequest req = (HttpServletRequest) request;
+	       //Atributo de resposta de requisição http
+	       HttpServletResponse res = (HttpServletResponse) response;
+	       //Atributo de sessao de requisição http
+	       HttpSession ses = req.getSession(false);
+	       //String da requisição http
+	       String reqURI = req.getRequestURI();
+	       //Comparando se os atributos de sessão estão nulos, se não forem o sistema libera o acesso para a pagina solicitada
+			//senão redireciona o usuario para pagina de login do sistema.
+	       if (  (ses != null && ses.getAttribute("usuarioCentral") != null && ses.getAttribute("senhaCentral") != null)
+	                                  || reqURI.indexOf("/site/central/body/") >= 0 && reqURI.contains("javax.faces.resource") )
+	              chain.doFilter(request, response);
+	       else   
+	       	//Usuario não tem sessao aberta ainda, portanto o servidor redireciona ele para a pagina de login.
+	              res.sendRedirect(req.getContextPath() + "/site/central/login.xhtml");  
+	 }
+	catch(Throwable t) {
+	    System.out.println( t.getMessage());
+	}
 	}
 	@Override
 	public void init(FilterConfig arg0) throws ServletException {
