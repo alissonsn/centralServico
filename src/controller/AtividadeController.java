@@ -5,13 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
-
-
-
 
 import modelo.IAtividade;
 import modelo.IEquipe;
@@ -22,15 +17,25 @@ import entidades.Equipe;
 import entidades.Servico;
 import util.Repositorios;
 
+/** Classe AtividadeController responsavel por unir as views referentes da classe atividade.
+*
+* @author silas
+*
+*/
+
 @ManagedBean(name="cadastroAtividadeBean")
 @RequestScoped
 public class AtividadeController implements Serializable{
+	
 	private Repositorios repositorios = new Repositorios();
 	private Atividade atividade = new Atividade();
 	private List<Atividade> atividades = new ArrayList<Atividade>();
 	private List<Equipe> equipes  = new ArrayList<Equipe>();
 	private List<Servico> servicos = new ArrayList<Servico>();
 
+	/**Metodo de inicialização, responsavel por inicializar todas as listas desta classe.
+	 * @see respositorios, utilizando a instancia que implementa das interfaces IAtividade, IEqquipe, IServico respectivamente.
+	*/
 	@PostConstruct
 	public void init(){
 		IAtividade atividades = this.repositorios.getAtividade();
@@ -41,24 +46,37 @@ public class AtividadeController implements Serializable{
 		this.servicos = servicos.listar();
 	}
 
+	/** Metodo que cria uma atividade.
+	 * @see respositorios, utilizando a instancia que implementa a interface da classe atividade.
+	 */
 	public void cadastrar(){
+		//Interface atividade é instanciada com sua implementação
 		IAtividade atividades = this.repositorios.getAtividade();
+		//Chamando o metodos salvar atividade
 		atividades.salvar(atividade);
-		this.atividade = new Atividade();
-
-		String msg = "Cadastro efetuado com sucesso!";
-		FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage(FacesMessage.SEVERITY_INFO, msg, msg));
 	}
 
+	/** Metodo que atualiza uma atividade.
+	 * @param atividade, objeto atividade a ser atualizado
+	 * @see respositorios, utilizando a instancia que implementa a interface da classe atividade.
+	 */
 	public void update(Atividade atividade){
+		//Interface atividade é instanciada com sua implementação
 		IAtividade atividades = this.repositorios.getAtividade();
+		//Chamando o metodo editar atividade
 		atividades.editar(atividade);
 	}
 
+	/** Metodo que remove uma atividade.
+	 * @param atividade, objeto atividade a ser removido
+	 * @see respositorios, utilizando a instancia que implementa a interface da classe atividade.
+	 */
 	public void remover(Atividade atividade){
+		//Interface atividade é instanciada com sua implementação
 		IAtividade atividades = this.repositorios.getAtividade();
+		//Chamando o metodo remove atividade
 		atividades.remover(atividade);
+		//Chama o metodo init para atualizar as listas da atividade
 		this.init();
 	}
 
@@ -98,6 +116,4 @@ public class AtividadeController implements Serializable{
 	public void setServicos(List<Servico> servicos) {
 		this.servicos = servicos;
 	}
-
-
 }

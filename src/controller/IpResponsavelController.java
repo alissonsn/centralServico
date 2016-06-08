@@ -11,14 +11,10 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
 import entidades.Cargo;
-import entidades.Equipe;
 import entidades.IpResponsavel;
-import entidades.Responsavel;
 import entidades.Setor;
 import modelo.ICargo;
-import modelo.IEquipe;
 import modelo.IIpResponsavel;
-import modelo.IResponsavel;
 import modelo.ISetor;
 import util.Repositorios;
 
@@ -32,6 +28,7 @@ public class IpResponsavelController implements Serializable{
 	private List<Setor> setores = new ArrayList<Setor>();
 	private List<Cargo> cargos = new ArrayList<Cargo>();
 
+	
 	@PostConstruct
 	public void init(){
 		IIpResponsavel ipresponsaveis = this.repositorios.getIpResponsavel();
