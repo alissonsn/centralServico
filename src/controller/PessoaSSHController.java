@@ -55,23 +55,7 @@ public class PessoaSSHController implements Serializable{
 		PessoaSSHDAO pessoaSSHDAO = new PessoaSSHDAOImpl();
 		pessoasSSH = pessoaSSHDAO.findAll();
 		return pessoasSSH;
-		//return "body/ListarUsuarios.xhtml?faces-redirect=true";
 	}
-	
-	/*
-	public String AdicionarUsuario(){
-			PessoaWifiDAO pessoaWifiDAO = new PessoaWifiDAOImpl();
-			pessoaWifiDAO.create(pessoaWifi);
-			return "wifi.xhtml?faces-redirect=true";
-	}
-
-	public ArrayList<PessoaWifi> Listarusuario() throws UnsupportedEncodingException, ParseException{
-		PessoaWifiDAO pessoaWifiDAO = new PessoaWifiDAOImpl();
-		pessoasWifi = pessoaWifiDAO.findAll();
-		return pessoasWifi;
-		//return "body/ListarUsuarios.xhtml?faces-redirect=true";
-	}
-*/
 
 
 	public PessoaSSH getPessoaSSH() {

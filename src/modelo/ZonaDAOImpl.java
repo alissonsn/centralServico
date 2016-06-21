@@ -1,7 +1,7 @@
 package modelo;
 
 
-import java.util.List;
+
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -72,11 +72,13 @@ public class ZonaDAOImpl implements ZonaDAO{
 		LDAPEntry entryDominioZone = new LDAPEntry(baseDominioZonaDireta, attributes);
 
 		try {
+			
 			conn.add(entryZone);
 			conn.add(entryDominioZone);
 		} catch (LDAPException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		
 		}
 	}
 

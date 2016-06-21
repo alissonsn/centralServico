@@ -4,9 +4,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
+<f:metadata>
+      	<f:viewParam name="codigo" value="#{PessoaSSHBean.pessoaSSH}"></f:viewParam>
+</f:metadata>
 
 <h:head>
 	<f:facet name="first">
@@ -36,12 +38,13 @@
       
       
       <div class="container-fluid">
-      	<ui:include src="../barraLateral/aside-left-ssh.xhtml" /> 
+      	<ui:include src="../barraLateral/aside-left-owncloud.xhtml" />  
         
 
         <div class="sf-content">
 
           <div class="main-content">
+				<ui:include src="../form/formowncloud.xhtml" />          
           </div>
           
         </div>

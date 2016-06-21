@@ -1,0 +1,44 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+	
+			<h:form>	
+	
+          	<div class="table-responsive">
+   				<p:dataTable tableStyleClass="table table-striped" value="#{OwncloudBean.Listarusuario()}" var="owncloud">
+      		
+      		<p:column filterBy="#{owncloud.uid}" style="text-align: center"
+					filterMatchMode="startsWith">
+      				<f:facet name="header">
+						<h:outputText value="Usuario" />
+					</f:facet>
+         				<h:outputText value="#{owncloud.uid}"/>
+      		</p:column>
+      		
+      		<p:column headerText="Usuario que Modificou">
+         		<h:outputText value="#{owncloud.modificador}"/>
+      		</p:column>
+      		
+      		
+      		<p:column headerText="Data de Modificação">
+         		<h:outputText value="#{owncloud.ultimaModificacao}">
+         			<f:convertDateTime pattern="dd-MM-yyyy HH:mm:ss"/>
+         		</h:outputText>
+      		</p:column>
+      					
+      					
+      		<p:column>
+					<h:link outcome="CadastroUsuario" value="Editar">
+					<i class="icon-edit"></i>
+					<f:param name="codigo"  value="#{owncloud.uid}"/>
+					</h:link>
+			</p:column>
+      		
+   		</p:dataTable>
+			</div>			
+			</h:form>			
+
+</ui:composition>

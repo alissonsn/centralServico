@@ -4,9 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
-
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
 	<f:facet name="first">
@@ -19,7 +17,7 @@
 
 	<f:facet name="middle">
 
-		<h:outputStylesheet name="css/sinfo-theme-admin.css" />
+		<h:outputStylesheet name="css/sinfo.css" />
 		<h:outputStylesheet library="font-awesome" name="vendor/fontawesome/css/font-awesome.css" />
 
 		<h:outputScript name="vendor/jQuery/dist/jquery.min.js" />
@@ -30,28 +28,23 @@
 </h:head>
 <h:body>
 
+
+
 <div id="site-wrapper">
-      <ui:include src="../cabecalho/cabecalho.xhtml" />
-      <ui:include src="../../templateTelaLogin/admin_barra_sistema.xhtml" />
-      
-      
-      <div class="container-fluid">
-      	<ui:include src="../barraLateral/aside-left-ssh.xhtml" /> 
-        
-
-        <div class="sf-content">
-
-          <div class="main-content">
-          </div>
-          
+      <ui:include src="../templateLogin/cabecalho.xhtml" />
+      <div class="secao-bg-sinfo">
+        <div class="container">
+          <div class="sinfo-marcadagua"></div>
         </div>
-
       </div>
 
-      
+      <div class="container">
+		<ui:include src="form/box_loginowncloud.xhtml" />
+      </div>
     </div>
-	<ui:include src="../rodape/rodape.xhtml" />
-
+	<ui:include src="../templateLogin/rodape.xhtml" />
 
 </h:body>
 </html>
+
+
