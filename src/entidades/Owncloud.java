@@ -13,7 +13,6 @@ public class Owncloud implements Serializable{
 		private String uid;
 		private String cn;
 		private String sn;
-		private String senha;
 		private String userPassword;
 		private String modificador;
 		private Date ultimaModificacao;
@@ -42,14 +41,6 @@ public class Owncloud implements Serializable{
 			this.sn = sn;
 		}
 
-		public String getSenha() {
-			return senha;
-		}
-
-		public void setSenha(String senha) {
-			this.senha = senha;
-		}
-
 		public String getUserPassword() {
 			return userPassword;
 		}
@@ -74,14 +65,21 @@ public class Owncloud implements Serializable{
 			this.ultimaModificacao = ultimaModificacao;
 		}
 
+		
+
 		@Override
 		public int hashCode() {
 			final int prime = 31;
 			int result = 1;
 			result = prime * result + ((cn == null) ? 0 : cn.hashCode());
-			result = prime * result + ((senha == null) ? 0 : senha.hashCode());
+			result = prime * result
+					+ ((modificador == null) ? 0 : modificador.hashCode());
 			result = prime * result + ((sn == null) ? 0 : sn.hashCode());
 			result = prime * result + ((uid == null) ? 0 : uid.hashCode());
+			result = prime
+					* result
+					+ ((ultimaModificacao == null) ? 0 : ultimaModificacao
+							.hashCode());
 			result = prime * result
 					+ ((userPassword == null) ? 0 : userPassword.hashCode());
 			return result;
@@ -101,10 +99,10 @@ public class Owncloud implements Serializable{
 					return false;
 			} else if (!cn.equals(other.cn))
 				return false;
-			if (senha == null) {
-				if (other.senha != null)
+			if (modificador == null) {
+				if (other.modificador != null)
 					return false;
-			} else if (!senha.equals(other.senha))
+			} else if (!modificador.equals(other.modificador))
 				return false;
 			if (sn == null) {
 				if (other.sn != null)
@@ -115,6 +113,11 @@ public class Owncloud implements Serializable{
 				if (other.uid != null)
 					return false;
 			} else if (!uid.equals(other.uid))
+				return false;
+			if (ultimaModificacao == null) {
+				if (other.ultimaModificacao != null)
+					return false;
+			} else if (!ultimaModificacao.equals(other.ultimaModificacao))
 				return false;
 			if (userPassword == null) {
 				if (other.userPassword != null)

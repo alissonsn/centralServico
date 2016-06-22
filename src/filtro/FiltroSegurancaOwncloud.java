@@ -47,7 +47,6 @@ public class FiltroSegurancaOwncloud implements Filter {
 	       HttpSession ses = req.getSession(false);
 	       //String da requisição http
 	       String reqURI = req.getRequestURI();
-	       System.out.println(reqURI);
 	       //Comparando se os atributos de sessão estão nulos, se não forem o sistema libera o acesso para a pagina solicitada
 			//senão redireciona o usuario para pagina de login do sistema.
 	       if (  (ses != null && ses.getAttribute("usuarioOwncloud") != null && ses.getAttribute("senhaOwncloud") != null)

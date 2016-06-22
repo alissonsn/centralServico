@@ -234,7 +234,6 @@ public class PessoaSSHDAOImpl implements PessoaSSHDAO{
 	    attributes.add(new LDAPAttribute("gidNumber", "10"));
 	    attributes.add(new LDAPAttribute("uidNumber", numero));
 	    attributes.add(new LDAPAttribute("uid", pessoaAbobora.getUid()));
-	    //attributes.add(new LDAPAttribute("mail", pessoaAbobora.getEmail()));
 	    attributes.add(new LDAPAttribute("homeDirectory", "/bin/"+pessoaAbobora.getUid()));
 	    attributes.add(new LDAPAttribute("gecos", pessoaAbobora.getUid()+",,,"));
 	    attributes.add(new LDAPAttribute("userPassword", pessoaAbobora.getUserPassword()));

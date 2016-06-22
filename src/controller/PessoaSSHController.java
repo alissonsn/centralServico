@@ -25,11 +25,10 @@ public class PessoaSSHController implements Serializable{
 
 	public String logar(){
 		String pagina = "";
-		System.out.println("Resultado Login = "+ pessoaSSHDAO.login(pessoaSSH));
 		if (pessoaSSHDAO.login(pessoaSSH) ) {
 			pagina = "body/ssh.xhtml?faces-redirect=true";
 		}else{
-		pagina =  "login.xhtml?faces-redirect=true";
+			pagina =  "login.xhtml?faces-redirect=true";
 		}
 		return pagina;
 	}

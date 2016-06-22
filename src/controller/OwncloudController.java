@@ -25,7 +25,7 @@ public class OwncloudController implements Serializable{
 		if (iOwncloud.login(owncloud) ) {
 			pagina = "body/owncloud.xhtml?faces-redirect=true";
 		}else{
-		pagina =  "login.xhtml?faces-redirect=true";
+			pagina = "login.xhtml?faces-redirect=true";
 		}
 		return pagina;
 	}

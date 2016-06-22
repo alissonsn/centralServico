@@ -33,13 +33,13 @@ public class OwncloudDAOImpl implements IOwncloud{
 		try {
 			conn.connect("10.3.156.9",389);
 			String baseAdmin  = "uid="+ owncloud.getUid()+ ",ou=admin,ou=owncloud,dc=ufrn,dc=br";
-			String senha = owncloud.getSenha();
+			String senha = owncloud.getUserPassword();
 			conn.bind(LDAPConnection.LDAP_V3, baseAdmin, senha.getBytes());
 			if (conn.isBound()) {
 				FacesContext fc = FacesContext.getCurrentInstance();
 				HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
 				session.setAttribute("usuarioOwncloud", owncloud.getUid());
-				session.setAttribute("senhaOwncloud", owncloud.getSenha());
+				session.setAttribute("senhaOwncloud", owncloud.getUserPassword());
 				session.setAttribute("ldapOwncloud", conn);
 				estado = true;
 			}else{
@@ -87,7 +87,7 @@ public class OwncloudDAOImpl implements IOwncloud{
 	    attributes.add(new LDAPAttribute("cn", owncloud.getUid()));
 	    attributes.add(new LDAPAttribute("sn", owncloud.getUid()));
 	    attributes.add(new LDAPAttribute("uid", owncloud.getUid()));
-	    attributes.add(new LDAPAttribute("userPassword", owncloud.getSenha()));
+	    attributes.add(new LDAPAttribute("userPassword", owncloud.getUserPassword()));
 	    
 	    LDAPConnection conn = new LDAPConnection();
 		try {
