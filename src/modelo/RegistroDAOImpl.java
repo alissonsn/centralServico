@@ -15,6 +15,8 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import util.SchemasLDAP;
+
 import com.novell.ldap.LDAPAttribute;
 import com.novell.ldap.LDAPAttributeSet;
 import com.novell.ldap.LDAPConnection;
@@ -37,30 +39,21 @@ public class RegistroDAOImpl implements RegistroDAO{
 
 	/** Metodo que cria registro direto.
 	 * @param registro, requer objeto registro para sua criação.
+	 * @throws UnsupportedEncodingException 
+	 * @throws LDAPException 
 	 */
 	@Override
-	public void createRegistroDireto(Registro registro) {
+	public void createRegistroDireto(Registro registro) throws UnsupportedEncodingException, LDAPException {
 		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		HttpSession session = (HttpSession) req.getSession();
 		String usuario = (String) session.getAttribute("usuarioDns");
 		String senha  = (String) session.getAttribute("senhaDns");
 
-		//Atributos para criação do do registro Direto
-		String[] objectClassRegistroDireto = new String[2];
-	    objectClassRegistroDireto [0] = "top";
-	    objectClassRegistroDireto [1] = "dNSZone";
-	    LDAPAttributeSet attributesRegistroDireto = new LDAPAttributeSet();
-	    attributesRegistroDireto.add(new LDAPAttribute("objectClass", objectClassRegistroDireto));
-	    attributesRegistroDireto.add(new LDAPAttribute("relativeDomainName", registro.getNomeMaquina()));
-	    attributesRegistroDireto.add(new LDAPAttribute("zoneName", registro.getDominio()));
-	    attributesRegistroDireto.add(new LDAPAttribute("dNSTTL", "604800"));
-	    attributesRegistroDireto.add(new LDAPAttribute("dNSClass", "IN"));
-	    attributesRegistroDireto.add(new LDAPAttribute("aRecord", registro.getIp()));
-
-
-
-
-
+		List<String> atributo = new ArrayList<String>();
+		atributo = this.listarRegistroDireto(registro);
+		SchemasLDAP schema = new SchemasLDAP();
+		LDAPAttributeSet attributesRegistroDireto = new LDAPAttributeSet();		
+		
 		String dnAdmin = "uid="+ usuario+",ou=admin,ou=dns,dc=ufrn,dc=br";
 		LDAPConnection conexao = new LDAPConnection();
 
@@ -77,46 +70,49 @@ public class RegistroDAOImpl implements RegistroDAO{
 			e.printStackTrace();
 		}
 		String baseRegistroDireto = "relativeDomainName="+registro.getNomeMaquina()+",zoneName="+registro.getDominio()+",ou=dns,dc=ufrn,dc=br";
-
-		LDAPEntry entryRegistroDireto= new LDAPEntry(baseRegistroDireto, attributesRegistroDireto);
-		try {
+		//System.out.println("DN: " + baseRegistroDireto);
+		//System.out.println("tamanho da lista de registros:" + atributo) ;
+		//System.out.println("tamanho da lista de registros:" + atributo.size()) ;
+		
+		if (atributo.size() > 0) {
+			LDAPAttribute attributesRegistroDiretoAdicionar = schema.RegistroDiretoAdicionar(registro, "aRecord");
+			LDAPModification singleChange = new LDAPModification( LDAPModification.ADD, attributesRegistroDiretoAdicionar );
+			conexao.modify(baseRegistroDireto, singleChange);
+		}else{
+			attributesRegistroDireto = schema.RegistroDireto(registro);
+			LDAPEntry entryRegistroDireto = new LDAPEntry(baseRegistroDireto, attributesRegistroDireto);
 			conexao.add(entryRegistroDireto);
-		} catch (LDAPException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 
 	/** Metodo que cria registro reverso.
 	 * @param registro, requer objeto registro para sua criação.
+	 * @throws UnsupportedEncodingException 
+	 * @throws LDAPException 
 	 */
 	@Override
-	public void createRegistroReverso(Registro registro) {
+	public void createRegistroReverso(Registro registro) throws UnsupportedEncodingException, LDAPException {
 		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		HttpSession session = (HttpSession) req.getSession();
 		String usuario = (String) session.getAttribute("usuarioDns");
 		String senha  = (String) session.getAttribute("senhaDns");
-
+		List<String> atributo = new ArrayList<String>();
+		
 		//Atributos para criação do do registro Reverso
 	    //Divindo o ip por octais
 	  	String[] octal = registro.getIp().toString().split("\\.");
 	  	Object primeiroOctal = octal[0];
 	  	Object segundoOctal = octal[1];
 	  	Object terceiroOctal = octal[2];
-	  	Object quartoOctal = octal[3];
-
-		String[] dominioZonaDireta = new String[2];
-		dominioZonaDireta [0] = "top";
-		dominioZonaDireta [1] = "dNSZone";
-		LDAPAttributeSet attributesRegistroReverso = new LDAPAttributeSet();
-		attributesRegistroReverso.add(new LDAPAttribute("objectClass", dominioZonaDireta));
-		attributesRegistroReverso.add(new LDAPAttribute("relativeDomainName", quartoOctal.toString()));
-		attributesRegistroReverso.add(new LDAPAttribute("zoneName", terceiroOctal.toString()+"."+segundoOctal.toString()+"."+
-									primeiroOctal.toString()+".in-addr.arpa"));
-		attributesRegistroReverso.add(new LDAPAttribute("dNSTTL", "3600"));
-		attributesRegistroReverso.add(new LDAPAttribute("dNSClass", "IN"));
-		attributesRegistroReverso.add(new LDAPAttribute("pTRRecord", registro.getNomeMaquina()+"."+registro.getDominio()+"."));
-
+	  	Object quartoOctal = octal[3];	  	
+	  	String zoneName = terceiroOctal+"."+segundoOctal+"."+primeiroOctal+".in-addr.arpa";
+	  	String relativeDomainName = quartoOctal.toString();
+	  	
+	  	atributo = this.listarRegistroReverso(registro, relativeDomainName, zoneName);
+	  	
+		SchemasLDAP schema = new SchemasLDAP();
+		LDAPAttributeSet attributesRegistroReverso = new LDAPAttributeSet();		
+		
 		String dnAdmin = "uid="+ usuario+",ou=admin,ou=dns,dc=ufrn,dc=br";
 		LDAPConnection conexao = new LDAPConnection();
 
@@ -132,27 +128,26 @@ public class RegistroDAOImpl implements RegistroDAO{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String baseRegistroReverso = "relativeDomainName="+quartoOctal+ ",zoneName="+terceiroOctal+"."+segundoOctal+"."+primeiroOctal+".in-addr.arpa,ou=dns,dc=ufrn,dc=br";
-
-		LDAPEntry entryRegistroReverso = new LDAPEntry(baseRegistroReverso, attributesRegistroReverso);
-
-		try {
+		String baseRegistroReverso = "relativeDomainName="+relativeDomainName+",zoneName="+ zoneName +",ou=dns,dc=ufrn,dc=br";
+		System.out.println("DN: " + baseRegistroReverso);
+		//System.out.println("tamanho da lista de registros:" + atributo) ;
+		System.out.println("tamanho da lista de registros:" + atributo.size()) ;
+		
+		if (atributo.size() > 0) {
+			LDAPAttribute attributesRegistroReversoAdicionar = schema.RegistroReversoAdicionar(registro, "pTRRecord");
+			LDAPModification singleChange = new LDAPModification( LDAPModification.ADD, attributesRegistroReversoAdicionar );
+			conexao.modify(baseRegistroReverso, singleChange);
+		}else{
+			attributesRegistroReverso = schema.RegistroReverso(registro, primeiroOctal, segundoOctal, terceiroOctal, quartoOctal);
+			LDAPEntry entryRegistroReverso = new LDAPEntry(baseRegistroReverso, attributesRegistroReverso);
 			conexao.add(entryRegistroReverso);
-		} catch (LDAPException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
-
 	/** Metodo que remove registro.
 	 * @param registro, requer objeto registro para sua remoção.
 	 */
 	@Override
 	public void delete(Registro registro) throws UnsupportedEncodingException, LDAPException {
-		List<String> atributo = new ArrayList<String>();
-		List<String> attr = new ArrayList<String>();
-		atributo = this.listarRegistroReverso(registro);
-
 		//Atributos para criação do do registro Reverso
 	    //Divindo o ip por octais
 	  	String[] octal = registro.getIp().toString().split("\\.");
@@ -161,7 +156,14 @@ public class RegistroDAOImpl implements RegistroDAO{
 	  	String terceiroOctal = octal[2];
 	  	String quartoOctal = octal[3];
 
-		String baseDireta = "relativeDomainName="+registro.getNomeMaquina()+",zoneName="+registro.getDominio()+ ",ou=dns,dc=ufrn,dc=br";
+	  	List<String> atributo = new ArrayList<String>();
+		//List<String> attr = new ArrayList<String>();
+		String relativeDomainName = registro.getNomeMaquina();
+		String zoneName = registro.getDominio(); 
+		
+		atributo = this.listarRegistroReverso(registro, relativeDomainName, zoneName);
+	  	
+		String baseDireta = "relativeDomainName="+relativeDomainName+",zoneName="+zoneName+ ",ou=dns,dc=ufrn,dc=br";
 		String baseReversa = "relativeDomainName="+quartoOctal+",zoneName="+terceiroOctal+"."+segundoOctal+"."+primeiroOctal+".in-addr.arpa,ou=dns,dc=ufrn,dc=br";
 		String dnAdmin = "cn=admin,dc=ufrn,dc=br";
 		String password = "gob0l1nux";
@@ -211,7 +213,7 @@ public class RegistroDAOImpl implements RegistroDAO{
 	 * @return List<String'>, Contendo todos os registros reversos cadastrados.
 	 */
 	@Override
-	public List<String> listarRegistroReverso(Registro registro) throws UnsupportedEncodingException {
+	public List<String> listarRegistroReverso(Registro registro, String relativeDomainName, String zoneName) throws UnsupportedEncodingException {
 		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		HttpSession session = (HttpSession) req.getSession();
 		String usuario = (String) session.getAttribute("usuarioDns");
@@ -223,7 +225,9 @@ public class RegistroDAOImpl implements RegistroDAO{
 		//String dnAdmin = "uid="+ usuario+",ou=admin,ou=dns,dc=ufrn,dc=br";
 		String dnAdmin = "cn=admin,dc=ufrn,dc=br";
 		String password = "gob0l1nux";
-		String searchBase = "ou=dns,dc=ufrn,dc=br", searchFilter = "(pTRRecord="+ registro.getNomeMaquina()+"."+registro.getDominio()+"."+")";
+		//String searchBase = "ou=dns,dc=ufrn,dc=br", searchFilter = "(pTRRecord="+ registro.getNomeMaquina()+"."+registro.getDominio()+"."+")";
+		//String searchBase = "relativeDomainName="+relativeDomainName+",zoneName="+zoneName+ ",ou=dns,dc=ufrn,dc=br", searchFilter = "(pTRRecord=*)";
+		String searchBase = "zoneName="+zoneName+ ",ou=dns,dc=ufrn,dc=br", searchFilter = "(pTRRecord=*)";
 		int searchScope = LDAPConnection.SCOPE_SUB;
 		String[] atributos = {"pTRRecord"};
 
@@ -238,7 +242,7 @@ public class RegistroDAOImpl implements RegistroDAO{
 				try {
 					nextEntry = searchResults.next();
 				} catch(LDAPException e) {
-					System.out.println("Error: " + e);
+					//System.out.println("Error: " + e);
 					continue;
 				}
 				LDAPAttributeSet attributeSet = nextEntry.getAttributeSet();
@@ -251,25 +255,64 @@ public class RegistroDAOImpl implements RegistroDAO{
 					if ( allValues != null ) {
 						while ( allValues.hasMoreElements() ) {
 							atributo.add(allValues.nextElement().toString());
-
-							/*
-							for (int i = 0; i < atributo.size(); i++) {
-								System.out.println(atributo.get(i));
-							}
-							*/
-							//String value = (String)allValues.nextElement();
-							//System.out.println("value "+value);
-							//System.out.println(attributeName + ":  " + value);
 						}
 					}
 				}
 			}
 		} catch( LDAPException e ) {
-			System.out.println("Error " + e.toString() );
+			//System.out.println("Error " + e.toString() );
 		}
 
 		return atributo;
 	}
 
+	/** Metodo que consulta todos registros reversos cadastrados. 
+	 * @return List<String'>, Contendo todos os registros reversos cadastrados.
+	 */
+	@Override
+	public List<String> listarRegistroDireto(Registro registro) throws UnsupportedEncodingException {
+		ArrayList<String> atributo = new ArrayList<String>();
+
+		//String dnAdmin = "uid="+ usuario+",ou=admin,ou=dns,dc=ufrn,dc=br";
+		String dnAdmin = "cn=admin,dc=ufrn,dc=br";
+		String password = "gob0l1nux";
+		String searchBase = "relativeDomainName="+registro.getNomeMaquina()+",zoneName="+registro.getDominio()+ ",ou=dns,dc=ufrn,dc=br", searchFilter = "(aRecord=*)";
+		int searchScope = LDAPConnection.SCOPE_SUB;
+		String[] atributos = {"aRecord"};
+
+		LDAPConnection lc = new LDAPConnection();
+		try {
+			lc.connect("10.3.156.9", 389 );
+			lc.bind( LDAPConnection.LDAP_V3, dnAdmin,  password.getBytes("UTF8"));
+			LDAPSearchResults searchResults = lc.search(searchBase, searchScope, searchFilter, atributos, false);
+
+			while (searchResults.hasMore() ) {
+				LDAPEntry nextEntry = null;
+				try {
+					nextEntry = searchResults.next();
+				} catch(LDAPException e) {
+					//System.out.println("Error: " + e);
+					continue;
+				}
+				LDAPAttributeSet attributeSet = nextEntry.getAttributeSet();
+				Iterator allAttributes = attributeSet.iterator();
+				while ( allAttributes.hasNext() ) {
+					LDAPAttribute attribute = (LDAPAttribute)allAttributes.next();
+					String attributeName = attribute.getName();
+					Enumeration allValues = attribute.getStringValues();
+					if ( allValues != null ) {
+						while ( allValues.hasMoreElements() ) {
+							atributo.add(allValues.nextElement().toString());
+						}
+					}
+				}
+			}
+		} catch( LDAPException e ) {
+			//System.out.println("Error " + e.toString() );
+		}
+
+		return atributo;
+	}
+	
 
 }

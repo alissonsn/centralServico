@@ -10,20 +10,20 @@
 			<h:form>	
 	
           	<div class="table-responsive">
-   				<p:dataTable tableStyleClass="table table-striped" value="#{PessoaWifiBean.Listarusuario()}" var="pessoa" >
+   				<p:dataTable tableStyleClass="table table-striped" value="#{PessoaWifiBean.Listarusuario()}" var="pessoa"  rowStyleClass="#{PessoaWifiBean.dataHoje(pessoa) ? 'danger' : 'success'}">
       		<p:column filterBy="#{pessoa.uid}" style="text-align: center; width:15%" headerText="Usuario"
 					filterMatchMode="startsWith">
          		<h:outputText value="#{pessoa.uid}"/>
       		</p:column>
-      		<p:column headerText="Usuario que Modificou" style="text-align: center;width:30%">
+      		<p:column headerText="Usuario que Modificou" style="width:30%">
          		<h:outputText value="#{pessoa.modificador}"/>
       		</p:column>
-      		<p:column headerText="Data de Modificação" style="text-align: center;width:15%">
+      		<p:column headerText="Data de Modificação" style="width:15%">
          		<h:outputText value="#{pessoa.ultimaModificacao}">
          		<f:convertDateTime pattern="dd-MM-yyyy HH:mm:ss"/>
          		</h:outputText>
       		</p:column>
-      		<p:column headerText="Validade" style="text-align: center;width:30%">
+      		<p:column headerText="Validade" style="width:30%">
          		<h:outputText value="#{pessoa.validade}"/>
       		</p:column>
 			

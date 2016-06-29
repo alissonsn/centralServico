@@ -1,5 +1,6 @@
 package modelo;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -25,8 +26,9 @@ public interface PessoaWifiDAO {
 	public boolean login(PessoaWifi pessoaWifi);
 	
 	/** Metodo de logout num diretorio LDAP.
+	 * @throws IOException 
 	 */
-	public void logout() throws LDAPException;
+	public void logout() throws LDAPException, IOException;
 
 	/** Metodo que cria pessoawifi.
 	 * @param pessoawifi, requer objeto pessoawifi para sua criação.

@@ -49,7 +49,8 @@ public class PessoaWifiDAOImpl implements PessoaWifiDAO{
 
 		String dnAdmin = "uid="+ usuario+",ou=admin,ou=802.1x,dc=ufrn,dc=br";
 
-		String[] objectClass = new String[9];
+		//String[] objectClass = new String[9];
+		String[] objectClass = new String[8];
 	    objectClass[0] = "top";
 	    objectClass[1] = "inetOrgPerson";
 	    objectClass[2] = "organizationalPerson";
@@ -58,7 +59,7 @@ public class PessoaWifiDAOImpl implements PessoaWifiDAO{
 	    objectClass[5] = "sambaSamAccount";
 	    objectClass[6] = "schacPersonalCharacteristics";
 	    objectClass[7] = "brPerson";
-	    objectClass[8] = "pwdPolicy";
+	    //objectClass[8] = "pwdPolicy";
 
 
 	    attributes.add(new LDAPAttribute("objectClass", objectClass));
@@ -76,8 +77,8 @@ public class PessoaWifiDAOImpl implements PessoaWifiDAO{
 	    attributes.add(new LDAPAttribute("schacDateofBirth", dataFormatada));
 	    attributes.add(new LDAPAttribute("sambaNTPassword",  this.SambaNTPassword(pessoaWifi.getSenha())));
 	    attributes.add(new LDAPAttribute("userPassword", pessoaWifi.getSenha()));
-	    attributes.add(new LDAPAttribute("pwdAttribute", "userPassword"));
-	    attributes.add(new LDAPAttribute("pwdPolicySubentry", pessoaWifi.getValidade()));
+	    //attributes.add(new LDAPAttribute("pwdAttribute", "userPassword"));
+	    //attributes.add(new LDAPAttribute("pwdPolicySubentry", pessoaWifi.getValidade()));
 
 
 	    LDAPConnection conn = new LDAPConnection();
@@ -120,9 +121,11 @@ public class PessoaWifiDAOImpl implements PessoaWifiDAO{
 		
 		ArrayList<PessoaWifi> pessoa = new ArrayList<PessoaWifi>();
 		String loginDN = "uid=" + usuario +",ou=admin,ou=802.1x,dc=ufrn,dc=br";
-		String searchBase = "ou=802.1x,dc=ufrn,dc=br", searchFilter = "(objectClass=pwdPolicy)";
+		//String searchBase = "ou=802.1x,dc=ufrn,dc=br", searchFilter = "(objectClass=pwdPolicy)";
+		String searchBase = "ou=802.1x,dc=ufrn,dc=br", searchFilter = "(uid=*)";
 		int searchScope = LDAPConnection.SCOPE_ONE;
-		String[] atributos = {"uid", "modifiersName", "modifyTimestamp", "pwdPolicySubentry"};
+		//String[] atributos = {"uid", "modifiersName", "modifyTimestamp", "pwdPolicySubentry"};
+		String[] atributos = {"modifiersName", "modifyTimestamp", "uid"};
 
 		LDAPConnection lc = new LDAPConnection();
 		try {
@@ -142,16 +145,15 @@ public class PessoaWifiDAOImpl implements PessoaWifiDAO{
 				LDAPAttribute attributeuid = nextEntry.getAttribute("uid");
 				LDAPAttribute attributemodifiersName = nextEntry.getAttribute("modifiersName");
 				LDAPAttribute attributemodifyTimestamp = nextEntry.getAttribute("modifyTimestamp");
-				LDAPAttribute attributepwdPolicySubentry = nextEntry.getAttribute("pwdPolicySubentry");
+				//LDAPAttribute attributepwdPolicySubentry = nextEntry.getAttribute("pwdPolicySubentry");
 
 				Date data = util. TimestampDateString(attributemodifyTimestamp.getStringValue());
 				String dataFormatada = util.DateString(data);
-
-
+				
 				pessoaWifi.setUid(attributeuid.getStringValue());
 				pessoaWifi.setModificador(attributemodifiersName.getStringValue());
 				pessoaWifi.setUltimaModificacao(dataFormatada);
-				pessoaWifi.setValidade(attributepwdPolicySubentry.getStringValue());
+				//pessoaWifi.setValidade(attributepwdPolicySubentry.getStringValue());
 				pessoa.add(pessoaWifi);
 			}
 		} catch( LDAPException e ) {

@@ -19,7 +19,7 @@ public class RegistroController implements Serializable{
 	Registro registro = new Registro();
 	RegistroDAO registroDAO = new RegistroDAOImpl();
 
-	public String createRegistro(){
+	public String createRegistro() throws UnsupportedEncodingException, LDAPException{
 		RegistroDAO registroDAO = new RegistroDAOImpl();
 		registroDAO.createRegistroDireto(registro);
 		registroDAO.createRegistroReverso(registro);

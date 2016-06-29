@@ -18,13 +18,17 @@ public interface RegistroDAO {
 	
 	/** Metodo que cria registro direto.
 	 * @param registro, requer objeto registro para sua criação.
+	 * @throws UnsupportedEncodingException 
+	 * @throws LDAPException 
 	 */
-	public void createRegistroDireto(Registro registro);
+	public void createRegistroDireto(Registro registro) throws UnsupportedEncodingException, LDAPException;
 	
 	/** Metodo que cria registro reverso.
 	 * @param registro, requer objeto registro para sua criação.
+	 * @throws UnsupportedEncodingException 
+	 * @throws LDAPException 
 	 */
-	public void createRegistroReverso(Registro registro);
+	public void createRegistroReverso(Registro registro) throws UnsupportedEncodingException, LDAPException;
 	
 	/** Metodo que remove registro.
 	 * @param registro, requer objeto registro para sua remoção.
@@ -44,7 +48,13 @@ public interface RegistroDAO {
 	/** Metodo que consulta todos registros reversos cadastrados. 
 	 * @return List<String'>, Contendo todos os registros reversos cadastrados.
 	 */
-	public List<String> listarRegistroReverso(Registro registro)
+	public List<String> listarRegistroReverso(Registro registro,
+			String relativeDomainName, String zoneName)
 			throws UnsupportedEncodingException;
+
+	List<String> listarRegistroDireto(Registro registro)
+			throws UnsupportedEncodingException;
+
+	
 
 }

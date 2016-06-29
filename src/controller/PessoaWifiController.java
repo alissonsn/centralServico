@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
@@ -41,9 +42,9 @@ public class PessoaWifiController implements Serializable{
 		return false;
 	}
 
-	public String logout() throws LDAPException{
+	public void logout() throws LDAPException, IOException{
 		pessoaWifiDAO.logout();
-		return "http://snmp.info.ufrn.br:8080/centralServico/index.xhtml?faces-redirect=true";
+		//return "http://snmp.info.ufrn.br:8080/centralServico/index.xhtml?faces-redirect=true";
 	}
 
 	public String AdicionarUsuario() throws UnsupportedEncodingException{
