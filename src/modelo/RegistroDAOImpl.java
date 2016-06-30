@@ -133,15 +133,15 @@ public class RegistroDAOImpl implements RegistroDAO{
 		//System.out.println("tamanho da lista de registros:" + atributo) ;
 		System.out.println("tamanho da lista de registros:" + atributo.size()) ;
 		
-		//if (atributo.size() > 0) {
-			//LDAPAttribute attributesRegistroReversoAdicionar = schema.RegistroReversoAdicionar(registro, "pTRRecord");
-			//LDAPModification singleChange = new LDAPModification( LDAPModification.ADD, attributesRegistroReversoAdicionar );
-			//conexao.modify(baseRegistroReverso, singleChange);
-		//}else{
+		if (atributo.size() > 0) {
+			LDAPAttribute attributesRegistroReversoAdicionar = schema.RegistroReversoAdicionar(registro, "pTRRecord");
+			LDAPModification singleChange = new LDAPModification( LDAPModification.ADD, attributesRegistroReversoAdicionar );
+			conexao.modify(baseRegistroReverso, singleChange);
+		}else{
 			attributesRegistroReverso = schema.RegistroReverso(registro, primeiroOctal, segundoOctal, terceiroOctal, quartoOctal);
 			LDAPEntry entryRegistroReverso = new LDAPEntry(baseRegistroReverso, attributesRegistroReverso);
 			conexao.add(entryRegistroReverso);
-		//}
+		}
 	}
 	/** Metodo que remove registro.
 	 * @param registro, requer objeto registro para sua remoção.
