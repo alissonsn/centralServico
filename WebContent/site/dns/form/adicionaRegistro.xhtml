@@ -33,6 +33,23 @@
             <h:inputText  value="#{RegistroBean.registro.nomeMaquina}" styleClass="form-control"/>
             </div>
           </div>
+          <div class="form-group">
+          <h:outputLabel styleClass="col-sm-3 control-label" value="Tipo de Registro" />
+            <div class="col-sm-6">
+                <h:selectOneRadio value="#{RegistroBean.registro.tipo}" >
+   					<f:selectItem itemValue="aRecord" itemLabel="A" />
+   					<f:selectItem itemValue="cNAMERecord" itemLabel="CNAME" />
+   	  				<f:selectItem itemValue="tXTRecord" itemLabel="TXT" />
+   	  				<f:selectItem itemValue="mXRecord" itemLabel="MX" />
+				</h:selectOneRadio>
+            </div>
+          </div>
+          
+          
+          
+
+          
+          
               <div class="form-group">
                   <div class="col-sm-6">
                   <h:commandButton action="#{RegistroBean.createRegistro()}" value="Salvar" styleClass="btn btn-success" />

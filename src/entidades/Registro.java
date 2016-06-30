@@ -13,6 +13,7 @@ public class Registro implements Serializable{
 	private String ip;
 	private String nomeMaquina;
 	private String ptrrecord;
+	private String tipo;
 
 
 
@@ -40,8 +41,14 @@ public class Registro implements Serializable{
 	public void setPtrrecord(String ptrrecord) {
 		this.ptrrecord = ptrrecord;
 	}
-
-
+	public String getTipo() {
+		return tipo;
+	}
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+	
+		
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -52,6 +59,7 @@ public class Registro implements Serializable{
 				+ ((nomeMaquina == null) ? 0 : nomeMaquina.hashCode());
 		result = prime * result
 				+ ((ptrrecord == null) ? 0 : ptrrecord.hashCode());
+		result = prime * result + ((tipo == null) ? 0 : tipo.hashCode());
 		return result;
 	}
 	@Override
@@ -82,6 +90,11 @@ public class Registro implements Serializable{
 			if (other.ptrrecord != null)
 				return false;
 		} else if (!ptrrecord.equals(other.ptrrecord))
+			return false;
+		if (tipo == null) {
+			if (other.tipo != null)
+				return false;
+		} else if (!tipo.equals(other.tipo))
 			return false;
 		return true;
 	}
