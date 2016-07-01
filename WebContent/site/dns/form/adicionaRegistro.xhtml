@@ -12,7 +12,7 @@
         <h3 class="panel-title">Cadastro de Registro</h3>
       </div>
       <div class="panel-body">
-        <h:form style="border-radius: 0px;" styleClass="form-horizontal group-border-dashed">
+        <h:form id="form" style="border-radius: 0px;" styleClass="form-horizontal group-border-dashed">
           <div class="form-group">
           	<h:outputLabel styleClass="col-sm-3 control-label" value="dominio" />
             <div class="col-sm-6">
@@ -20,7 +20,7 @@
             </div>
           </div>
           <div class="form-group">
-          <h:outputLabel styleClass="col-sm-3 control-label" value="nomeMaquina" />
+          <h:outputLabel styleClass="col-sm-3 control-label" value="Nome da Maquina" />
             <div class="col-sm-6">
             <h:inputText  value="#{RegistroBean.registro.nomeMaquina}" styleClass="form-control"/>
             </div>
@@ -34,16 +34,16 @@
    					<f:selectItem itemValue="cNAMERecord" itemLabel="CNAME" />
    	  				<f:selectItem itemValue="tXTRecord" itemLabel="TXT" />
    	  				<f:selectItem itemValue="mXRecord" itemLabel="MX" />
-   	  				<f:ajax event="change" render="unidades"/>
+   	  				<f:ajax event="change" render="form"/>
 				</h:selectOneRadio>
             </div>
           </div>
           
           
-          <div class="form-group">
-          	<h:outputLabel styleClass="col-sm-3 control-label" value="Ip do Host" />
+          <div class="form-group" >
+          	<h:outputLabel styleClass="col-sm-3 control-label" value="Ip do Host" rendered="#{RegistroBean.registro.tipo eq 'aRecord'}"/>
             <div class="col-sm-6">
-              <h:inputText id="ip" value="#{RegistroBean.registro.ip}" styleClass="form-control" >
+              <h:inputText id="ip" value="#{RegistroBean.registro.ip}" styleClass="form-control" rendered="#{RegistroBean.registro.tipo eq 'aRecord'}">
               <f:validateRegex pattern="^([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5]).([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5]).([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5]).([01]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])" />
               </h:inputText>
             </div>
@@ -51,9 +51,9 @@
           
           
           <div class="form-group">
-          <h:outputLabel styleClass="col-sm-3 control-label" value="Apelido para a maquina" />
+          <h:outputLabel styleClass="col-sm-3 control-label" value="Apelido para a maquina" rendered="#{RegistroBean.registro.tipo eq 'cNAMERecord'}"/>
             <div class="col-sm-6">
-            <h:inputText id="apelido" value="#{RegistroBean.registro.nomeMaquina}" styleClass="form-control"/>
+            <h:inputText id="apelido" value="#{RegistroBean.registro.apelido}" styleClass="form-control" rendered="#{RegistroBean.registro.tipo eq 'cNAMERecord'}"/>
             </div>
           </div>
           

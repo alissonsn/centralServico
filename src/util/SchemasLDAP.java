@@ -32,7 +32,7 @@ public class SchemasLDAP {
 			valorTipo = registro.getIp();
 		}else if (registro.getTipo().equals("cNAMERecord")) {
 			tipo = "cNAMERecord";
-			valorTipo = registro.getNomeMaquina()+"."+registro.getDominio();
+			valorTipo = registro.getApelido()+"."+registro.getDominio();
 		}else if (registro.getTipo().equals("tXTRecord")) {
 			tipo = "tXTRecord";
 			valorTipo = registro.getNomeMaquina()+"."+registro.getDominio();
