@@ -227,7 +227,7 @@ public class RegistroDAOImpl implements RegistroDAO{
 		String password = "gob0l1nux";
 		//String searchBase = "ou=dns,dc=ufrn,dc=br", searchFilter = "(pTRRecord="+ registro.getNomeMaquina()+"."+registro.getDominio()+"."+")";
 		//String searchBase = "relativeDomainName="+relativeDomainName+",zoneName="+zoneName+ ",ou=dns,dc=ufrn,dc=br", searchFilter = "(pTRRecord=*)";
-		String searchBase = "zoneName="+zoneName+ ",ou=dns,dc=ufrn,dc=br", searchFilter = "(pTRRecord=*)";
+		String searchBase = "relativeDomainName="+relativeDomainName+"zoneName="+zoneName+ ",ou=dns,dc=ufrn,dc=br", searchFilter = "(pTRRecord=*)";
 		int searchScope = LDAPConnection.SCOPE_SUB;
 		String[] atributos = {"pTRRecord"};
 
