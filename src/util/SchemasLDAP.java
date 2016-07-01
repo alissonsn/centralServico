@@ -23,9 +23,25 @@ public class SchemasLDAP {
 		return attributesRegistroDireto;
 	}
 	
-	public LDAPAttribute RegistroDiretoAdicionar(Registro registro, String tipo){
+	public LDAPAttribute RegistroDiretoAdicionar(Registro registro){
 		//Atributos para criação do do registro Direto
-		LDAPAttribute attr= new LDAPAttribute(tipo, registro.getIp() );
+		String tipo = "";
+		String valorTipo = "";
+		if (registro.getTipo().equals("aRecord")) {
+			tipo = "aRecord";
+			valorTipo = registro.getIp();
+		}else if (registro.getTipo().equals("cNAMERecord")) {
+			tipo = "cNAMERecord";
+			valorTipo = registro.getNomeMaquina()+"."+registro.getDominio();
+		}else if (registro.getTipo().equals("tXTRecord")) {
+			tipo = "tXTRecord";
+			valorTipo = registro.getNomeMaquina()+"."+registro.getDominio();
+		}else if (registro.getTipo().equals("mXRecord")) {
+			tipo = "mXRecord";
+			valorTipo = registro.getNomeMaquina()+"."+registro.getDominio();
+		}
+		
+		LDAPAttribute attr= new LDAPAttribute(tipo, valorTipo );
 		return attr;
 	}
 	

@@ -75,7 +75,8 @@ public class RegistroDAOImpl implements RegistroDAO{
 		//System.out.println("tamanho da lista de registros:" + atributo.size()) ;
 		
 		if (atributo.size() > 0) {
-			LDAPAttribute attributesRegistroDiretoAdicionar = schema.RegistroDiretoAdicionar(registro, "aRecord");
+			//LDAPAttribute attributesRegistroDiretoAdicionar = schema.RegistroDiretoAdicionar(registro, "aRecord");
+			LDAPAttribute attributesRegistroDiretoAdicionar = schema.RegistroDiretoAdicionar(registro);
 			LDAPModification singleChange = new LDAPModification( LDAPModification.ADD, attributesRegistroDiretoAdicionar );
 			conexao.modify(baseRegistroDireto, singleChange);
 		}else{
