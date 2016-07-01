@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.event.ValueChangeEvent;
 
 import com.novell.ldap.LDAPException;
 
@@ -21,11 +22,15 @@ public class RegistroController implements Serializable{
 
 	public String createRegistro() throws UnsupportedEncodingException, LDAPException{
 		RegistroDAO registroDAO = new RegistroDAOImpl();
-		registroDAO.createRegistroDireto(registro);
-		registroDAO.createRegistroReverso(registro);
+		if (registro.getTipo().equals("aRecord")) {
+			registroDAO.createRegistroDireto(registro);
+			registroDAO.createRegistroReverso(registro);	
+		}else{
+			registroDAO.createRegistroDireto(registro);
+		}
+		
 			return "dns.xhtml?faces-redirect=true";
 	}
-
 
 	public String RemoverRegistro() throws UnsupportedEncodingException, LDAPException{
 		RegistroDAO registroDAO = new RegistroDAOImpl();
@@ -33,7 +38,13 @@ public class RegistroController implements Serializable{
 		return "registro.xhtml?faces-redirect=true";
 	}
 
+	public String lerRegistro(ValueChangeEvent evento){
+		String tipoRegistro = evento.getNewValue().toString();
+		System.out.println("Codigo do Registro: "+ tipoRegistro);
+		return tipoRegistro;
 
+}
+	
 
 	public Registro getRegistro() {
 		return registro;
