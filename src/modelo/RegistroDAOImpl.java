@@ -70,9 +70,9 @@ public class RegistroDAOImpl implements RegistroDAO{
 			e.printStackTrace();
 		}
 		String baseRegistroDireto = "relativeDomainName="+registro.getNomeMaquina()+",zoneName="+registro.getDominio()+",ou=dns,dc=ufrn,dc=br";
-		//System.out.println("DN: " + baseRegistroDireto);
+		System.out.println("DN: " + baseRegistroDireto);
 		//System.out.println("tamanho da lista de registros:" + atributo) ;
-		//System.out.println("tamanho da lista de registros:" + atributo.size()) ;
+		System.out.println("tamanho da lista de registros:" + atributo.size()) ;
 		
 		if (atributo.size() > 0) {
 			//LDAPAttribute attributesRegistroDiretoAdicionar = schema.RegistroDiretoAdicionar(registro, "aRecord");
@@ -228,9 +228,10 @@ public class RegistroDAOImpl implements RegistroDAO{
 		String password = "gob0l1nux";
 		//String searchBase = "ou=dns,dc=ufrn,dc=br", searchFilter = "(pTRRecord="+ registro.getNomeMaquina()+"."+registro.getDominio()+"."+")";
 		//String searchBase = "relativeDomainName="+relativeDomainName+",zoneName="+zoneName+ ",ou=dns,dc=ufrn,dc=br", searchFilter = "(pTRRecord=*)";
-		String searchBase = "relativeDomainName="+relativeDomainName+"zoneName="+zoneName+ ",ou=dns,dc=ufrn,dc=br", searchFilter = "(pTRRecord=*)";
+		//String searchBase = "relativeDomainName="+relativeDomainName+"zoneName="+zoneName+ ",ou=dns,dc=ufrn,dc=br", searchFilter = "(relativeDomainName="+relativeDomainName+"*)";
+		String searchBase = "zoneName="+zoneName+ ",ou=dns,dc=ufrn,dc=br", searchFilter = "(relativeDomainName="+relativeDomainName+")";
 		int searchScope = LDAPConnection.SCOPE_SUB;
-		String[] atributos = {"pTRRecord"};
+		String[] atributos = {"relativeDomainName"};
 
 		LDAPConnection lc = new LDAPConnection();
 		try {
