@@ -82,7 +82,7 @@ public class SchemasLDAP {
 		objectClassNslcdDebian [0] = "top";
 		objectClassNslcdDebian [1] = "account";
 		objectClassNslcdDebian [2] = "posixAccount";
-		objectClassNslcdDebian [1] = "shadowAccount";
+		objectClassNslcdDebian [3] = "shadowAccount";
 		LDAPAttributeSet attributesNslcDebian = new LDAPAttributeSet();
 		attributesNslcDebian.add(new LDAPAttribute("objectClass", objectClassNslcdDebian));
 		attributesNslcDebian.add(new LDAPAttribute("cn", nslcd.getUid()));
@@ -110,7 +110,7 @@ public class SchemasLDAP {
 		objectClassNslcdCentos [0] = "top";
 		objectClassNslcdCentos [1] = "account";
 		objectClassNslcdCentos [2] = "posixAccount";
-		objectClassNslcdCentos [1] = "shadowAccount";
+		objectClassNslcdCentos [3] = "shadowAccount";
 		LDAPAttributeSet attributesNslcCentos = new LDAPAttributeSet();
 		attributesNslcCentos.add(new LDAPAttribute("objectClass", objectClassNslcdCentos));
 		attributesNslcCentos.add(new LDAPAttribute("cn", nslcd.getUid()));

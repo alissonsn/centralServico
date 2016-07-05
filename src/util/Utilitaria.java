@@ -121,7 +121,7 @@ public class Utilitaria {
 	public String lerUidNumber(){
 		FileInputStream stream = null;
 		try {
-			stream = new FileInputStream("../../resources/variaveisLDAP/uidNumberNSLCD.txt");
+			stream = new FileInputStream("/opt/tomcat/webapps/centralServico/resources/variaveisLDAP/uidNumberNSLCD.txt");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -149,7 +149,7 @@ public class Utilitaria {
 		System.out.println(numero);
 		FileWriter arq = null;
 		try {
-			arq = new FileWriter("/home/user/git/Testes/src/uidNumberNSLCD.txt");
+			arq = new FileWriter("/opt/tomcat/webapps/centralServico/resources/variaveisLDAP/uidNumberNSLCD.txt");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

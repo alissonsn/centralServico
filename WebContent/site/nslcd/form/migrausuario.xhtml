@@ -19,13 +19,38 @@
           <div class="form-group">
           	<h:outputLabel styleClass="col-sm-3 control-label" value="Usuario" />
             <div class="col-sm-6">
-              <h:inputText value="#{PessoaDnsBean.pessoaDns.uid}" styleClass="form-control"/>
+              <h:inputText value="#{NslcdBean.nslcd.uid}" styleClass="form-control"/>
+            </div>
+          </div>
+          <div class="form-group">
+          <h:outputLabel styleClass="col-sm-3 control-label" value="Sistema Operacional" />
+            <div class="col-sm-6">
+                <h:selectOneMenu value="#{NslcdBean.sistemaOperacional}" styleClass="form-control">
+   					<f:selectItem itemValue="Debian" itemLabel="Debian" />
+   					<f:selectItem itemValue="Centos" itemLabel="Centos" />
+				</h:selectOneMenu>
+            </div>
+          </div>
+          <div class="form-group">
+          <h:outputLabel styleClass="col-sm-3 control-label" value="Admin" />
+            <div class="col-sm-6">
+                <h:selectOneMenu value="#{NslcdBean.isFlagAdmin}" styleClass="form-control">
+   					<f:selectItem itemValue="Sim" itemLabel="Sim" />
+   					<f:selectItem itemValue="Nao" itemLabel="Nao" />
+				</h:selectOneMenu>
+            </div>
+          </div>
+          <div class="form-group">
+          	<h:outputLabel styleClass="col-sm-3 control-label" value="Hostname da Maquina" />
+            <div class="col-sm-6">
+              <h:inputText value="#{NslcdBean.nslcd.servidor}" styleClass="form-control"/>
             </div>
           </div>
           
+          
               <div class="form-group">
                   <div class="col-sm-6">
-                  <h:commandButton action="#{PessoaDnsBean.migrarUsuario()}" value="Migrar" styleClass="btn btn-success" />
+                  <h:commandButton action="#{NslcdBean.migrarUsuario()}" value="Migrar" styleClass="btn btn-success" />
                   </div>  
               </div>
         </h:form>

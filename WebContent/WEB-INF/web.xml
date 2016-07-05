@@ -53,7 +53,6 @@
         <filter-name>loginDns</filter-name>
         <url-pattern>/site/dns/body/*</url-pattern>
     </filter-mapping>
-	
     <!-- login filter -->
     <filter>
         <filter-name>loginOwncloud</filter-name>
@@ -64,6 +63,17 @@
     <filter-mapping>
         <filter-name>loginOwncloud</filter-name>
         <url-pattern>/site/owncloud/body/*</url-pattern>
+    </filter-mapping>
+	<!-- login filter -->
+    <filter>
+        <filter-name>loginnslcd</filter-name>
+        <filter-class>filtro.FiltroSegurancaNslcd</filter-class>
+    </filter>
+    <!-- set the login filter to secure all the pages in the /secured/* path
+        of the application -->
+    <filter-mapping>
+        <filter-name>loginnslcd</filter-name>
+        <url-pattern>/site/nslcd/body/*</url-pattern>
     </filter-mapping>
 
 

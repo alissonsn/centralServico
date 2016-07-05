@@ -232,12 +232,11 @@ public class NslcdDAOImpl implements NslcdDAO{
 		}
 		String base = "";
 		if (sistemaOperacional.equals("Debian")) {
-			attributes = schema.nslcDebian(nslcd, uidNumber, flagAdmin);
-			
+			attributes = schema.nslcDebian(pessoaAbobora, uidNumber, flagAdmin);
 			base = "uid="+pessoaAbobora.getUid()+"ou=debian,ou=nslcd,dc=ufrn,dc=br";
 			
 		}else{
-			attributes = schema.nslcCentos(nslcd, uidNumber, flagAdmin);
+			attributes = schema.nslcCentos(pessoaAbobora, uidNumber, flagAdmin);
 			base = "uid="+pessoaAbobora.getUid()+"ou=centos,ou=nslcd,dc=ufrn,dc=br";
 		}
 		LDAPEntry entry = new LDAPEntry(base, attributes);
