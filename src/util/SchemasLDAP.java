@@ -3,6 +3,7 @@ package util;
 import com.novell.ldap.LDAPAttribute;
 import com.novell.ldap.LDAPAttributeSet;
 
+import entidades.Nslcd;
 import entidades.Registro;
 
 public class SchemasLDAP {
@@ -68,6 +69,60 @@ public class SchemasLDAP {
 		return attr;
 	}
 	
+	public LDAPAttributeSet nslcDebian(Nslcd nslcd, String uidNumber, String flagAdmin){
+		String gidNumber = "";
+		if (flagAdmin == "SIM") {
+			gidNumber = "27";
+		}else{
+			gidNumber = "500";
+		}
+		
+		//Atributos para criação do do registro Direto
+		String[] objectClassNslcdDebian = new String[4];
+		objectClassNslcdDebian [0] = "top";
+		objectClassNslcdDebian [1] = "account";
+		objectClassNslcdDebian [2] = "posixAccount";
+		objectClassNslcdDebian [1] = "shadowAccount";
+		LDAPAttributeSet attributesNslcDebian = new LDAPAttributeSet();
+		attributesNslcDebian.add(new LDAPAttribute("objectClass", objectClassNslcdDebian));
+		attributesNslcDebian.add(new LDAPAttribute("cn", nslcd.getUid()));
+		attributesNslcDebian.add(new LDAPAttribute("uid", nslcd.getUid()));
+		attributesNslcDebian.add(new LDAPAttribute("uidNumber", uidNumber));
+		attributesNslcDebian.add(new LDAPAttribute("gidNumber", gidNumber));
+		attributesNslcDebian.add(new LDAPAttribute("homeDirectory", "/home/"+nslcd.getUid()));
+		attributesNslcDebian.add(new LDAPAttribute("loginShell", "/bin/bash"));
+		attributesNslcDebian.add(new LDAPAttribute("ou", nslcd.getServidor()));
+		attributesNslcDebian.add(new LDAPAttribute("userPassword", nslcd.getSenha()));
+		
+		return attributesNslcDebian;
+	}
 	
+	public LDAPAttributeSet nslcCentos(Nslcd nslcd, String uidNumber, String flagAdmin){
+		String gidNumber = "";
+		if (flagAdmin == "SIM") {
+			gidNumber = "10";
+		}else{
+			gidNumber = "500";
+		}
+		
+		//Atributos para criação do do registro Direto
+		String[] objectClassNslcdCentos = new String[4];
+		objectClassNslcdCentos [0] = "top";
+		objectClassNslcdCentos [1] = "account";
+		objectClassNslcdCentos [2] = "posixAccount";
+		objectClassNslcdCentos [1] = "shadowAccount";
+		LDAPAttributeSet attributesNslcCentos = new LDAPAttributeSet();
+		attributesNslcCentos.add(new LDAPAttribute("objectClass", objectClassNslcdCentos));
+		attributesNslcCentos.add(new LDAPAttribute("cn", nslcd.getUid()));
+		attributesNslcCentos.add(new LDAPAttribute("uid", nslcd.getUid()));
+		attributesNslcCentos.add(new LDAPAttribute("uidNumber", uidNumber));
+		attributesNslcCentos.add(new LDAPAttribute("gidNumber", gidNumber));
+		attributesNslcCentos.add(new LDAPAttribute("homeDirectory", "/home/"+nslcd.getUid()));
+		attributesNslcCentos.add(new LDAPAttribute("loginShell", "/bin/bash"));
+		attributesNslcCentos.add(new LDAPAttribute("ou", nslcd.getServidor()));
+		attributesNslcCentos.add(new LDAPAttribute("userPassword", nslcd.getSenha()));
+		
+		return attributesNslcCentos;
+	}
 	
 }

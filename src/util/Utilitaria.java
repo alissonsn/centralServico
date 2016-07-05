@@ -1,5 +1,12 @@
 package util;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -110,4 +117,55 @@ public class Utilitaria {
 		}
 		return validade;
 	}
+	
+	public String lerUidNumber(){
+		FileInputStream stream = null;
+		try {
+			stream = new FileInputStream("../../resources/variaveisLDAP/uidNumberNSLCD.txt");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		InputStreamReader reader = new InputStreamReader(stream);
+		BufferedReader br = new BufferedReader(reader);
+		String linha = null;
+		try {
+			linha = br.readLine();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String numero = "";
+		while(linha != null) {
+			System.out.println(linha);
+			numero = linha;
+			try {
+				linha = br.readLine();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		System.out.println(numero);
+		FileWriter arq = null;
+		try {
+			arq = new FileWriter("/home/user/git/Testes/src/uidNumberNSLCD.txt");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		PrintWriter gravarArq = new PrintWriter(arq);
+		int uidNumber = Integer.parseInt(numero);
+		uidNumber = uidNumber + 1;
+		
+		gravarArq.print(uidNumber);
+		try {
+			arq.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ""+numero;
+	}
+	
 }
