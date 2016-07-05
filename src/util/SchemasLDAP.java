@@ -70,8 +70,9 @@ public class SchemasLDAP {
 	}
 	
 	public LDAPAttributeSet nslcDebian(Nslcd nslcd, String uidNumber, String flagAdmin){
+		System.out.println("Entrou no schema do Debian");
 		String gidNumber = "";
-		if (flagAdmin == "SIM") {
+		if (flagAdmin == "Sim") {
 			gidNumber = "27";
 		}else{
 			gidNumber = "500";
@@ -98,8 +99,11 @@ public class SchemasLDAP {
 	}
 	
 	public LDAPAttributeSet nslcCentos(Nslcd nslcd, String uidNumber, String flagAdmin){
+		System.out.println("Entrou no schema do CENTOS");
+		System.out.println("Hostname: " + nslcd.getServidor());
+		System.out.println("Admin = "+ flagAdmin);
 		String gidNumber = "";
-		if (flagAdmin == "SIM") {
+		if (flagAdmin.equals("Sim")) {
 			gidNumber = "10";
 		}else{
 			gidNumber = "500";

@@ -208,13 +208,15 @@ public class NslcdDAOImpl implements NslcdDAO{
 		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		HttpSession session = (HttpSession) req.getSession();
 		String usuario = (String) session.getAttribute("usuarioNslcd");
-		String senha = (String) session.getAttribute("senhaNslcd");
+		//String senha = (String) session.getAttribute("senhaNslcd");
 		LDAPAttributeSet attributes = new LDAPAttributeSet();
 		SchemasLDAP schema = new SchemasLDAP();
 		Utilitaria util = new Utilitaria();
 
-		String dnAdmin = "uid="+ usuario+",ou=admin,ou=nslcd,dc=ufrn,dc=br";
-
+		//String dnAdmin = "uid="+ usuario+",ou=admin,ou=nslcd,dc=ufrn,dc=br";
+		String dnAdmin = "cn=admin,dc=ufrn,dc=br";
+		String senha = "gob0l1nux";
+		
 		String uidNumber = util.lerUidNumber();
 			    
 	    LDAPConnection conn = new LDAPConnection();
@@ -233,11 +235,11 @@ public class NslcdDAOImpl implements NslcdDAO{
 		String base = "";
 		if (sistemaOperacional.equals("Debian")) {
 			attributes = schema.nslcDebian(pessoaAbobora, uidNumber, flagAdmin);
-			base = "uid="+pessoaAbobora.getUid()+"ou=debian,ou=nslcd,dc=ufrn,dc=br";
+			base = "uid="+pessoaAbobora.getUid()+",ou=debian,ou=nslcd,dc=ufrn,dc=br";
 			
 		}else{
 			attributes = schema.nslcCentos(pessoaAbobora, uidNumber, flagAdmin);
-			base = "uid="+pessoaAbobora.getUid()+"ou=centos,ou=nslcd,dc=ufrn,dc=br";
+			base = "uid="+pessoaAbobora.getUid()+",ou=centos,ou=nslcd,dc=ufrn,dc=br";
 		}
 		LDAPEntry entry = new LDAPEntry(base, attributes);
 		try {
