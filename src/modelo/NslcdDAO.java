@@ -1,6 +1,10 @@
 package modelo;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.List;
+
+import com.novell.ldap.LDAPException;
 
 import entidades.Nslcd;
 
@@ -25,5 +29,8 @@ public interface NslcdDAO {
 	public ArrayList<Nslcd> findAll(String sistemaOperacional);
 
 
-	public void migrate(Nslcd nslcd, String sistemaOperacional, String flagAdmin);
+	public void migrate(Nslcd nslcd, String sistemaOperacional, String flagAdmin) throws UnsupportedEncodingException, LDAPException;
+
+	public List<String> procurarUsuario(Nslcd nslcd, String sistemaOperacional)
+			throws UnsupportedEncodingException;
 }

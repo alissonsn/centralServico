@@ -9,6 +9,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
@@ -23,10 +26,12 @@ import com.novell.ldap.LDAPAttributeSet;
 import com.novell.ldap.LDAPConnection;
 import com.novell.ldap.LDAPEntry;
 import com.novell.ldap.LDAPException;
+import com.novell.ldap.LDAPModification;
 import com.novell.ldap.LDAPSearchResults;
 
 import entidades.Nslcd;
 import entidades.PessoaSSH;
+import entidades.Registro;
 
 
 /** Classe PessoaSSHDAOImpl que implementa a Interface das PessoasSSHDAO, esta classe implementa os metodos da classe PessoaSSH.
@@ -135,8 +140,6 @@ public class NslcdDAOImpl implements NslcdDAO{
 
 		String dnAdmin = "uid="+ usuario+",ou=admin,ou=nslcd,dc=ufrn,dc=br";
 		
-		
-		
 		ArrayList<Nslcd> pessoa = new ArrayList<Nslcd>();
 		String searchBase = "ou="+sistemaOperacional+"ou=nslcd,dc=ufrn,dc=br", searchFilter = "(uid=*)";
 		int searchScope = LDAPConnection.SCOPE_ONE;
@@ -202,7 +205,7 @@ public class NslcdDAOImpl implements NslcdDAO{
 	}
 
 	@Override
-	public void migrate(Nslcd nslcd, String sistemaOperacional, String flagAdmin) {
+	public void migrate(Nslcd nslcd, String sistemaOperacional, String flagAdmin) throws UnsupportedEncodingException, LDAPException {
 		Nslcd pessoaAbobora = listAbobora(nslcd);
 
 		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
@@ -210,6 +213,11 @@ public class NslcdDAOImpl implements NslcdDAO{
 		String usuario = (String) session.getAttribute("usuarioNslcd");
 		//String senha = (String) session.getAttribute("senhaNslcd");
 		LDAPAttributeSet attributes = new LDAPAttributeSet();
+		
+		
+		List<String> atributo = new ArrayList<String>();
+		atributo = this.procurarUsuario(nslcd, sistemaOperacional);
+		
 		SchemasLDAP schema = new SchemasLDAP();
 		Utilitaria util = new Utilitaria();
 
@@ -233,25 +241,77 @@ public class NslcdDAOImpl implements NslcdDAO{
 			e.printStackTrace();
 		}
 		String base = "";
+		
 		if (sistemaOperacional.equals("Debian")) {
-			attributes = schema.nslcDebian(pessoaAbobora, uidNumber, flagAdmin);
 			base = "uid="+pessoaAbobora.getUid()+",ou=debian,ou=nslcd,dc=ufrn,dc=br";
-			
+			if (atributo.size() < 1) {
+				attributes = schema.nslcDebian(pessoaAbobora, uidNumber, flagAdmin);
+				LDAPEntry entry = new LDAPEntry(base, attributes);
+				conn.add(entry);
+			}else{
+				LDAPAttribute attributosLDAP = schema.adicionarAtributo(nslcd);
+				LDAPModification singleChange = new LDAPModification( LDAPModification.ADD, attributosLDAP);
+				conn.modify(base, singleChange);
+				}
 		}else{
-			attributes = schema.nslcCentos(pessoaAbobora, uidNumber, flagAdmin);
 			base = "uid="+pessoaAbobora.getUid()+",ou=centos,ou=nslcd,dc=ufrn,dc=br";
-		}
-		LDAPEntry entry = new LDAPEntry(base, attributes);
-		try {
-			conn.add(entry);
-
-		} catch (LDAPException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			if (atributo.size() < 1) {
+				attributes = schema.nslcCentos(pessoaAbobora, uidNumber, flagAdmin);
+				LDAPEntry entry = new LDAPEntry(base, attributes);
+				conn.add(entry);
+			}else{
+				LDAPAttribute attributosLDAP = schema.adicionarAtributo(nslcd);
+				LDAPModification singleChange = new LDAPModification( LDAPModification.ADD, attributosLDAP);
+				conn.modify(base, singleChange);
+				}
 		}
 
 	}
 	
+	@Override
+	public List<String> procurarUsuario(Nslcd nslcd, String sistemaOperacional) throws UnsupportedEncodingException {
+		ArrayList<String> atributo = new ArrayList<String>();
+
+		//String dnAdmin = "uid="+ usuario+",ou=admin,ou=dns,dc=ufrn,dc=br";
+		String dnAdmin = "cn=admin,dc=ufrn,dc=br";
+		String password = "gob0l1nux";
+		String searchBase = "ou="+sistemaOperacional+",ou=nslcd,dc=ufrn,dc=br", searchFilter = "(uid="+nslcd.getUid()+")";
+		int searchScope = LDAPConnection.SCOPE_SUB;
+		String[] atributos = {"uid"};
+
+		LDAPConnection lc = new LDAPConnection();
+		try {
+			lc.connect("10.3.156.9", 389 );
+			lc.bind( LDAPConnection.LDAP_V3, dnAdmin,  password.getBytes("UTF8"));
+			LDAPSearchResults searchResults = lc.search(searchBase, searchScope, searchFilter, atributos, false);
+
+			while (searchResults.hasMore() ) {
+				LDAPEntry nextEntry = null;
+				try {
+					nextEntry = searchResults.next();
+				} catch(LDAPException e) {
+					//System.out.println("Error: " + e);
+					continue;
+				}
+				LDAPAttributeSet attributeSet = nextEntry.getAttributeSet();
+				Iterator allAttributes = attributeSet.iterator();
+				while ( allAttributes.hasNext() ) {
+					LDAPAttribute attribute = (LDAPAttribute)allAttributes.next();
+					String attributeName = attribute.getName();
+					Enumeration allValues = attribute.getStringValues();
+					if ( allValues != null ) {
+						while ( allValues.hasMoreElements() ) {
+							atributo.add(allValues.nextElement().toString());
+						}
+					}
+				}
+			}
+		} catch( LDAPException e ) {
+			//System.out.println("Error " + e.toString() );
+		}
+
+		return atributo;
+	}
 	
 	
 }

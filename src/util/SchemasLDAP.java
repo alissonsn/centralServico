@@ -69,6 +69,12 @@ public class SchemasLDAP {
 		return attr;
 	}
 	
+	public LDAPAttribute adicionarAtributo(Nslcd nslcd){
+		LDAPAttribute attr = new LDAPAttribute("ou", nslcd.getServidor());
+		return attr;
+	}
+	
+	
 	public LDAPAttributeSet nslcDebian(Nslcd nslcd, String uidNumber, String flagAdmin){
 		System.out.println("Entrou no schema do Debian");
 		String gidNumber = "";

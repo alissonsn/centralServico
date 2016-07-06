@@ -41,7 +41,7 @@ public class NslcdController implements Serializable{
 		return "http://snmp.info.ufrn.br:8080/centralServico/index.xhtml?faces-redirect=true";
 	}
 
-	public String migrarUsuario() throws UnsupportedEncodingException, ParseException{
+	public String migrarUsuario() throws UnsupportedEncodingException, ParseException, LDAPException{
 		NslcdDAO nslcdDAO = new NslcdDAOImpl();
 		nslcdDAO.migrate(nslcd, sistemaOperacional, isFlagAdmin);
 		return "body/nslcd.xhtml?faces-redirect=true";
