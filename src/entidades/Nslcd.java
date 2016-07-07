@@ -2,6 +2,7 @@ package entidades;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /** Classe PessoaSSH que possui os metodos de acesso getter e setters da entidade PessoaSSH.
 *
@@ -16,6 +17,7 @@ public class Nslcd implements Serializable{
 		private String uidNumber;
 		private String flagAdmin;
 		private String servidor;
+		private List<String> listaServidores;
 		private String modificador;
 		private Date ultimaModificacao;
 		private String mensagem;
@@ -91,11 +93,15 @@ public class Nslcd implements Serializable{
 
 		public void setMensagem(String mensagem) {
 			this.mensagem = mensagem;
+		}		
+
+		public List<String> getListaServidores() {
+			return listaServidores;
 		}
 
-		
-
-		
+		public void setListaServidores(List<String> listaServidores) {
+			this.listaServidores = listaServidores;
+		}
 
 		@Override
 		public Object clone() throws CloneNotSupportedException {

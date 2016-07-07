@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.event.ValueChangeEvent;
 
 import com.novell.ldap.LDAPException;
 
@@ -15,7 +17,6 @@ import modelo.NslcdDAO;
 import modelo.NslcdDAOImpl;
 import modelo.PessoaSSHDAO;
 import modelo.PessoaSSHDAOImpl;
-
 
 
 @ManagedBean(name="NslcdBean")
@@ -47,6 +48,21 @@ public class NslcdController implements Serializable{
 		return "body/nslcd.xhtml?faces-redirect=true";
 	}
 
+	
+	
+	public List<Nslcd> listarusuarios(){
+		NslcdDAO InslcdDAO = new NslcdDAOImpl();
+		listaNslcd = InslcdDAO.findAll(this.getSistemaOperacional());
+		return listaNslcd;
+	}
+	
+	public String lerSistemaOperacional(ValueChangeEvent evento){
+		String codigoSistemaOperacional = evento.getNewValue().toString();
+		this.setSistemaOperacional(codigoSistemaOperacional);
+		return codigoSistemaOperacional;
+	}
+	
+	
 	public Nslcd getNslcd() {
 		return nslcd;
 	}

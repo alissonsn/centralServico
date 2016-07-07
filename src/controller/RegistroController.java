@@ -45,8 +45,7 @@ public class RegistroController implements Serializable{
 		System.out.println("Codigo do Registro: "+ tipoRegistro);
 		registro.setTipo(tipoRegistro);
 		return tipoRegistro;
-
-}
+	}
 	
 
 	public Registro getRegistro() {

@@ -6,30 +6,38 @@
 	
 	<h3 class="panel-title">Lista de Usuarios</h3>
 	
-			<h:form>	
 	
-          	<div class="table-responsive">
-   				<p:dataTable tableStyleClass="table table-striped" value="#{PessoaDnsBean.Listarusuario()}" var="pessoa">
-      		
-      		<p:column filterBy="#{pessoa.uid}" style="text-align: center"
-					filterMatchMode="startsWith">
-      		<f:facet name="header">
-						<h:outputText value="Usuario" />
-					</f:facet>
-         		<h:outputText value="#{pessoa.uid}"/>
-      		</p:column>
-      		<p:column headerText="Usuario que Modificou">
-         		<h:outputText value="#{pessoa.modificador}"/>
-      		</p:column>
-      		<p:column headerText="Data de Modificação">
-         		<h:outputText value="#{pessoa.ultimaModificacao}">
-         		<f:convertDateTime pattern="dd-MM-yyyy HH:mm:ss"/>
-         		</h:outputText>
-      		</p:column>
-      					
-   				</p:dataTable>
+	<h:form>
+          <div class="form-group">
+          			<h:outputLabel styleClass="col-sm-3 control-label" value="Sistema Operacional" />
+                	<h:selectOneMenu value="#{NslcdBean.sistemaOperacional}" styleClass="form-control" valueChangeListener="#{NslcdBean.lerSistemaOperacional}" required="true">
+   						<f:selectItem itemLabel="Selecione um sistema operacional" noSelectionOption="true"/>
+   						<f:selectItem itemValue="Debian" itemLabel="Debian" />
+   						<f:selectItem itemValue="Centos" itemLabel="Centos" />
+   						<f:selectItem itemValue="teste" itemLabel="teste" />
+						<f:ajax event="change" render="usuario"/>	
+					</h:selectOneMenu>
+					
+					<h:panelGroup layout="block" id="usuario">   	
+	   					<p:dataTable tableStyleClass="table table-striped" value="#{NslcdBean.listarusuarios()}" var="nslcd">
+	      					<p:column filterBy="#{nslcd.uid}" style="text-align: center" filterMatchMode="startsWith">
+	      						<f:facet name="header">
+									<h:outputText value="Usuario" />
+								</f:facet>
+	         						<h:outputText value="#{nslcd.uid}"/>
+	      					</p:column>
+	      							
+	      					<p:column headerText="Lista de Servidores" style="width:20%" sortBy="#{nslcd.listaServidores}">
+         		 				<ui:repeat var="item" value="#{nslcd.listaServidores}"> 
+            						<h:outputText value="#{item}"/>
+            						<h:outputText value=","/>
+            					</ui:repeat>
+      						</p:column> 		
+	      					
+   						</p:dataTable>
+					</h:panelGroup>
 			</div>			
-			</h:form>			
+	</h:form>			
 
 
 </ui:composition>

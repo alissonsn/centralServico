@@ -137,13 +137,18 @@ public class NslcdDAOImpl implements NslcdDAO{
 		String senha = (String) session.getAttribute("senhaNslcd");
 		//LDAPAttributeSet attributes = new LDAPAttributeSet();
 
-
+		
 		String dnAdmin = "uid="+ usuario+",ou=admin,ou=nslcd,dc=ufrn,dc=br";
 		
 		ArrayList<Nslcd> pessoa = new ArrayList<Nslcd>();
-		String searchBase = "ou="+sistemaOperacional+"ou=nslcd,dc=ufrn,dc=br", searchFilter = "(uid=*)";
+		ArrayList<String> gruposOUS = new ArrayList<String>();
+		//String searchBase = "ou="+sistemaOperacional+"ou=nslcd,dc=ufrn,dc=br", searchFilter = "(uid=*)";
+		String searchBase = "ou="+sistemaOperacional+",ou=nslcd,dc=ufrn,dc=br", searchFilter = "(uid=*)";
+		System.out.println("Base de pesquisa: " +searchBase);
+		System.out.println("Sistema operacional: " + sistemaOperacional);
+		
 		int searchScope = LDAPConnection.SCOPE_ONE;
-		String[] atributos = {"uid", "modifiersName", "modifyTimestamp"};
+		String[] atributos = {"uid", "modifiersName", "modifyTimestamp", "ou"};
 		LDAPConnection lc = new LDAPConnection();
 		try {
 			lc.connect("10.3.156.9", 389 );
@@ -163,10 +168,16 @@ public class NslcdDAOImpl implements NslcdDAO{
 					System.out.println("Error: " + e);
 					continue;
 				}
-
+				
+				System.out.println("entradas: "+ nextEntry.toString());
+				
+				int numero = nextEntry.getAttribute("ou").size();
+				System.out.println("Quantidade de atributos: "+ numero);
+				
 				LDAPAttribute attributeuid = nextEntry.getAttribute("uid");
 				LDAPAttribute attributemodifiersName = nextEntry.getAttribute("modifiersName");
 				LDAPAttribute attributemodifyTimestamp = nextEntry.getAttribute("modifyTimestamp");
+				LDAPAttribute attributeOU = nextEntry.getAttribute("ou");
 
 				DateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss'Z'");
 				Date date = null;
@@ -183,6 +194,23 @@ public class NslcdDAOImpl implements NslcdDAO{
 				nslcd.setUid(attributeuid.getStringValue());
 				nslcd.setModificador(attributemodifiersName.getStringValue());
 				nslcd.setUltimaModificacao(date);
+				gruposOUS.add(attributeOU.getStringValue());
+				nslcd.setListaServidores(gruposOUS);
+				
+				while(attributeOU.size() >= 1){
+					System.out.println("Grupos: "+ attributeOU.getStringValue());
+					System.out.println("Grupos: "+ attributeOU.getStringValues().hasMoreElements());
+					System.out.println("Grupos: "+ attributeOU.getStringValues().nextElement().toString());
+					System.out.println("Tamanho Grupos: "+ gruposOUS.size());
+					attributeOU.removeValue(attributeOU.getStringValue());
+				}
+				
+				
+					
+				
+				
+				
+				//nslcd.setServidor(attributeOU.getStringValue());
 				
 				pessoa.add(nslcd);
 			}
