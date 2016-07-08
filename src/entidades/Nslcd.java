@@ -1,7 +1,6 @@
 package entidades;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 /** Classe PessoaSSH que possui os metodos de acesso getter e setters da entidade PessoaSSH.
@@ -18,8 +17,6 @@ public class Nslcd implements Serializable{
 		private String flagAdmin;
 		private String servidor;
 		private List<String> listaServidores;
-		private String modificador;
-		private Date ultimaModificacao;
 		private String mensagem;
 
 
@@ -69,22 +66,6 @@ public class Nslcd implements Serializable{
 
 		public void setServidor(String servidor) {
 			this.servidor = servidor;
-		}
-
-		public String getModificador() {
-			return modificador;
-		}
-
-		public void setModificador(String modificador) {
-			this.modificador = modificador;
-		}
-
-		public Date getUltimaModificacao() {
-			return ultimaModificacao;
-		}
-
-		public void setUltimaModificacao(Date ultimaModificacao) {
-			this.ultimaModificacao = ultimaModificacao;
 		}
 		
 		public String getMensagem() {

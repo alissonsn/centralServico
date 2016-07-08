@@ -143,9 +143,11 @@ public class NslcdDAOImpl implements NslcdDAO{
 		ArrayList<Nslcd> pessoa = new ArrayList<Nslcd>();
 		ArrayList<String> gruposOUS = new ArrayList<String>();
 		//String searchBase = "ou="+sistemaOperacional+"ou=nslcd,dc=ufrn,dc=br", searchFilter = "(uid=*)";
-		String searchBase = "ou="+sistemaOperacional+",ou=nslcd,dc=ufrn,dc=br", searchFilter = "(uid=*)";
+		//String searchBase = "ou="+sistemaOperacional+",ou=nslcd,dc=ufrn,dc=br", searchFilter = "(uid=*)";
+		String searchBase = "ou="+sistemaOperacional+",ou=nslcd,dc=ufrn,dc=br", searchFilter = "(ou=*)";
 		System.out.println("Base de pesquisa: " +searchBase);
 		System.out.println("Sistema operacional: " + sistemaOperacional);
+		
 		
 		int searchScope = LDAPConnection.SCOPE_ONE;
 		String[] atributos = {"uid", "modifiersName", "modifyTimestamp", "ou"};
@@ -169,56 +171,35 @@ public class NslcdDAOImpl implements NslcdDAO{
 					continue;
 				}
 				
-				System.out.println("entradas: "+ nextEntry.toString());
+				//System.out.println("entradas: "+ nextEntry.toString());
 				
-				int numero = nextEntry.getAttribute("ou").size();
-				System.out.println("Quantidade de atributos: "+ numero);
+				//int numero = nextEntry.getAttribute("ou").size();
+				//System.out.println("Quantidade de atributos: "+ numero);
 				
 				LDAPAttribute attributeuid = nextEntry.getAttribute("uid");
-				LDAPAttribute attributemodifiersName = nextEntry.getAttribute("modifiersName");
-				LDAPAttribute attributemodifyTimestamp = nextEntry.getAttribute("modifyTimestamp");
 				LDAPAttribute attributeOU = nextEntry.getAttribute("ou");
-
-				DateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss'Z'");
-				Date date = null;
-				try {
-					date = (Date) formatter.parse(attributemodifyTimestamp.getStringValue());
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-
-
-				
 				nslcd.setUid(attributeuid.getStringValue());
-				nslcd.setModificador(attributemodifiersName.getStringValue());
-				nslcd.setUltimaModificacao(date);
+				
 				
 				
 				while(attributeOU.size() > 0){
-					System.out.println("Grupos: "+ attributeOU.getStringValue());
-					//System.out.println("Grupos: "+ attributeOU.getStringValues().hasMoreElements());
-					//System.out.println("Grupos: "+ attributeOU.getStringValues().nextElement().toString());
-					System.out.println("Tamanho Grupos: "+ attributeOU.size());
 					gruposOUS.add(attributeOU.getStringValue());
 					attributeOU.removeValue(attributeOU.getStringValue());
 				}
-				
 				nslcd.setListaServidores(gruposOUS);
-				//nslcd.setServidor(attributeOU.getStringValue());
+				//System.out.println("tamanho Atual: " + gruposOUS.size());
 				
+				gruposOUS = new ArrayList<String>();
+				//servidor = "";
 				pessoa.add(nslcd);
 				
 			}
 		} catch( LDAPException e ) {
-			PessoaSSH pessoaSSH = new PessoaSSH();
-			pessoaSSH.setMensagem(e.toString());
+			Nslcd nslcd = new Nslcd();
+			nslcd.setMensagem(e.toString());
 			System.out.println("Error " + e.toString() );
-			
+			  
 		}
-
-
 
 		return pessoa;
 	}

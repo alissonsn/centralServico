@@ -12,11 +12,8 @@ import javax.faces.event.ValueChangeEvent;
 import com.novell.ldap.LDAPException;
 
 import entidades.Nslcd;
-import entidades.PessoaSSH;
 import modelo.NslcdDAO;
 import modelo.NslcdDAOImpl;
-import modelo.PessoaSSHDAO;
-import modelo.PessoaSSHDAOImpl;
 
 
 @ManagedBean(name="NslcdBean")

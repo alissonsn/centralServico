@@ -11,7 +11,7 @@
           <div class="form-group">
           			<h:outputLabel styleClass="col-sm-3 control-label" value="Sistema Operacional" />
                 	<h:selectOneMenu value="#{NslcdBean.sistemaOperacional}" styleClass="form-control" valueChangeListener="#{NslcdBean.lerSistemaOperacional}" required="true">
-   						<f:selectItem itemLabel="Selecione um sistema operacional" noSelectionOption="true" itemDisabled="true" />
+   						<f:selectItem itemLabel="Selecione um sistema operacional" noSelectionOption="true" />
    						<f:selectItem itemValue="Debian" itemLabel="Debian" />
    						<f:selectItem itemValue="Centos" itemLabel="Centos" />
 						<f:ajax event="change" render="usuario"/>	
@@ -19,19 +19,21 @@
 					
 					<h:panelGroup layout="block" id="usuario">   	
 	   					<p:dataTable tableStyleClass="table table-striped" value="#{NslcdBean.listarusuarios()}" var="nslcd">
+	      					
 	      					<p:column filterBy="#{nslcd.uid}" style="text-align: center" filterMatchMode="startsWith">
 	      						<f:facet name="header">
 									<h:outputText value="Usuario" />
 								</f:facet>
 	         						<h:outputText value="#{nslcd.uid}"/>
 	      					</p:column>
-	      							
+	      					
 	      					<p:column headerText="Lista de Servidores" style="width:20%" sortBy="#{nslcd.listaServidores}">
          		 				<ui:repeat var="item" value="#{nslcd.listaServidores}"> 
             						<h:outputText value="#{item}"/>
             						<br />
             					</ui:repeat>
       						</p:column> 		
+	      					 		
 	      					
    						</p:dataTable>
 					</h:panelGroup>
