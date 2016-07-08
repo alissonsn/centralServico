@@ -194,25 +194,22 @@ public class NslcdDAOImpl implements NslcdDAO{
 				nslcd.setUid(attributeuid.getStringValue());
 				nslcd.setModificador(attributemodifiersName.getStringValue());
 				nslcd.setUltimaModificacao(date);
-				gruposOUS.add(attributeOU.getStringValue());
-				nslcd.setListaServidores(gruposOUS);
 				
-				while(attributeOU.size() >= 1){
+				
+				while(attributeOU.size() > 0){
 					System.out.println("Grupos: "+ attributeOU.getStringValue());
-					System.out.println("Grupos: "+ attributeOU.getStringValues().hasMoreElements());
-					System.out.println("Grupos: "+ attributeOU.getStringValues().nextElement().toString());
-					System.out.println("Tamanho Grupos: "+ gruposOUS.size());
+					//System.out.println("Grupos: "+ attributeOU.getStringValues().hasMoreElements());
+					//System.out.println("Grupos: "+ attributeOU.getStringValues().nextElement().toString());
+					System.out.println("Tamanho Grupos: "+ attributeOU.size());
+					gruposOUS.add(attributeOU.getStringValue());
 					attributeOU.removeValue(attributeOU.getStringValue());
 				}
 				
-				
-					
-				
-				
-				
+				nslcd.setListaServidores(gruposOUS);
 				//nslcd.setServidor(attributeOU.getStringValue());
 				
 				pessoa.add(nslcd);
+				
 			}
 		} catch( LDAPException e ) {
 			PessoaSSH pessoaSSH = new PessoaSSH();
