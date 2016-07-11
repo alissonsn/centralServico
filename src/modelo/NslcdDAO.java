@@ -33,4 +33,8 @@ public interface NslcdDAO {
 
 	public List<String> procurarUsuario(Nslcd nslcd, String sistemaOperacional)
 			throws UnsupportedEncodingException;
+	
+	
+	public void delete(String sistemaOperacional, Nslcd nslcd) throws UnsupportedEncodingException, LDAPException;
+	
 }

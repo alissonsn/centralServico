@@ -45,6 +45,11 @@ public class NslcdController implements Serializable{
 		return "body/nslcd.xhtml?faces-redirect=true";
 	}
 
+	public String deletaUsuario() throws UnsupportedEncodingException, ParseException, LDAPException{
+		NslcdDAO nslcdDAO = new NslcdDAOImpl();
+		nslcdDAO.delete(sistemaOperacional, nslcd);
+		return "body/nslcd.xhtml?faces-redirect=true";
+	}
 	
 	
 	public List<Nslcd> listarusuarios(){

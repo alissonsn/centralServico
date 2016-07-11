@@ -1,14 +1,7 @@
 package modelo;
 
 import java.io.UnsupportedEncodingException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
@@ -16,7 +9,7 @@ import java.util.List;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.smartcardio.ATR;
+
 
 import util.SchemasLDAP;
 import util.Utilitaria;
@@ -30,8 +23,7 @@ import com.novell.ldap.LDAPModification;
 import com.novell.ldap.LDAPSearchResults;
 
 import entidades.Nslcd;
-import entidades.PessoaSSH;
-import entidades.Registro;
+
 
 
 /** Classe PessoaSSHDAOImpl que implementa a Interface das PessoasSSHDAO, esta classe implementa os metodos da classe PessoaSSH.
@@ -282,8 +274,10 @@ public class NslcdDAOImpl implements NslcdDAO{
 		String dnAdmin = "cn=admin,dc=ufrn,dc=br";
 		String password = "gob0l1nux";
 		String searchBase = "ou="+sistemaOperacional+",ou=nslcd,dc=ufrn,dc=br", searchFilter = "(uid="+nslcd.getUid()+")";
+		//String searchBase = "uid="+nslcd.getUid()+",ou="+sistemaOperacional+",ou=nslcd,dc=ufrn,dc=br", searchFilter = "(objectClass=top)";
+		System.out.println("Base de usuario: " + searchBase);
 		int searchScope = LDAPConnection.SCOPE_SUB;
-		String[] atributos = {"uid"};
+		String[] atributos = {"uid", "ou"};
 
 		LDAPConnection lc = new LDAPConnection();
 		try {
@@ -308,15 +302,72 @@ public class NslcdDAOImpl implements NslcdDAO{
 					if ( allValues != null ) {
 						while ( allValues.hasMoreElements() ) {
 							atributo.add(allValues.nextElement().toString());
+							//System.out.println("Elementos: " + allValues.nextElement().toString());
+							System.out.println("Tamanho da lista: "+ atributo.size());
 						}
 					}
 				}
 			}
 		} catch( LDAPException e ) {
-			//System.out.println("Error " + e.toString() );
+			System.out.println("Error " + e.toString() );
 		}
 
 		return atributo;
+	}
+
+	@Override
+	public void delete(String sistemaOperacional, Nslcd nslcd) throws UnsupportedEncodingException, LDAPException {
+		
+		
+		List<String> atributoOU = this.procurarUsuario(nslcd, sistemaOperacional);
+		
+		
+		String dnAdmin = "cn=admin,dc=ufrn,dc=br";
+		String password = "gob0l1nux";
+		String base = "uid="+nslcd.getUid()+",ou="+sistemaOperacional+",ou=nslcd,dc=ufrn,dc=br";
+		System.out.println("base " + base);
+		
+		LDAPConnection lc = new LDAPConnection();
+		try {
+			lc.connect("10.3.156.9", 389 );
+		} catch (LDAPException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			lc.bind( LDAPConnection.LDAP_V3, dnAdmin,  password.getBytes("UTF8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (LDAPException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("Tamanho da lista " + atributoOU.size());
+		System.out.println("usuario: " + nslcd.getUid());
+		System.out.println("base " + base);
+		System.out.println("Servidor: " + nslcd.getServidor());
+		if (sistemaOperacional.equals("debian")) {
+			if (atributoOU.size() < 3) {
+				lc.delete(base);
+			}else{
+				LDAPAttribute attribute = new LDAPAttribute("ou", nslcd.getServidor());
+				LDAPModification singleChange = new LDAPModification( LDAPModification.DELETE, attribute);
+				lc.modify(base, singleChange);
+				}
+		}else{
+			if (atributoOU.size() < 3) {
+				//System.out.println("base deletando: " + base);
+				lc.delete(base);
+			}else{
+				LDAPAttribute attribute = new LDAPAttribute("ou", nslcd.getServidor());
+				//LDAPModification singleChange = new LDAPModification( LDAPModification.DELETE, attribute);
+				LDAPModification singleChange = new LDAPModification( 1, attribute);
+				lc.modify(base, singleChange);
+				}
+		}
+		
 	}
 	
 	
