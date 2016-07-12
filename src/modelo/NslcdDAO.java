@@ -26,9 +26,6 @@ public interface NslcdDAO {
 	public Nslcd poruid(String uid);
 
 
-	public ArrayList<Nslcd> findAll(String sistemaOperacional);
-
-
 	public void migrate(Nslcd nslcd, String sistemaOperacional, String flagAdmin) throws UnsupportedEncodingException, LDAPException;
 
 	public List<String> procurarUsuario(Nslcd nslcd, String sistemaOperacional)
@@ -36,5 +33,7 @@ public interface NslcdDAO {
 	
 	
 	public void delete(String sistemaOperacional, Nslcd nslcd) throws UnsupportedEncodingException, LDAPException;
+	
+	public ArrayList<Nslcd> findAll(String sistemaOperacional, Nslcd nslcd);
 	
 }

@@ -54,7 +54,7 @@ public class NslcdController implements Serializable{
 	
 	public List<Nslcd> listarusuarios(){
 		NslcdDAO InslcdDAO = new NslcdDAOImpl();
-		listaNslcd = InslcdDAO.findAll(this.getSistemaOperacional());
+		listaNslcd = InslcdDAO.findAll(this.getSistemaOperacional(), nslcd);
 		return listaNslcd;
 	}
 	
@@ -62,6 +62,14 @@ public class NslcdController implements Serializable{
 		String codigoSistemaOperacional = evento.getNewValue().toString();
 		this.setSistemaOperacional(codigoSistemaOperacional);
 		return codigoSistemaOperacional;
+	}
+	
+	public String lerServidor(ValueChangeEvent evento){
+		String codigoServidor = evento.getNewValue().toString();
+		System.out.println("Codigo do servidor :" + codigoServidor);
+		this.nslcd.setServidor(codigoServidor);
+		return codigoServidor;
+		//return codigoSistemaOperacional;
 	}
 	
 	

@@ -122,7 +122,7 @@ public class NslcdDAOImpl implements NslcdDAO{
 		}
 
 	@Override
-	public ArrayList<Nslcd> findAll(String sistemaOperacional) {
+	public ArrayList<Nslcd> findAll(String sistemaOperacional, Nslcd servidor) {
 		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		HttpSession session = (HttpSession) req.getSession();
 		String usuario = (String) session.getAttribute("usuarioNslcd");
@@ -136,7 +136,14 @@ public class NslcdDAOImpl implements NslcdDAO{
 		ArrayList<String> gruposOUS = new ArrayList<String>();
 		//String searchBase = "ou="+sistemaOperacional+"ou=nslcd,dc=ufrn,dc=br", searchFilter = "(uid=*)";
 		//String searchBase = "ou="+sistemaOperacional+",ou=nslcd,dc=ufrn,dc=br", searchFilter = "(uid=*)";
-		String searchBase = "ou="+sistemaOperacional+",ou=nslcd,dc=ufrn,dc=br", searchFilter = "(ou=*)";
+		String searchBase = "ou="+sistemaOperacional+",ou=nslcd,dc=ufrn,dc=br";
+		String searchFilter = "";
+		if (servidor.getServidor() == null) {
+			searchFilter = "(ou=*)";
+		}else{
+			searchFilter = "(ou="+servidor.getServidor()+")";
+		}
+		//String searchBase = "ou="+sistemaOperacional+",ou=nslcd,dc=ufrn,dc=br", searchFilter = "(ou=*)";
 		System.out.println("Base de pesquisa: " +searchBase);
 		System.out.println("Sistema operacional: " + sistemaOperacional);
 		
