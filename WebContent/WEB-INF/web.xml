@@ -20,17 +20,6 @@
         <filter-name>loginwifi</filter-name>
         <url-pattern>/site/wifi/body/*</url-pattern>
     </filter-mapping>
-    <!-- login filter -->
-    <filter>
-        <filter-name>loginssh</filter-name>
-        <filter-class>filtro.FiltroSegurancaSSH</filter-class>
-    </filter>
-    <!-- set the login filter to secure all the pages in the /secured/* path
-        of the application -->
-    <filter-mapping>
-        <filter-name>loginssh</filter-name>
-        <url-pattern>/site/remoto/body/*</url-pattern>
-    </filter-mapping>
 	<!-- login filter -->
     <filter>
         <filter-name>loginCentral</filter-name>

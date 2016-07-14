@@ -11,17 +11,8 @@ import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
 import modelo.IOwncloud;
-import modelo.IRede;
 import modelo.OwncloudDAOImpl;
-import modelo.PessoaSSHDAO;
-import modelo.PessoaSSHDAOImpl;
-import util.Repositorios;
-import entidades.Equipe;
 import entidades.Owncloud;
-import entidades.PessoaSSH;
-import entidades.Rede;
-
-
 
 @FacesConverter(forClass=Owncloud.class)
 public class OwncloudConversor implements Converter{

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import com.novell.ldap.LDAPException;
 import entidades.PessoaDns;
-import entidades.PessoaSSH;
 
 /** Interface que contém as assinaturas de metodos da classe PessoaDnsDAOImpl.
 *

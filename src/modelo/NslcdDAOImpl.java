@@ -134,8 +134,6 @@ public class NslcdDAOImpl implements NslcdDAO{
 		
 		ArrayList<Nslcd> pessoa = new ArrayList<Nslcd>();
 		ArrayList<String> gruposOUS = new ArrayList<String>();
-		//String searchBase = "ou="+sistemaOperacional+"ou=nslcd,dc=ufrn,dc=br", searchFilter = "(uid=*)";
-		//String searchBase = "ou="+sistemaOperacional+",ou=nslcd,dc=ufrn,dc=br", searchFilter = "(uid=*)";
 		String searchBase = "ou="+sistemaOperacional+",ou=nslcd,dc=ufrn,dc=br";
 		String searchFilter = "";
 		if (servidor.getServidor() == null) {
@@ -169,27 +167,16 @@ public class NslcdDAOImpl implements NslcdDAO{
 					System.out.println("Error: " + e);
 					continue;
 				}
-				
-				//System.out.println("entradas: "+ nextEntry.toString());
-				
-				//int numero = nextEntry.getAttribute("ou").size();
-				//System.out.println("Quantidade de atributos: "+ numero);
-				
 				LDAPAttribute attributeuid = nextEntry.getAttribute("uid");
 				LDAPAttribute attributeOU = nextEntry.getAttribute("ou");
 				nslcd.setUid(attributeuid.getStringValue());
-				
-				
 				
 				while(attributeOU.size() > 0){
 					gruposOUS.add(attributeOU.getStringValue());
 					attributeOU.removeValue(attributeOU.getStringValue());
 				}
 				nslcd.setListaServidores(gruposOUS);
-				//System.out.println("tamanho Atual: " + gruposOUS.size());
-				
 				gruposOUS = new ArrayList<String>();
-				//servidor = "";
 				pessoa.add(nslcd);
 				
 			}
@@ -281,8 +268,6 @@ public class NslcdDAOImpl implements NslcdDAO{
 		String dnAdmin = "cn=admin,dc=ufrn,dc=br";
 		String password = "gob0l1nux";
 		String searchBase = "ou="+sistemaOperacional+",ou=nslcd,dc=ufrn,dc=br", searchFilter = "(uid="+nslcd.getUid()+")";
-		//String searchBase = "uid="+nslcd.getUid()+",ou="+sistemaOperacional+",ou=nslcd,dc=ufrn,dc=br", searchFilter = "(objectClass=top)";
-		System.out.println("Base de usuario: " + searchBase);
 		int searchScope = LDAPConnection.SCOPE_SUB;
 		String[] atributos = {"uid", "ou"};
 
@@ -309,8 +294,6 @@ public class NslcdDAOImpl implements NslcdDAO{
 					if ( allValues != null ) {
 						while ( allValues.hasMoreElements() ) {
 							atributo.add(allValues.nextElement().toString());
-							//System.out.println("Elementos: " + allValues.nextElement().toString());
-							System.out.println("Tamanho da lista: "+ atributo.size());
 						}
 					}
 				}
@@ -332,7 +315,6 @@ public class NslcdDAOImpl implements NslcdDAO{
 		String dnAdmin = "cn=admin,dc=ufrn,dc=br";
 		String password = "gob0l1nux";
 		String base = "uid="+nslcd.getUid()+",ou="+sistemaOperacional+",ou=nslcd,dc=ufrn,dc=br";
-		System.out.println("base " + base);
 		
 		LDAPConnection lc = new LDAPConnection();
 		try {
@@ -351,10 +333,6 @@ public class NslcdDAOImpl implements NslcdDAO{
 			e.printStackTrace();
 		}
 		
-		System.out.println("Tamanho da lista " + atributoOU.size());
-		System.out.println("usuario: " + nslcd.getUid());
-		System.out.println("base " + base);
-		System.out.println("Servidor: " + nslcd.getServidor());
 		if (sistemaOperacional.equals("debian")) {
 			if (atributoOU.size() < 3) {
 				lc.delete(base);
@@ -375,7 +353,5 @@ public class NslcdDAOImpl implements NslcdDAO{
 				}
 		}
 		
-	}
-	
-	
+	}	
 }

@@ -28,13 +28,14 @@
           <div class="form-group">
           <h:outputLabel styleClass="col-sm-3 control-label" value="Tipo de Registro" />
             <div class="col-sm-6">
-                <h:selectOneRadio value="#{RegistroBean.registro.tipo}" valueChangeListener="#{RegistroBean.lerRegistro}">
+                <h:selectOneMenu value="#{RegistroBean.registro.tipo}" valueChangeListener="#{RegistroBean.lerRegistro}" styleClass="form-control" required="true">
+   					<f:selectItem itemLabel="Selecione um tipo de registro" noSelectionOption="true" itemDisabled="true"/>
    					<f:selectItem itemValue="aRecord" itemLabel="A" />
    					<f:selectItem itemValue="cNAMERecord" itemLabel="CNAME" />
    	  				<f:selectItem itemValue="tXTRecord" itemLabel="TXT" />
    	  				<f:selectItem itemValue="mXRecord" itemLabel="MX" />
    	  				<f:ajax event="change" render="tipo"/>
-				</h:selectOneRadio>
+				</h:selectOneMenu>
             </div>
           </div>
           

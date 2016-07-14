@@ -19,7 +19,6 @@ import com.novell.ldap.LDAPException;
 import com.novell.ldap.LDAPSearchResults;
 
 import entidades.Owncloud;
-import entidades.PessoaSSH;
 
 
 
@@ -194,8 +193,8 @@ public class OwncloudDAOImpl implements IOwncloud{
 				pessoa.add(owncloud);
 			}
 		} catch( LDAPException e ) {
-			PessoaSSH pessoaSSH = new PessoaSSH();
-			pessoaSSH.setMensagem(e.toString());
+			//PessoaSSH pessoaSSH = new PessoaSSH();
+			//pessoaSSH.setMensagem(e.toString());
 			System.out.println("Error " + e.toString() );
 			
 		}
@@ -243,8 +242,6 @@ public class OwncloudDAOImpl implements IOwncloud{
 				DateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss'Z'");
 				Date date = (Date) formatter.parse(attributemodifyTimestamp.getStringValue());
 
-
-
 				
 				owncloud.setUid(attributeuid.getStringValue());
 				owncloud.setModificador(attributemodifiersName.getStringValue());
@@ -253,8 +250,8 @@ public class OwncloudDAOImpl implements IOwncloud{
 		
 			}
 		} catch( LDAPException e ) {
-			PessoaSSH pessoaSSH = new PessoaSSH();
-			pessoaSSH.setMensagem(e.toString());
+			//PessoaSSH pessoaSSH = new PessoaSSH();
+			//pessoaSSH.setMensagem(e.toString());
 			System.out.println("Error " + e.toString() );
 			
 		}
