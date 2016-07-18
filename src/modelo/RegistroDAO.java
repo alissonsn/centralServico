@@ -52,9 +52,14 @@ public interface RegistroDAO {
 			String relativeDomainName, String zoneName)
 			throws UnsupportedEncodingException;
 
-	List<String> listarRegistroDireto(Registro registro)
+	public List<String> listarRegistroDireto(Registro registro)
 			throws UnsupportedEncodingException;
-
+	
+	public String listarSOADireto(Registro registro) throws UnsupportedEncodingException;
+	
+	public String listarSOAReverso(Registro registro, String zoneName) throws UnsupportedEncodingException;
+			
+	
 	
 
 }

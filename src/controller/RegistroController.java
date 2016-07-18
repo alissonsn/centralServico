@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ValueChangeEvent;
 
@@ -42,7 +40,7 @@ public class RegistroController implements Serializable{
 
 	public String lerRegistro(ValueChangeEvent evento){
 		String tipoRegistro = evento.getNewValue().toString();
-		System.out.println("Codigo do Registro: "+ tipoRegistro);
+		//System.out.println("Codigo do Registro: "+ tipoRegistro);
 		registro.setTipo(tipoRegistro);
 		return tipoRegistro;
 	}

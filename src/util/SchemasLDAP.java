@@ -1,5 +1,8 @@
 package util;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+
 import com.novell.ldap.LDAPAttribute;
 import com.novell.ldap.LDAPAttributeSet;
 
@@ -72,6 +75,47 @@ public class SchemasLDAP {
 	public LDAPAttribute adicionarAtributo(Nslcd nslcd){
 		LDAPAttribute attr = new LDAPAttribute("ou", nslcd.getServidor());
 		return attr;
+	}
+	
+	public LDAPAttribute adicionarSerial(String serial){
+		LDAPAttribute attr = new LDAPAttribute("sOARecord", serial);
+		return attr;
+	}
+	
+	public String atualizarRegistroSOA(String SOA){
+		String[] soa = SOA.split(" ");
+		System.out.println("Serial completo: "+ SOA);
+		
+		Date data = new Date(System.currentTimeMillis());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		String data2 = sdf.format(data);
+		int serial = Integer.parseInt((String) soa[2].subSequence(9, 10));
+		String dataSOA = (String) soa[2].subSequence(0, 8);
+		String serialAlterado = "";
+		/*System.out.println("Soa 0 "+ soa[0]);
+		System.out.println("Soa 1 "+ soa[1]);
+		System.out.println("Soa 2 "+ soa[2]);
+		System.out.println("Soa 3 "+ soa[3]);
+		System.out.println("Soa 4 "+ soa[4]);
+		System.out.println("Soa 5 "+ soa[5]);
+		System.out.println("Soa 6 "+ soa[6]);*/
+		
+		if (dataSOA.equals(data2)) {
+			if (serial < 10) {
+				serial = serial + 1;
+				//serialAlterado =   dataSOA+"0"+serial;
+				serialAlterado =  soa[0]+" "+soa[1]+" "+dataSOA+"0"+serial+" "+soa[3]+" "+soa[4]+" "+soa[5]+" "+soa[6];
+			}else{
+				serial = serial + 1;
+				serialAlterado = soa[0]+" "+soa[1]+" "+dataSOA+serial+" "+soa[3]+" "+soa[4]+" "+soa[5]+" "+soa[6];
+			}
+		}else{
+				serial = serial + 1;
+				//serialAlterado = dataSOA+"0"+serial;
+				serialAlterado =  soa[0]+" "+soa[1]+" "+data2+"01"+" "+soa[3]+" "+soa[4]+" "+soa[5]+" "+soa[6];
+			
+		}	
+		return serialAlterado;
 	}
 	
 	

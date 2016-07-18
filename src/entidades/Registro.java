@@ -15,6 +15,7 @@ public class Registro implements Serializable{
 	private String ptrrecord;
 	private String tipo;
 	private String apelido;
+	private String soa;
 
 
 
@@ -54,7 +55,12 @@ public class Registro implements Serializable{
 	public void setApelido(String apelido) {
 		this.apelido = apelido;
 	}
-	
+	public String getSoa() {
+		return soa;
+	}
+	public void setSoa(String soa) {
+		this.soa = soa;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
