@@ -48,7 +48,7 @@ public class RegistroDAOImpl implements RegistroDAO{
 		String soa = "";
 		String serial  = "";
 		soa = this.listarSOADireto(registro);
-		System.out.println("Serial: "+ soa);
+		//System.out.println("Serial: "+ soa);
 		atributo = this.listarRegistroDireto(registro);
 		
 		SchemasLDAP schema = new SchemasLDAP();
@@ -125,7 +125,8 @@ public class RegistroDAOImpl implements RegistroDAO{
 		String serial  = "";
 		soa = this.listarSOAReverso(registro, zoneName);
 		serial = schema.atualizarRegistroSOA(soa);
-		System.out.println("Serial: "+serial);
+		//System.out.println("Serial2: "+ schema.atualizarRegistroSOA(soa));
+		//System.out.println("Serial: "+serial);
 		
 		String dnAdmin = "uid="+ usuario+",ou=admin,ou=dns,dc=ufrn,dc=br";
 		LDAPConnection conexao = new LDAPConnection();
@@ -144,12 +145,9 @@ public class RegistroDAOImpl implements RegistroDAO{
 		}
 		String baseRegistroReverso = "relativeDomainName="+relativeDomainName+",zoneName="+ zoneName +",ou=dns,dc=ufrn,dc=br";
 		String serialRegistroReverso = "relativeDomainName=@,zoneName="+zoneName +",ou=dns,dc=ufrn,dc=br";
-		System.out.println("SerialReverso: "+serialRegistroReverso);
+		//System.out.println("SerialReverso: "+serialRegistroReverso);
+		System.out.println("Serial: "+serial);
 		
-		
-		//System.out.println("DN: " + baseRegistroReverso);
-		//System.out.println("tamanho da lista de registros:" + atributo) ;
-		//System.out.println("tamanho da lista de registros:" + atributo.size()) ;
 		
 		if (atributo.size() > 0) {
 			LDAPAttribute attributesRegistroReversoAdicionar = schema.RegistroReversoAdicionar(registro, "pTRRecord");
@@ -160,8 +158,11 @@ public class RegistroDAOImpl implements RegistroDAO{
 			conexao.modify(serialRegistroReverso, Change2);
 		}else{
 			attributesRegistroReverso = schema.RegistroReverso(registro, primeiroOctal, segundoOctal, terceiroOctal, quartoOctal);
+			LDAPAttribute attributoSerial = schema.adicionarSerial(serial);
+			LDAPModification Change = new LDAPModification( LDAPModification.REPLACE, attributoSerial );
 			LDAPEntry entryRegistroReverso = new LDAPEntry(baseRegistroReverso, attributesRegistroReverso);
 			conexao.add(entryRegistroReverso);
+			conexao.modify(serialRegistroReverso, Change);
 		}
 	}
 	/** Metodo que remove registro.
