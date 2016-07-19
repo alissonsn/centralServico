@@ -2,6 +2,8 @@ package modelo;
 
 
 
+import java.io.Serializable;
+
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,7 +16,7 @@ import com.novell.ldap.LDAPException;
 
 import entidades.Zona;
 
-public class ZonaDAOImpl implements ZonaDAO{
+public class ZonaDAOImpl implements ZonaDAO, Serializable{
 
 	/** Metodo que cria zona direta.
 	 * @param zona, requer objeto zona  para sua criação.

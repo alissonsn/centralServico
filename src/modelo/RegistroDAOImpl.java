@@ -1,6 +1,7 @@
 package modelo;
 
 
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -29,7 +30,7 @@ import entidades.Registro;
 *
 */
 
-public class RegistroDAOImpl implements RegistroDAO{
+public class RegistroDAOImpl implements RegistroDAO, Serializable{
 
 	/** Metodo que cria registro direto.
 	 * @param registro, requer objeto registro para sua criação.
@@ -146,7 +147,7 @@ public class RegistroDAOImpl implements RegistroDAO{
 		String baseRegistroReverso = "relativeDomainName="+relativeDomainName+",zoneName="+ zoneName +",ou=dns,dc=ufrn,dc=br";
 		String serialRegistroReverso = "relativeDomainName=@,zoneName="+zoneName +",ou=dns,dc=ufrn,dc=br";
 		//System.out.println("SerialReverso: "+serialRegistroReverso);
-		System.out.println("Serial: "+serial);
+		//System.out.println("Serial: "+serial);
 		
 		
 		if (atributo.size() > 0) {
@@ -178,36 +179,89 @@ public class RegistroDAOImpl implements RegistroDAO{
 	  	String terceiroOctal = octal[2];
 	  	String quartoOctal = octal[3];
 
-	  	List<String> atributo = new ArrayList<String>();
+	  	List<String> atributoReverso = new ArrayList<String>();
+	  	List<String> atributoDireto = new ArrayList<String>();
+	  	
 		//List<String> attr = new ArrayList<String>();
 		String relativeDomainName = registro.getNomeMaquina();
-		String zoneName = registro.getDominio(); 
+		String zoneName = terceiroOctal+"."+segundoOctal+"."+primeiroOctal+".in-addr.arpa";
 		
-		atributo = this.listarRegistroReverso(registro, relativeDomainName, zoneName);
+		atributoReverso = this.listarRegistroReverso(registro, relativeDomainName, zoneName);
+		atributoDireto = this.listarRegistroDireto(registro);
 	  	
-		String baseDireta = "relativeDomainName="+relativeDomainName+",zoneName="+zoneName+ ",ou=dns,dc=ufrn,dc=br";
-		String baseReversa = "relativeDomainName="+quartoOctal+",zoneName="+terceiroOctal+"."+segundoOctal+"."+primeiroOctal+".in-addr.arpa,ou=dns,dc=ufrn,dc=br";
+		String baseDireta = "relativeDomainName="+relativeDomainName+",zoneName="+registro.getDominio()+ ",ou=dns,dc=ufrn,dc=br";
+		String baseReversa = "relativeDomainName="+quartoOctal+",zoneName="+zoneName+",ou=dns,dc=ufrn,dc=br";
+		String baseSerialRegistroReverso = "relativeDomainName=@,zoneName="+zoneName+",ou=dns,dc=ufrn,dc=br";
+		String baseSerialRegistroDireto = "relativeDomainName=@,zoneName="+registro.getDominio()+",ou=dns,dc=ufrn,dc=br";
+		
 		String dnAdmin = "cn=admin,dc=ufrn,dc=br";
 		String password = "gob0l1nux";
-
 
 
 		LDAPConnection lc = new LDAPConnection();
 		lc.connect("10.3.156.9", 389 );
 		lc.bind( LDAPConnection.LDAP_V3, dnAdmin,  password.getBytes("UTF8"));
 
-		System.out.println(registro.getNomeMaquina()+"."+registro.getDominio()+".");
-		if (atributo.size() > 1) {
-			LDAPAttribute attribute = new LDAPAttribute("pTRRecord", registro.getNomeMaquina()+"."+registro.getDominio()+".");
-	        LDAPModification modificao = new LDAPModification(1, attribute);
-
-
-	        lc.modify(baseReversa, modificao);
+		//System.out.println(registro.getNomeMaquina()+"."+registro.getDominio()+".");
+		
+		String soaDireto = "";
+		String soaReverso = "";
+		String serialDireto  = "";
+		String serialReverso  = "";
+		soaReverso = this.listarSOAReverso(registro, zoneName);
+		soaDireto = this.listarSOADireto(registro);
+		SchemasLDAP schema = new SchemasLDAP();
+		serialDireto = schema.atualizarRegistroSOA(soaDireto);
+		serialReverso = schema.atualizarRegistroSOA(soaReverso);
+		System.out.println("Serial reverso: " + serialReverso);
+		System.out.println("Serial direto: " + serialDireto);
+		System.out.println("base reverso serial: " + baseSerialRegistroReverso);
+		System.out.println("base direta serial: " + baseSerialRegistroDireto);
+		
+		
+		
+		if (atributoReverso.size() > 1 && atributoDireto.size() > 1) {
+			LDAPAttribute attributeReverso = new LDAPAttribute("pTRRecord", registro.getNomeMaquina()+"."+registro.getDominio()+".");
+			LDAPAttribute attributeDireto = new LDAPAttribute("aRecord", registro.getIp());
+			LDAPAttribute attributoSerialReverso = schema.adicionarSerial(serialReverso);
+			LDAPAttribute attributoSerialDireto = schema.adicionarSerial(serialDireto);
+			
+			LDAPModification modificaoReverso = new LDAPModification(LDAPModification.DELETE , attributeReverso);
+			LDAPModification modificaoDireto = new LDAPModification(LDAPModification.DELETE, attributeDireto);
+			LDAPModification modificaoSerialReverso = new LDAPModification(LDAPModification.REPLACE , attributoSerialReverso);
+			LDAPModification modificaoSerialDireto = new LDAPModification(LDAPModification.REPLACE, attributoSerialDireto);
+			
+	        lc.modify(baseReversa, modificaoReverso);
+	        lc.modify(baseDireta, modificaoDireto);
+	        lc.modify(baseSerialRegistroReverso, modificaoSerialReverso);
+	        lc.modify(baseSerialRegistroDireto, modificaoSerialDireto);
+	        
+		}else if(atributoReverso.size() > 1 && atributoDireto.size() <= 1){
+			LDAPAttribute attributeReverso = new LDAPAttribute("pTRRecord", registro.getNomeMaquina()+"."+registro.getDominio()+".");
+			LDAPAttribute attributoSerialReverso = schema.adicionarSerial(serialReverso);
+			
+			LDAPModification modificaoReverso = new LDAPModification(LDAPModification.DELETE, attributeReverso);
+			LDAPModification modificaoSerialReverso = new LDAPModification(LDAPModification.REPLACE , attributoSerialReverso);
+			
+			lc.modify(baseReversa, modificaoReverso);
 			lc.delete(baseDireta);
-
-		}else{
-		lc.delete(baseReversa);
-		lc.delete(baseDireta);
+			lc.modify(baseSerialRegistroReverso, modificaoSerialReverso);
+			
+		}else if(atributoReverso.size() <= 1 && atributoDireto.size() > 1){
+			
+			LDAPAttribute attributeDireto = new LDAPAttribute("aRecord", registro.getIp());
+			LDAPAttribute attributoSerialDireto = schema.adicionarSerial(serialDireto);
+			
+			LDAPModification modificaoDireto = new LDAPModification(LDAPModification.DELETE, attributeDireto);
+			LDAPModification modificaoSerialDireto = new LDAPModification(LDAPModification.REPLACE, attributoSerialDireto);
+			
+			lc.delete(baseReversa);
+			lc.modify(baseDireta, modificaoDireto);
+			lc.modify(baseSerialRegistroDireto, modificaoSerialDireto);
+			
+		}else if(atributoReverso.size() <= 1 && atributoDireto.size() <= 1){
+			lc.delete(baseDireta);
+			lc.delete(baseReversa);
 		}
 
 	}
