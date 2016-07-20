@@ -25,7 +25,8 @@ public interface NslcdDAO {
 	
 	public Nslcd poruid(String uid);
 
-
+	public void add(Nslcd nslcd, String sistemaOperacional, String flagAdmin) throws UnsupportedEncodingException, LDAPException;
+	
 	public void migrate(Nslcd nslcd, String sistemaOperacional, String flagAdmin) throws UnsupportedEncodingException, LDAPException;
 
 	public List<String> procurarUsuario(Nslcd nslcd, String sistemaOperacional)

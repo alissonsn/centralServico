@@ -10,7 +10,6 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-
 import util.SchemasLDAP;
 import util.Utilitaria;
 
@@ -353,5 +352,70 @@ public class NslcdDAOImpl implements NslcdDAO{
 				}
 		}
 		
+	}
+
+	@Override
+	public void add(Nslcd nslcd, String sistemaOperacional, String flagAdmin)
+			throws UnsupportedEncodingException, LDAPException {
+		
+		
+		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		HttpSession session = (HttpSession) req.getSession();
+		String usuario = (String) session.getAttribute("usuarioNslcd");
+		//String senha = (String) session.getAttribute("senhaNslcd");
+		LDAPAttributeSet attributes = new LDAPAttributeSet();
+		
+		
+		List<String> atributo = new ArrayList<String>();
+		atributo = this.procurarUsuario(nslcd, sistemaOperacional);
+		
+		SchemasLDAP schema = new SchemasLDAP();
+		Utilitaria util = new Utilitaria();
+
+		//String dnAdmin = "uid="+ usuario+",ou=admin,ou=nslcd,dc=ufrn,dc=br";
+		String dnAdmin = "cn=admin,dc=ufrn,dc=br";
+		String senha = "gob0l1nux";
+		
+		String uidNumber = util.lerUidNumber();
+			    
+	    LDAPConnection conn = new LDAPConnection();
+		try {
+			conn.connect("10.3.156.9",389);
+		} catch (LDAPException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			conn.bind(LDAPConnection.LDAP_V3, dnAdmin, senha.getBytes());
+		} catch (LDAPException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String base = "";
+		
+		if (sistemaOperacional.equals("Debian")) {
+			base = "uid="+nslcd.getUid()+",ou=debian,ou=nslcd,dc=ufrn,dc=br";
+			if (atributo.size() < 1) {
+				attributes = schema.nslcDebian(nslcd, uidNumber, flagAdmin);
+				LDAPEntry entry = new LDAPEntry(base, attributes);
+				conn.add(entry);
+			}else{
+				LDAPAttribute attributosLDAP = schema.adicionarAtributo(nslcd);
+				LDAPModification singleChange = new LDAPModification( LDAPModification.ADD, attributosLDAP);
+				conn.modify(base, singleChange);
+				}
+		}else{
+			base = "uid="+nslcd.getUid()+",ou=centos,ou=nslcd,dc=ufrn,dc=br";
+			if (atributo.size() < 1) {
+				attributes = schema.nslcCentos(nslcd, uidNumber, flagAdmin);
+				LDAPEntry entry = new LDAPEntry(base, attributes);
+				conn.add(entry);
+			}else{
+				LDAPAttribute attributosLDAP = schema.adicionarAtributo(nslcd);
+				LDAPModification singleChange = new LDAPModification( LDAPModification.ADD, attributosLDAP);
+				conn.modify(base, singleChange);
+				}
+		}
+
 	}	
 }
