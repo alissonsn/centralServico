@@ -84,7 +84,7 @@ public class SchemasLDAP {
 	
 	public String atualizarRegistroSOA(String SOA){
 		String[] soa = SOA.split(" ");
-		System.out.println("Serial completo: "+ SOA);
+		//System.out.println("Serial completo: "+ SOA);
 		
 		Date data = new Date(System.currentTimeMillis());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
@@ -110,16 +110,9 @@ public class SchemasLDAP {
 				serialAlterado = soa[0]+" "+soa[1]+" "+dataSOA+serial+" "+soa[3]+" "+soa[4]+" "+soa[5]+" "+soa[6];
 			}
 		}else{
-			if (serial < 10) {
-				serial = serial + 1;
-				//serialAlterado =   dataSOA+"0"+serial;
-				serialAlterado =  soa[0]+" "+soa[1]+" "+dataSOA+"0"+serial+" "+soa[3]+" "+soa[4]+" "+soa[5]+" "+soa[6];
-			}else{
-				serial = serial + 1;
-				serialAlterado = soa[0]+" "+soa[1]+" "+dataSOA+serial+" "+soa[3]+" "+soa[4]+" "+soa[5]+" "+soa[6];
-			}
+				serialAlterado =  soa[0]+" "+soa[1]+" "+data2+"01 "+soa[3]+" "+soa[4]+" "+soa[5]+" "+soa[6];
 		}
-		System.out.println("Serial completo: "+ serialAlterado);
+		//System.out.println("Serial completo: "+ serialAlterado);
 		return serialAlterado;
 	}
 	

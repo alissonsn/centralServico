@@ -186,7 +186,7 @@ public class RegistroDAOImpl implements RegistroDAO, Serializable{
 		String relativeDomainName = registro.getNomeMaquina();
 		String zoneName = terceiroOctal+"."+segundoOctal+"."+primeiroOctal+".in-addr.arpa";
 		
-		atributoReverso = this.listarRegistroReverso(registro, relativeDomainName, zoneName);
+		atributoReverso = this.listarRegistroReverso(registro, quartoOctal, zoneName);
 		atributoDireto = this.listarRegistroDireto(registro);
 	  	
 		String baseDireta = "relativeDomainName="+relativeDomainName+",zoneName="+registro.getDominio()+ ",ou=dns,dc=ufrn,dc=br";
@@ -215,12 +215,11 @@ public class RegistroDAOImpl implements RegistroDAO, Serializable{
 		serialReverso = schema.atualizarRegistroSOA(soaReverso);
 		System.out.println("Serial reverso: " + serialReverso);
 		System.out.println("Serial direto: " + serialDireto);
-		System.out.println("base reverso serial: " + baseSerialRegistroReverso);
-		System.out.println("base direta serial: " + baseSerialRegistroDireto);
 		
 		
-		
+		System.out.println("Atributo reverso: "+ atributoReverso.size()+ " Atributo direto:" + atributoDireto.size());
 		if (atributoReverso.size() > 1 && atributoDireto.size() > 1) {
+			
 			LDAPAttribute attributeReverso = new LDAPAttribute("pTRRecord", registro.getNomeMaquina()+"."+registro.getDominio()+".");
 			LDAPAttribute attributeDireto = new LDAPAttribute("aRecord", registro.getIp());
 			LDAPAttribute attributoSerialReverso = schema.adicionarSerial(serialReverso);
@@ -239,27 +238,42 @@ public class RegistroDAOImpl implements RegistroDAO, Serializable{
 		}else if(atributoReverso.size() > 1 && atributoDireto.size() <= 1){
 			LDAPAttribute attributeReverso = new LDAPAttribute("pTRRecord", registro.getNomeMaquina()+"."+registro.getDominio()+".");
 			LDAPAttribute attributoSerialReverso = schema.adicionarSerial(serialReverso);
+			LDAPAttribute attributoSerialDireto = schema.adicionarSerial(serialDireto);
 			
 			LDAPModification modificaoReverso = new LDAPModification(LDAPModification.DELETE, attributeReverso);
 			LDAPModification modificaoSerialReverso = new LDAPModification(LDAPModification.REPLACE , attributoSerialReverso);
+			LDAPModification modificaoSerialDireto = new LDAPModification(LDAPModification.REPLACE, attributoSerialDireto);
 			
 			lc.modify(baseReversa, modificaoReverso);
 			lc.delete(baseDireta);
 			lc.modify(baseSerialRegistroReverso, modificaoSerialReverso);
+			lc.modify(baseSerialRegistroDireto, modificaoSerialDireto);
 			
 		}else if(atributoReverso.size() <= 1 && atributoDireto.size() > 1){
 			
 			LDAPAttribute attributeDireto = new LDAPAttribute("aRecord", registro.getIp());
 			LDAPAttribute attributoSerialDireto = schema.adicionarSerial(serialDireto);
+			LDAPAttribute attributoSerialReverso = schema.adicionarSerial(serialReverso);
 			
 			LDAPModification modificaoDireto = new LDAPModification(LDAPModification.DELETE, attributeDireto);
 			LDAPModification modificaoSerialDireto = new LDAPModification(LDAPModification.REPLACE, attributoSerialDireto);
+			LDAPModification modificaoSerialReverso = new LDAPModification(LDAPModification.REPLACE , attributoSerialReverso);
 			
 			lc.delete(baseReversa);
 			lc.modify(baseDireta, modificaoDireto);
 			lc.modify(baseSerialRegistroDireto, modificaoSerialDireto);
+			lc.modify(baseSerialRegistroReverso, modificaoSerialReverso);
 			
 		}else if(atributoReverso.size() <= 1 && atributoDireto.size() <= 1){
+			
+			LDAPAttribute attributoSerialDireto = schema.adicionarSerial(serialDireto);
+			LDAPAttribute attributoSerialReverso = schema.adicionarSerial(serialReverso);
+			
+			LDAPModification modificaoSerialDireto = new LDAPModification(LDAPModification.REPLACE, attributoSerialDireto);
+			LDAPModification modificaoSerialReverso = new LDAPModification(LDAPModification.REPLACE , attributoSerialReverso);
+			
+			lc.modify(baseSerialRegistroDireto, modificaoSerialDireto);
+			lc.modify(baseSerialRegistroReverso, modificaoSerialReverso);
 			lc.delete(baseDireta);
 			lc.delete(baseReversa);
 		}
