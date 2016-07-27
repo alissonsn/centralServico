@@ -78,6 +78,24 @@ public class NslcdController implements Serializable{
 		//return codigoSistemaOperacional;
 	}
 	
+	public String lerUsuario(ValueChangeEvent evento){
+		String codigoUsuario = evento.getNewValue().toString();
+		System.out.println("Codigo do usuario :" + codigoUsuario);
+		this.nslcd.setUid(codigoUsuario);
+		return codigoUsuario;
+	}
+	
+	
+	public void listarusuario(){
+		this.nslcd.setServidor(this.nslcd.getServidor());
+		this.setSistemaOperacional(sistemaOperacional);
+		this.nslcd.setUid(this.nslcd.getUid());
+		
+		//NslcdDAO InslcdDAO = new NslcdDAOImpl();
+		//listaNslcd = InslcdDAO.findAll(this.getSistemaOperacional(), nslcd);
+		//return listaNslcd;
+	}
+	
 	
 	public Nslcd getNslcd() {
 		return nslcd;

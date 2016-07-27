@@ -24,7 +24,7 @@
    						<f:selectItem itemLabel="Selecione um sistema operacional" noSelectionOption="true" />
    						<f:selectItem itemValue="Debian" itemLabel="Debian" />
    						<f:selectItem itemValue="Centos" itemLabel="Centos" />
-						<f:ajax event="change" render="usuario"/>	
+						<!-- <f:ajax event="change" render="usuario"/>  -->	
 					</h:selectOneMenu>
             </div>
           </div>
@@ -32,17 +32,35 @@
           	<h:outputLabel styleClass="col-sm-3 control-label" value="Nome do Servidor" />
             <div class="col-sm-6">
               <h:inputText value="#{NslcdBean.nslcd.servidor}" styleClass="form-control" valueChangeListener="#{NslcdBean.lerServidor}">
-              <f:ajax event="keyup" render="usuario" execute="so"/>	
+              <!-- <f:ajax event="keyup" render="usuario" execute="so"/> -->	
               </h:inputText>
             </div>
           </div>
+          
+          <div class="form-group">
+          	<h:outputLabel styleClass="col-sm-3 control-label" value="Nome do Usuario" />
+            <div class="col-sm-6">
+              <h:inputText value="#{NslcdBean.nslcd.uid}" styleClass="form-control" valueChangeListener="#{NslcdBean.lerUsuario}">
+              <!-- <f:ajax event="keyup" render="usuario" execute="so"/> -->	
+              </h:inputText>
+            </div>
+          </div>
+           
+              
+           <div>
+           <h:commandButton actionListener="#{NslcdBean.listarusuario()}" value="Listar" >
+           <f:ajax execute="@form" render="usuario" />
+           </h:commandButton>
+           </div>   
+              
+              <br />
               
           <div class="form-group">
 					
 					<h:panelGroup layout="block" id="usuario">   	
 	   					<p:dataTable tableStyleClass="table table-striped" value="#{NslcdBean.listarusuarios()}" var="nslcd">
 	      					
-	      					<p:column filterBy="#{nslcd.uid}" style="text-align: center" filterMatchMode="startsWith">
+	      					<p:column filterBy="#{nslcd.uid}" style="text-align: center" filterMatchMode="contains">
 	      						<f:facet name="header">
 									<h:outputText value="Usuario" />
 								</f:facet>

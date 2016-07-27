@@ -2,6 +2,7 @@ package util;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import com.novell.ldap.LDAPAttribute;
 import com.novell.ldap.LDAPAttributeSet;
@@ -81,6 +82,33 @@ public class SchemasLDAP {
 		LDAPAttribute attr = new LDAPAttribute("sOARecord", serial);
 		return attr;
 	}
+	
+	public ArrayList<String> Nslcd(String sistemaOperacional, Nslcd nslcd){
+		ArrayList<String> listaAtributos = new ArrayList<String>();
+		String searchBase = "";
+		String searchFilter = "";
+		
+		if (nslcd.getServidor() == null && nslcd.getUid() == null) {
+			searchBase = "ou="+sistemaOperacional+",ou=nslcd,dc=ufrn,dc=br";
+			searchFilter =  "(&(ou=*)(uid=*))";
+		}else if (nslcd.getServidor() != null && nslcd.getUid() == null) {
+			searchBase = "ou="+sistemaOperacional+",ou=nslcd,dc=ufrn,dc=br";
+			searchFilter = "(ou="+nslcd.getServidor()+")";
+		}else if (nslcd.getServidor() == null && nslcd.getUid() != null) {
+			searchBase = "ou="+sistemaOperacional+",ou=nslcd,dc=ufrn,dc=br";
+			searchFilter = "(&(ou=*)(uid="+nslcd.getUid()+"))";
+		}else{
+			searchBase = "ou="+sistemaOperacional+",ou=nslcd,dc=ufrn,dc=br";
+			searchFilter = "(&(ou="+nslcd.getServidor()+")(uid="+nslcd.getUid()+"))";
+			
+		}
+		listaAtributos.add(searchBase);
+		listaAtributos.add(searchFilter);
+		
+		
+		return listaAtributos;
+	}
+	
 	
 	public String atualizarRegistroSOA(String SOA){
 		String[] soa = SOA.split(" ");

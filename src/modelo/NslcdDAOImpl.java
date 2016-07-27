@@ -32,7 +32,14 @@ import entidades.Nslcd;
 */
 
 public class NslcdDAOImpl implements NslcdDAO{
-
+	SchemasLDAP utilLDAP;
+	
+	
+	public NslcdDAOImpl(){
+		utilLDAP = new SchemasLDAP();
+	}
+	
+	
 	@Override
 	public boolean login(Nslcd nslcd) {
 		LDAPConnection conn = new LDAPConnection();
@@ -115,8 +122,6 @@ public class NslcdDAOImpl implements NslcdDAO{
 				System.out.println("Error " + e.toString() );
 			}
 
-
-
 			return nslcd;
 		}
 
@@ -127,23 +132,32 @@ public class NslcdDAOImpl implements NslcdDAO{
 		String usuario = (String) session.getAttribute("usuarioNslcd");
 		String senha = (String) session.getAttribute("senhaNslcd");
 		//LDAPAttributeSet attributes = new LDAPAttributeSet();
-
+		
 		
 		String dnAdmin = "uid="+ usuario+",ou=admin,ou=nslcd,dc=ufrn,dc=br";
 		
 		ArrayList<Nslcd> pessoa = new ArrayList<Nslcd>();
 		ArrayList<String> gruposOUS = new ArrayList<String>();
-		String searchBase = "ou="+sistemaOperacional+",ou=nslcd,dc=ufrn,dc=br";
+		//String searchBase = "ou="+sistemaOperacional+",ou=nslcd,dc=ufrn,dc=br";
+		String searchBase = "";
 		String searchFilter = "";
+		
+		searchBase = utilLDAP.Nslcd(sistemaOperacional, servidor).get(0);
+		searchFilter = utilLDAP.Nslcd(sistemaOperacional, servidor).get(1);
+		
+		/*System.out.println("Servidor: " +servidor.getServidor());
 		if (servidor.getServidor() == null) {
+			searchBase = "ou="+sistemaOperacional+",ou=nslcd,dc=ufrn,dc=br";
 			searchFilter = "(ou=*)";
 		}else{
-			searchFilter = "(ou="+servidor.getServidor()+")";
-		}
+			searchBase = "ou="+sistemaOperacional+",ou=nslcd,dc=ufrn,dc=br";
+			searchFilter = "(ou="+servidor.getServidor()+")";;
+			//searchFilter = "(ou="+servidor.getServidor()+")";
+		}*/
 		//String searchBase = "ou="+sistemaOperacional+",ou=nslcd,dc=ufrn,dc=br", searchFilter = "(ou=*)";
 		System.out.println("Base de pesquisa: " +searchBase);
 		System.out.println("Sistema operacional: " + sistemaOperacional);
-		
+		System.out.println("Filtro: " + searchFilter);
 		
 		int searchScope = LDAPConnection.SCOPE_ONE;
 		String[] atributos = {"uid", "modifiersName", "modifyTimestamp", "ou"};
