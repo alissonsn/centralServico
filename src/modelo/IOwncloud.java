@@ -30,6 +30,9 @@ public interface IOwncloud {
 	
 	
 	public void migrate(Owncloud owncloud) throws UnsupportedEncodingException, ParseException;
+	
+	public void delete(Owncloud owncloud);
+	
 
 
 }

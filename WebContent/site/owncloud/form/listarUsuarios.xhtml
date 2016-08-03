@@ -36,6 +36,12 @@
 					<f:param name="codigo"  value="#{owncloud.uid}"/>
 					</h:link>
 			</p:column>
+			
+			<h:commandLink value="Excluir"
+				 action="#{OwncloudBean.delete(owncloud)}"
+				 onclick="if (!confirm('Confirmar a exclusão deste Usuario? ')) return false"/>
+				 <i class="icon-remove-sign"></i>
+			</p:column>
       		
    		</p:dataTable>
 			</div>			

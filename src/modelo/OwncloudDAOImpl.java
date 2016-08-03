@@ -312,5 +312,39 @@ public class OwncloudDAOImpl implements IOwncloud{
 			e.printStackTrace();
 		}
 
+	}
+
+	@Override
+	public void delete(Owncloud owncloud) {
+		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+		HttpSession session = (HttpSession) req.getSession();
+		String usuario = (String) session.getAttribute("usuarioOwncloud");
+		String senha = (String) session.getAttribute("senhaOwncloud");
+		
+		String base = "uid="+owncloud.getUid()+",ou=owncloud,dc=ufrn,dc=br";
+		
+		
+		LDAPConnection conexao = new LDAPConnection();
+		try {
+			conexao.connect("10.3.156.9", 389 );
+		} catch (LDAPException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			conexao.bind( LDAPConnection.LDAP_V3, usuario,  senha.getBytes("UTF8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (LDAPException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			conexao.delete(base);
+		} catch (LDAPException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}	
 }

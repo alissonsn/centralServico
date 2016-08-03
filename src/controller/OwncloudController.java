@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 
 import modelo.IOwncloud;
+import modelo.NslcdDAO;
+import modelo.NslcdDAOImpl;
 import modelo.OwncloudDAOImpl;
 import com.novell.ldap.LDAPException;
 import entidades.Owncloud;
@@ -53,6 +55,12 @@ public class OwncloudController implements Serializable{
 		return listaOwncloud;
 	}
 
+	public String deletaUsuario(Owncloud owncloud){
+		IOwncloud iOwncloud =  new OwncloudDAOImpl();
+		iOwncloud.delete(owncloud);
+		return "body/owncloud.xhtml?faces-redirect=true";
+	}
+	
 	
 	public Owncloud getOwncloud() {
 		return owncloud;
