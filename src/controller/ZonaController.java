@@ -19,6 +19,7 @@ public class ZonaController implements Serializable{
 	public String createZonaDireta(){
 		ZonaDAO zonaDAO = new ZonaDAOImpl();
 		zonaDAO.createZonaDireta(zona);
+		
 			return "dns.xhtml?faces-redirect=true";
 	}
 

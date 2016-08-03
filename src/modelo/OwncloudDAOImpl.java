@@ -322,7 +322,7 @@ public class OwncloudDAOImpl implements IOwncloud{
 		String senha = (String) session.getAttribute("senhaOwncloud");
 		
 		String base = "uid="+owncloud.getUid()+",ou=owncloud,dc=ufrn,dc=br";
-		
+		String dnAdmin = "uid="+ usuario+",ou=admin,ou=owncloud,dc=ufrn,dc=br";
 		
 		LDAPConnection conexao = new LDAPConnection();
 		try {
@@ -332,7 +332,7 @@ public class OwncloudDAOImpl implements IOwncloud{
 			e.printStackTrace();
 		}
 		try {
-			conexao.bind( LDAPConnection.LDAP_V3, usuario,  senha.getBytes("UTF8"));
+			conexao.bind( LDAPConnection.LDAP_V3, dnAdmin,  senha.getBytes("UTF8"));
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

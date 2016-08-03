@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 
 import modelo.IOwncloud;
-import modelo.NslcdDAO;
-import modelo.NslcdDAOImpl;
 import modelo.OwncloudDAOImpl;
 import com.novell.ldap.LDAPException;
 import entidades.Owncloud;
@@ -38,25 +36,25 @@ public class OwncloudController implements Serializable{
 	}
 	
 	public String criarUsuario() throws UnsupportedEncodingException, ParseException{
-		IOwncloud iOwncloud =  new OwncloudDAOImpl();
+		IOwncloud iOwncloud = new OwncloudDAOImpl();
 		iOwncloud.create(owncloud);
 		return "body/owncloud.xhtml?faces-redirect=true";
 	}
 
 	public String migrarUsuario() throws UnsupportedEncodingException, ParseException{
-		IOwncloud iOwncloud =  new OwncloudDAOImpl();
+		IOwncloud iOwncloud = new OwncloudDAOImpl();
 		iOwncloud.migrate(owncloud);
 		return "body/owncloud.xhtml?faces-redirect=true";
 	}
 	
 	public ArrayList<Owncloud> Listarusuario() throws UnsupportedEncodingException, ParseException{
-		IOwncloud iOwncloud =  new OwncloudDAOImpl();
+		IOwncloud iOwncloud = new OwncloudDAOImpl();
 		listaOwncloud = iOwncloud.findAll();
 		return listaOwncloud;
 	}
 
-	public String deletaUsuario(Owncloud owncloud){
-		IOwncloud iOwncloud =  new OwncloudDAOImpl();
+	public String deletaUsuario(){
+		IOwncloud iOwncloud = new OwncloudDAOImpl();
 		iOwncloud.delete(owncloud);
 		return "body/owncloud.xhtml?faces-redirect=true";
 	}

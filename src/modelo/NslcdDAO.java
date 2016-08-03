@@ -34,7 +34,9 @@ public interface NslcdDAO {
 	
 	
 	public void delete(String sistemaOperacional, Nslcd nslcd) throws UnsupportedEncodingException, LDAPException;
-	
-	public ArrayList<Nslcd> findAll(String sistemaOperacional, Nslcd nslcd);
+
+
+	public ArrayList<Nslcd> findAll(String sistemaOperacional, Nslcd servidor
+			);
 	
 }

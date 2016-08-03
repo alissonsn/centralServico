@@ -91,19 +91,28 @@ public class SchemasLDAP {
 		if (nslcd.getServidor() == null && nslcd.getUid() == null) {
 			searchBase = "ou="+sistemaOperacional+",ou=nslcd,dc=ufrn,dc=br";
 			searchFilter =  "(&(ou=*)(uid=*))";
+			System.out.println("Todos nulos");
 		}else if (nslcd.getServidor() != null && nslcd.getUid() == null) {
 			searchBase = "ou="+sistemaOperacional+",ou=nslcd,dc=ufrn,dc=br";
-			searchFilter = "(ou="+nslcd.getServidor()+")";
+			searchFilter =  "(&(ou="+nslcd.getServidor()+")(uid=*))";
+			System.out.println("Uid nulo");
 		}else if (nslcd.getServidor() == null && nslcd.getUid() != null) {
 			searchBase = "ou="+sistemaOperacional+",ou=nslcd,dc=ufrn,dc=br";
 			searchFilter = "(&(ou=*)(uid="+nslcd.getUid()+"))";
-		}else{
+			System.out.println("Servidor nulo");
+		}else if (nslcd.getServidor() != null && nslcd.getUid() != null){
 			searchBase = "ou="+sistemaOperacional+",ou=nslcd,dc=ufrn,dc=br";
 			searchFilter = "(&(ou="+nslcd.getServidor()+")(uid="+nslcd.getUid()+"))";
+			System.out.println("Nenhum nulo");
 			
 		}
 		listaAtributos.add(searchBase);
 		listaAtributos.add(searchFilter);
+		
+		
+		System.out.println("Base de pesquisa: " +searchBase);
+		System.out.println("Sistema operacional: " + sistemaOperacional);
+		System.out.println("Filtro: " + searchFilter);
 		
 		
 		return listaAtributos;

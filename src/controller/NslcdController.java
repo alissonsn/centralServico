@@ -60,20 +60,39 @@ public class NslcdController implements Serializable{
 	
 	public List<Nslcd> listarusuarios(){
 		NslcdDAO InslcdDAO = new NslcdDAOImpl();
-		listaNslcd = InslcdDAO.findAll(this.getSistemaOperacional(), nslcd);
+		if (this.getSistemaOperacional() == null) {
+			listaNslcd = null;
+		}else{
+			listaNslcd = InslcdDAO.findAll(this.getSistemaOperacional(), nslcd);
+		}
+		
+		
 		return listaNslcd;
 	}
 	
 	public String lerSistemaOperacional(ValueChangeEvent evento){
 		String codigoSistemaOperacional = evento.getNewValue().toString();
-		this.setSistemaOperacional(codigoSistemaOperacional);
+		System.out.println("Codigo do Sistema Operacional :" + codigoSistemaOperacional);
+		if (codigoSistemaOperacional == null) {
+			codigoSistemaOperacional = "*";
+			this.setSistemaOperacional(codigoSistemaOperacional);
+		}else{
+			this.setSistemaOperacional(codigoSistemaOperacional);
+		}
+		
 		return codigoSistemaOperacional;
 	}
 	
 	public String lerServidor(ValueChangeEvent evento){
 		String codigoServidor = evento.getNewValue().toString();
 		System.out.println("Codigo do servidor :" + codigoServidor);
-		this.nslcd.setServidor(codigoServidor);
+		
+		if (codigoServidor == null) {
+			this.nslcd.setServidor("*");
+			codigoServidor = "*";
+		}else{
+			this.nslcd.setServidor(codigoServidor);
+		}
 		return codigoServidor;
 		//return codigoSistemaOperacional;
 	}
@@ -81,7 +100,12 @@ public class NslcdController implements Serializable{
 	public String lerUsuario(ValueChangeEvent evento){
 		String codigoUsuario = evento.getNewValue().toString();
 		System.out.println("Codigo do usuario :" + codigoUsuario);
-		this.nslcd.setUid(codigoUsuario);
+		if (codigoUsuario == null) {
+			this.nslcd.setUid("*");
+			codigoUsuario = "*";
+		}else{
+			this.nslcd.setUid(codigoUsuario);
+		}
 		return codigoUsuario;
 	}
 	
@@ -90,10 +114,6 @@ public class NslcdController implements Serializable{
 		this.nslcd.setServidor(this.nslcd.getServidor());
 		this.setSistemaOperacional(sistemaOperacional);
 		this.nslcd.setUid(this.nslcd.getUid());
-		
-		//NslcdDAO InslcdDAO = new NslcdDAOImpl();
-		//listaNslcd = InslcdDAO.findAll(this.getSistemaOperacional(), nslcd);
-		//return listaNslcd;
 	}
 	
 	

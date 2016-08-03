@@ -8,7 +8,7 @@
 			<h:form>	
 	
           	<div class="table-responsive">
-   				<p:dataTable tableStyleClass="table table-striped" value="#{OwncloudBean.Listarusuario()}" var="owncloud">
+   				<p:dataTable tableStyleClass="table table-striped" value="#{OwncloudBean.Listarusuario()}" var="owncloud" id="lista">
       		
       		<p:column filterBy="#{owncloud.uid}" style="text-align: center"
 					filterMatchMode="startsWith">
@@ -28,20 +28,6 @@
          			<f:convertDateTime pattern="dd-MM-yyyy HH:mm:ss"/>
          		</h:outputText>
       		</p:column>
-      					
-      					
-      		<p:column>
-					<h:link outcome="CadastroUsuario" value="Editar">
-					<i class="icon-edit"></i>
-					<f:param name="codigo"  value="#{owncloud.uid}"/>
-					</h:link>
-			</p:column>
-			
-			<h:commandLink value="Excluir"
-				 action="#{OwncloudBean.delete(owncloud)}"
-				 onclick="if (!confirm('Confirmar a exclusão deste Usuario? ')) return false"/>
-				 <i class="icon-remove-sign"></i>
-			</p:column>
       		
    		</p:dataTable>
 			</div>			
