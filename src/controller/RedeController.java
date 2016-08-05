@@ -10,10 +10,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
-import modelo.IEquipe;
 import modelo.IRede;
 import util.Repositorios;
-import entidades.Equipe;
 import entidades.Rede;
 
 @ManagedBean(name="cadastroRedeBean")

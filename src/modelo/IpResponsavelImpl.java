@@ -6,7 +6,6 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 
 import entidades.IpResponsavel;
-import entidades.Responsavel;
 
 /** Classe IpResponsavelImpl que implementa a Interface das IIpResponsavel, esta classe implementa crud de responsavel pela ti nos setores.
 *

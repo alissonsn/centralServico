@@ -1,9 +1,6 @@
 package modelo;
 
 import java.util.List;
-
-import entidades.Equipe;
-import entidades.Rede;
 import entidades.Setor;
 
 /** Interface que contém as assinaturas de metodos de setor.

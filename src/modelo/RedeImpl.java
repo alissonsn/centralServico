@@ -2,13 +2,10 @@ package modelo;
 
 import java.util.List;
 
-import entidades.Equipe;
 import entidades.Rede;
 
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
-
-import modelo.IEquipe;
 
 
 /** Classe RedeImpl que implementa a Interface das redes, esta classe implementa crud de ede..

@@ -1,6 +1,5 @@
 package modelo;
 
-import java.util.List;
 
 import entidades.Zona;
 

@@ -3,7 +3,6 @@ package modelo;
 import java.util.List;
 
 import entidades.Cargo;
-import entidades.Setor;
 
 /** Interface que contém as assinaturas de metodos dos cargos.
 *

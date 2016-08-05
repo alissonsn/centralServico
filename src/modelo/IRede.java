@@ -2,7 +2,6 @@ package modelo;
 
 import java.util.List;
 
-import entidades.Equipe;
 import entidades.Rede;
 
 /** Interface que contém as assinaturas de metodos de rede.

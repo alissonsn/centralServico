@@ -1,10 +1,8 @@
 package modelo;
 
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import util.Utilitaria;
 
 import com.novell.ldap.LDAPConnection;
 import com.novell.ldap.LDAPException;

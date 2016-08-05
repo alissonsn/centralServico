@@ -1,17 +1,110 @@
 package util;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
+import jcifs.util.Hexdump;
+import jcifs.util.MD4;
+import sun.misc.BASE64Encoder;
 
 import com.novell.ldap.LDAPAttribute;
 import com.novell.ldap.LDAPAttributeSet;
 
 import entidades.Nslcd;
+import entidades.PessoaWifi;
 import entidades.Registro;
 
 public class SchemasLDAP {
+	
+	
+	@SuppressWarnings("unused")
+	public String encryptLdapPassword(String algorithm, String _password) {
+	        String sEncrypted = _password;
+	        if ((_password != null) && (_password.length() > 0)) {
+	            boolean bMD5 = algorithm.equalsIgnoreCase("MD5");
+	            boolean bSHA = algorithm.equalsIgnoreCase("SHA")
+	                    || algorithm.equalsIgnoreCase("SHA1")
+	                    || algorithm.equalsIgnoreCase("SHA-1");
+	            if (bSHA || bMD5) {
+	                String sAlgorithm = "MD5";
+	                if (bSHA) {
+	                    sAlgorithm = "SHA";
+	                }
+	                try {
+	                    MessageDigest md = MessageDigest.getInstance(sAlgorithm);
+	                    md.update(_password.getBytes("UTF-8"));
+	                    sEncrypted = "{" + sAlgorithm + "}" + (new BASE64Encoder()).encode(md.digest());
+	                } catch (Exception e) {
+	                    sEncrypted = null;
+	                }
+	            }
+	        }
+	        return sEncrypted;
+	    }
+	
+	
+	public LDAPAttributeSet AdicionarPessoaWifi(PessoaWifi pessoaWifi){
+		LDAPAttributeSet attributes = new LDAPAttributeSet();
 
+		
+		String[] objectClass = new String[8];
+	    objectClass[0] = "top";
+	    objectClass[1] = "inetOrgPerson";
+	    objectClass[2] = "organizationalPerson";
+	    objectClass[3] = "person";
+	    objectClass[4] = "radiusprofile";
+	    objectClass[5] = "sambaSamAccount";
+	    objectClass[6] = "schacPersonalCharacteristics";
+	    objectClass[7] = "brPerson";
+	    //objectClass[8] = "pwdPolicy";
+
+
+	    attributes.add(new LDAPAttribute("objectClass", objectClass));
+
+	    SimpleDateFormat formatoData = new SimpleDateFormat("ddMMyyyy");
+	    String dataFormatada = formatoData.format(pessoaWifi.getNascimento());
+
+	    
+	    attributes.add(new LDAPAttribute("cn", pessoaWifi.getUid()));
+	    attributes.add(new LDAPAttribute("dialupAccess", "access_attr"));
+	    attributes.add(new LDAPAttribute("sambaSID", "S-1-5-21-4190300969-615862220-67323155-1000"));
+	    attributes.add(new LDAPAttribute("sn", pessoaWifi.getUid()));
+	    attributes.add(new LDAPAttribute("uid", pessoaWifi.getUid()));
+	    attributes.add(new LDAPAttribute("mail", pessoaWifi.getEmail()));
+	    attributes.add(new LDAPAttribute("brPersonCPF", pessoaWifi.getCPF()));
+	    attributes.add(new LDAPAttribute("schacDateofBirth", dataFormatada));
+	    attributes.add(new LDAPAttribute("userPassword", this.encryptLdapPassword("SHA", pessoaWifi.getSenha())));
+	    try {
+			attributes.add(new LDAPAttribute("sambaNTPassword",  this.SambaNTPassword(pessoaWifi.getSenha())));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    //attributes.add(new LDAPAttribute("pwdAttribute", "userPassword"));
+	    //attributes.add(new LDAPAttribute("pwdPolicySubentry", pessoaWifi.getValidade()));
+		return attributes;
+
+		
+	}
+	
+	
+	/** Metodo que gera senha sambaNTPassword apartir de uma senha em texto plano.
+	 *  @param password, senha em texto plano.
+	 * @return String, retorn senha criptografada.
+	 */
+	private String SambaNTPassword(String password) throws UnsupportedEncodingException {
+        MD4 md4 = new MD4();
+        byte[] bpass = password.getBytes("UnicodeLittleUnmarked");
+        md4.engineUpdate(bpass, 0, bpass.length);
+        byte[] hashbytes = md4.engineDigest();
+        String ntHash = Hexdump.toHexString(hashbytes, 0, hashbytes.length * 2);
+        return ntHash;
+    }
+	
+	
 	public LDAPAttributeSet RegistroDireto(Registro registro){
 		//Atributos para criação do do registro Direto
 		String[] objectClassRegistroDireto = new String[2];

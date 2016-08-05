@@ -1,18 +1,16 @@
 package modelo;
 
 import java.io.UnsupportedEncodingException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.TimeZone;
 
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import util.SchemasLDAP;
 import util.Utilitaria;
 import jcifs.util.Hexdump;
 import jcifs.util.MD4;
@@ -34,6 +32,7 @@ import entidades.PessoaWifi;
 
 public class PessoaWifiDAOImpl implements PessoaWifiDAO{
 	Utilitaria util = new Utilitaria();
+	SchemasLDAP schemaLDAp = new SchemasLDAP();
 
 	/** Metodo que cria pessoawifi.
 	 * @param pessoawifi, requer objeto pessoawifi para sua criação.
@@ -48,39 +47,8 @@ public class PessoaWifiDAOImpl implements PessoaWifiDAO{
 
 
 		String dnAdmin = "uid="+ usuario+",ou=admin,ou=802.1x,dc=ufrn,dc=br";
-
-		//String[] objectClass = new String[9];
-		String[] objectClass = new String[8];
-	    objectClass[0] = "top";
-	    objectClass[1] = "inetOrgPerson";
-	    objectClass[2] = "organizationalPerson";
-	    objectClass[3] = "person";
-	    objectClass[4] = "radiusprofile";
-	    objectClass[5] = "sambaSamAccount";
-	    objectClass[6] = "schacPersonalCharacteristics";
-	    objectClass[7] = "brPerson";
-	    //objectClass[8] = "pwdPolicy";
-
-
-	    attributes.add(new LDAPAttribute("objectClass", objectClass));
-
-	    SimpleDateFormat formatoData = new SimpleDateFormat("ddMMyyyy");
-	    String dataFormatada = formatoData.format(pessoaWifi.getNascimento());
-
-	    attributes.add(new LDAPAttribute("cn", pessoaWifi.getUid()));
-	    attributes.add(new LDAPAttribute("dialupAccess", "access_attr"));
-	    attributes.add(new LDAPAttribute("sambaSID", "S-1-5-21-4190300969-615862220-67323155-1000"));
-	    attributes.add(new LDAPAttribute("sn", pessoaWifi.getUid()));
-	    attributes.add(new LDAPAttribute("uid", pessoaWifi.getUid()));
-	    attributes.add(new LDAPAttribute("mail", pessoaWifi.getEmail()));
-	    attributes.add(new LDAPAttribute("brPersonCPF", pessoaWifi.getCPF()));
-	    attributes.add(new LDAPAttribute("schacDateofBirth", dataFormatada));
-	    attributes.add(new LDAPAttribute("sambaNTPassword",  this.SambaNTPassword(pessoaWifi.getSenha())));
-	    attributes.add(new LDAPAttribute("userPassword", pessoaWifi.getSenha()));
-	    //attributes.add(new LDAPAttribute("pwdAttribute", "userPassword"));
-	    //attributes.add(new LDAPAttribute("pwdPolicySubentry", pessoaWifi.getValidade()));
-
-
+		attributes = schemaLDAp.AdicionarPessoaWifi(pessoaWifi);
+	    
 	    LDAPConnection conn = new LDAPConnection();
 		try {
 			conn.connect("10.3.156.9",389);
@@ -196,19 +164,6 @@ public class PessoaWifiDAOImpl implements PessoaWifiDAO{
 		return estado;
 
 	}
-
-	/** Metodo que gera senha sambaNTPassword apartir de uma senha em texto plano.
-	 *  @param password, senha em texto plano.
-	 * @return String, retorn senha criptografada.
-	 */
-	private String SambaNTPassword(String password) throws UnsupportedEncodingException {
-        MD4 md4 = new MD4();
-        byte[] bpass = password.getBytes("UnicodeLittleUnmarked");
-        md4.engineUpdate(bpass, 0, bpass.length);
-        byte[] hashbytes = md4.engineDigest();
-        String ntHash = Hexdump.toHexString(hashbytes, 0, hashbytes.length * 2);
-        return ntHash;
-    }
 
 	/** Metodo de logout num diretorio LDAP.
 	 */

@@ -8,7 +8,6 @@ import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
 import entidades.IpResponsavel;
-import entidades.Responsavel;
 import modelo.IIpResponsavel;
 import util.Repositorios;
 

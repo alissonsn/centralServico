@@ -8,7 +8,6 @@ import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 
 import entidades.Cargo;
-import entidades.Setor;
 import modelo.ICargo;
 import util.Repositorios;
 

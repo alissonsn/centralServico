@@ -4,8 +4,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import com.novell.ldap.LDAPException;
-
-import entidades.PessoaDns;
 import entidades.Registro;
 
 /** Interface que contém as assinaturas de metodos de Registro.

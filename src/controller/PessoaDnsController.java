@@ -6,20 +6,11 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import com.novell.ldap.LDAPException;
 
 import entidades.PessoaDns;
 import modelo.PessoaDnsDAO;
 import modelo.PessoaDnsDAOImpl;
-import modelo.PessoaWifiDAO;
-import modelo.PessoaWifiDAOImpl;
-
-
 
 @ManagedBean(name="PessoaDnsBean")
 public class PessoaDnsController implements Serializable{

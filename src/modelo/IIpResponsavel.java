@@ -3,7 +3,6 @@ package modelo;
 import java.util.List;
 
 import entidades.IpResponsavel;
-import entidades.Responsavel;
 
 /** Interface que contém as assinaturas de metodos das Responsaveis de Ti dos setores.
 *

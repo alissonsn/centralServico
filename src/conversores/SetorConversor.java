@@ -9,7 +9,6 @@ import javax.faces.convert.FacesConverter;
 
 import modelo.ISetor;
 import util.Repositorios;
-import entidades.Rede;
 import entidades.Setor;
 
 
